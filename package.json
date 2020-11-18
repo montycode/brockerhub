@@ -37,7 +37,7 @@
     "webpack-dev-server": "^3.11.0",
     "wepack-cli": "0.0.1-security"
   },
-  "standard":{
+  "standard": {
     "ignore": [
       "/api/**"
     ]

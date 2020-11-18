@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
+    "now-build": "npm run build",
     "lint": "standard",
     "start": "webpack serve",
     "test": "echo \"Error: no test specified\" && exit 1"

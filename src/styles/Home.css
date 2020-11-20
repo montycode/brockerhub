@@ -1,0 +1,31 @@
+.profile{
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile__data{
+    color: #202124;
+}
+
+.schedules{
+    background-color: #f4f0f0;
+}
+
+.holder{
+    background-color: #f4f0f0;
+}
+
+.activities{  
+    background-color: #3b3b3b;
+}
+
+.btn{
+    background-color: #696969;
+    border-radius: 6px;
+}
+
+.btn-primary{
+    background-color: #fc5b06;
+    border-radius: 6px;
+}

@@ -3,8 +3,6 @@ import { render } from 'react-dom';
 
 import { App } from './App';
 
-import "./styles/tailwind.css";
-
 // setup fake backend
 import { configureFakeBackend } from './_helpers';
 configureFakeBackend();

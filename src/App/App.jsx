@@ -7,8 +7,6 @@ import { PrivateRoute } from '@/_components';
 import { HomePage } from '@/HomePage';
 import { LoginPage } from '@/LoginPage';
 
-import "tailwindcss/tailwind.css";
-
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -33,22 +31,16 @@ class App extends React.Component {
             <Router history={history}>
                 <div>
                     {currentUser &&
-                        <nav className="navbar navbar-expand navbar-dark bg-dark">
-                            <div className="navbar-nav">
-                                <Link to="/" className="nav-item nav-link">Home</Link>
-                                <a onClick={this.logout} className="nav-item nav-link">Logout</a>
+                        <nav>
+                            <div>
+                                <Link to="/" >Home</Link>
+                                <a onClick={this.logout}>Logout</a>
                             </div>
                         </nav>
                     }
-                    <div className="jumbotron">
-                        <div className="container">
-                            <div className="row">
-                                <div className="col-md-6 offset-md-3">
-                                    <PrivateRoute exact path="/" component={HomePage} />
-                                    <Route path="/login" component={LoginPage} />
-                                </div>
-                            </div>
-                        </div>
+                    <div>
+                        <PrivateRoute exact path="/" component={HomePage} />
+                        <Route path="/login" component={LoginPage} />
                     </div>
                 </div>
             </Router>

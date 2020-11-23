@@ -4,8 +4,9 @@
   "description": "Brockerhub project made with MERN stack",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
+    "build": "webpack",    
     "lint": "standard",
+    "now-build": "npm run build",
     "start": "webpack-dev-server --open"
   },
   "repository": {

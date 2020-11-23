@@ -1,6 +1,7 @@
 export function configureFakeBackend() {
-    let users = [   { id: 1, username: 'test', password: 'test', firstName: 'Test', lastName: 'User' },
-                    { id: 2, username: 'admin', password: 'erickso10', firstName: 'Omar', lastName: 'Montoya' }
+    let users = [   { id: 1, username: 'test', password: 'test', firstName: 'Test', lastName: 'User', prospects: 32, appointments: 15, gender: 1 },
+                    { id: 2, username: 'omar@cilabs.io', password: 'erickso10', firstName: 'Omar', lastName: 'Montoya', prospects: 18, appointments: 8, gender: 1 },
+                    { id: 3, username: 'ux@cilabs.io', password: 'Termopilas01', firstName: 'Valeria', lastName: 'Landeros', prospects: 11, appointments: 18, gender: 2 }
                 ];
     let realFetch = window.fetch;
     window.fetch = function (url, opts) {
@@ -19,6 +20,9 @@ export function configureFakeBackend() {
                         username: user.username,
                         firstName: user.firstName,
                         lastName: user.lastName,
+                        prospects: user.prospects,
+                        appointments: user.appointments,
+                        gender: user.gender,
                         token: 'fake-jwt-token'
                     });
                 }

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { authenticationService } from '@/_services';
+import { Navbar } from '@/_components';
 
 class HomePage extends React.Component {
     constructor(props) {
@@ -19,6 +20,7 @@ class HomePage extends React.Component {
         const { currentUser } = this.state;
         return (
             <div className="profile flex-col">
+                {currentUser && <Navbar /> }
                 <div className="profile__data text-center p-8">
                     <img className="w-32 h-32 rounded-full mx-auto object-cover shadow-md" src="/assets/img/avatar.jpg" alt="" />
                     <h4 className="font-bold text-3xl">{currentUser.firstName} {currentUser.lastName}</h4>

@@ -48,7 +48,7 @@
     background-color: #3b3b3b;
 }
 
-.project__banner a, img{
+.project__banner a, .project__banner img{
     height: 86px;
     width: 100%;
     opacity: 0.3;

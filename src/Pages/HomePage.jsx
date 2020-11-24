@@ -2,6 +2,9 @@ import React from 'react';
 
 import { authenticationService } from '@/_services';
 import { Navbar } from '@/_components';
+import UserIcon from '../_components/icons/UserIcon';
+import AttendanceIcon from '../_components/icons/AttendanceIcon';
+import Gravatar from 'react-gravatar'
 
 class HomePage extends React.Component {
     constructor(props) {
@@ -21,27 +24,31 @@ class HomePage extends React.Component {
         return (
             <div className="profile flex-col">
                 {currentUser && <Navbar /> }
-                <div className="profile__data text-center p-8">
-                    <img className="w-32 h-32 rounded-full mx-auto object-cover shadow-md" src="/assets/img/avatar.jpg" alt="" />
+                <div className="profile__data text-center p-6">
+                    <Gravatar email={currentUser.username} className="w-32 h-32 rounded-full mx-auto object-cover shadow-md" />
                     <h4 className="font-bold text-3xl">{currentUser.firstName} {currentUser.lastName}</h4>
                     {currentUser.gender === 1 ?
-                        <p className="font-bold text-sm">Bienvenido a Brockerhub</p> :
-                        <p className="font-bold text-sm">Bienvenida a Brockerhub</p> 
+                        <p className="font-bold text-sm">Bienvenido a Brokerhub</p> :
+                        <p className="font-bold text-sm">Bienvenida a Brokerhub</p> 
                     }
                 </div>
                 <div className="schedules rounded-tl-2xl">
                     <p className="p-4">Tus numeros</p>
-                    <div className="schedules__data p-4 flex">
+                    <div className="schedules__data p-2 flex">
                         <div className="prospects container rounded-xl p-2 bg-white m-2">
-                            <img src="" alt="" />
-                            <div className="prospects__data text">
+                            <div className="icon inline-block p-2">
+                                <UserIcon color={'orange large'} />
+                            </div>
+                            <div className="prospects__data inline-block">
                                 <h4 className="font-bold text-3xl">{currentUser.prospects}</h4>
                                 <p>Prospectos</p>
                             </div>
                         </div>
                         <div className="appointments container rounded-xl p-2 bg-white m-2">
-                            <img src="" alt="" />
-                            <div className="appointments__data">
+                            <div className="icon inline-block p-2">
+                                <AttendanceIcon color={'orange-fill large'} />
+                            </div>
+                            <div className="appointments__data inline-block">
                                 <h4 className="font-bold text-3xl">{currentUser.appointments}</h4>
                                 <p>Citas</p>
                             </div>                

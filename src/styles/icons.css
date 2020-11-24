@@ -1,0 +1,39 @@
+.orange svg {
+    stroke: #FC5B06!important;
+    fill: #ffffff;
+}
+
+.orange-fill svg {
+    stroke: #FC5B06!important;
+    fill: #FC5B06;
+}
+
+.gray svg {
+    fill: #3B3B3B;
+    stroke: #3B3B3B;
+}
+
+.gray-lighten-1 svg {
+    fill: #696969;
+    stroke: #696969;
+}
+
+.gray-lighten-2 svg {
+    fill: #F0F0F0;
+    stroke: #F0F0F0;
+}
+
+.small svg {
+    width: 15px;
+    height: 15px;
+}
+
+.medium svg {
+    width: 30px;
+    height: 30px;    
+}
+
+.large{
+    width: 40px;
+    height: 40px;
+}

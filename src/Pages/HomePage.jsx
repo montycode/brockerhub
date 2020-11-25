@@ -60,9 +60,9 @@ class HomePage extends React.Component {
                                 <p>Hoy tienes programadas</p>
                                 <h4 className="font-bold text-3xl">{currentUser.appointments} Citas</h4>
                             </div>
-                            <div className="activities__actions container flex flex-col p-4 capitalize">
-                                <button className="btn capitalize p-2 m-2">CONSULTAR ITINERARIO</button>
-                                <button className="btn-primary capitalize p-2 m-2">PROGRAMAR CITAS</button>
+                            <div className="activities__actions container flex flex-col p-4 uppercase">
+                                <button className="btn uppercase p-2 m-2">CONSULTAR ITINERARIO</button>
+                                <button className="btn-primary uppercase p-2 m-2">PROGRAMAR CITAS</button>
                             </div>    
                         </div>
                     </section>

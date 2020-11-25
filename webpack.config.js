@@ -13,12 +13,20 @@ module.exports = {
                 loader: 'babel-loader'
             },
             {
-              test: /\.css$/,
-              use: [
+                test: /\.css$/,
+                use: [
                 "style-loader",
                 { loader: "css-loader", options: { importLoaders: 1 } },
                 "postcss-loader",
-              ],
+                ],
+            },
+            {
+                test: /\.(png|jpe?g|gif)$/i,
+                use: [
+                    {
+                    loader: 'file-loader',
+                    },
+                ],
             }
         ]
     },

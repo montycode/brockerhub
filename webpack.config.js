@@ -41,8 +41,7 @@ module.exports = {
     filename: 'app.bundle.js'
   },
   plugins: [new HtmlWebpackPlugin({
-      template: './public/index.html',
-      favicon: './public/favicon.ico'
+      template: './public/index.html'
   })],
   devServer: {
       historyApiFallback: true

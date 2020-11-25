@@ -20,8 +20,8 @@ class LoginPage extends React.Component {
     render() {
         return (
             <div className='login'>                
-                <div class="logo mt-8">
-                    <img src={Logo} class="object-contain h-60 w-full animate-pulse p-8" alt="Brokerhub Logo" />
+                <div className="logo mt-8">
+                    <img src={Logo} className="object-contain h-60 w-full animate-pulse p-8" alt="Brokerhub Logo" />
                 </div>
                 <Formik
                     initialValues={{

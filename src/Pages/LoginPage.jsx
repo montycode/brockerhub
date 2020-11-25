@@ -51,17 +51,18 @@ class LoginPage extends React.Component {
                             <Form>
                                 <div className="form-group p-2">
                                     <label htmlFor="username" className='sr-onl font-bold'>Correo Electronico</label>
-                                    <Field name="username" type="text" className={'mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md' + (errors.username && touched.username ? ' border-red-500' : '')} />
+                                    <Field name="username" type="email" className={'mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md' + (errors.username && touched.username ? ' border-red-500' : '')} />
                                     <ErrorMessage name="username" component="div" className="text-red-500 italic" />
                                 </div>
                                 <div className="form-group p-2">
                                     <label htmlFor="password" className='font-bold'>Contraseña</label>
                                     <Field name="password" type="password" className={'mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md' + (errors.password && touched.password ? ' border-red-500' : '')} />
                                     <ErrorMessage name="password" component="div" className="text-red-500 italic" />
-                                </div>
-                                <div className="login__actions container flex flex-col p-2">
-                                    <button type="submit" className="btn-primary font-bold uppercase text-white p-2" disabled={isSubmitting}>Iniciar Sesion</button>
-                                    {isSubmitting &&
+                                </div>                                
+                                {status &&
+                                    <div className='text-center italic text-red-500 font-bold p-2'><p>*El correo y/o contraseña no son validos.</p></div>
+                                }
+                                {isSubmitting &&
                                     <div className="flex justify-around p-2">
                                         <div className="inline-flex rounded-md">
                                             <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-orange" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -70,7 +71,9 @@ class LoginPage extends React.Component {
                                             </svg>
                                         </div>
                                     </div>
-                                    }
+                                }
+                                <div className="login__actions container flex flex-col p-2">
+                                    <button type="submit" className="btn-primary font-bold uppercase text-white p-2" disabled={isSubmitting}>Iniciar Sesion</button>
                                     <div className="block">
                                         <div className="py-5">
                                             <div className="border-t border-gray-200"></div>
@@ -79,9 +82,6 @@ class LoginPage extends React.Component {
                                     <p className='text-center p-2 font-bold'>No cuentas con acceso?</p>
                                     <button className='btn uppercase p-2 m-2 font-bold text-white'>Crear cuenta</button>
                                 </div>
-                                {status &&
-                                    <div className='text-center underline text-red-500 font-bold'>{status}</div>
-                                }
                             </Form>
                         </div>
                     )}

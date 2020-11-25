@@ -49,6 +49,7 @@ module.exports = {
     new WebpackPwaManifest({
         name: 'BrokerHub - Real State Development',
         short_name: 'BrokerHub',
+        display: "standalone",
         start_url: '/',
         description: 'Brokerhub - Made and developed by CILABS.',
         background_color: '#ffffff',

@@ -74,15 +74,17 @@ class LoginPage extends React.Component {
                                 }
                                 <div className="login__actions container flex flex-col p-2">
                                     <button type="submit" className="btn-primary font-bold uppercase text-white p-2" disabled={isSubmitting}>Iniciar Sesion</button>
-                                    <div className="block">
-                                        <div className="py-5">
-                                            <div className="border-t border-gray-200"></div>
-                                        </div>
-                                    </div>
-                                    <p className='text-center p-2 font-bold'>No cuentas con acceso?</p>
-                                    <button className='btn uppercase p-2 m-2 font-bold text-white'>Crear cuenta</button>
                                 </div>
                             </Form>
+                            <div className="login__actions container flex flex-col p-2">
+                                <div className="block">
+                                    <div className="py-5">
+                                        <div className="border-t border-gray-200"></div>
+                                    </div>
+                                </div>
+                                <p className='text-center p-2 font-bold'>No cuentas con acceso?</p>
+                                <button className='btn uppercase p-2 m-2 font-bold text-white'>Crear cuenta</button>
+                            </div>
                         </div>
                     )}
                 />

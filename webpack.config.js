@@ -25,10 +25,7 @@ module.exports = {
                 use: [
                 {
                     loader: 'file-loader',
-                    options: { 
-                        name: 'assets/[name].[ext]',
-                        publicPath: 'assets'
-                    },
+                    options: { name: 'assets/[hash].[ext]' },
                 },
                 ],
             }

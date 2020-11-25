@@ -25,7 +25,7 @@ module.exports = {
                 use: [
                 {
                     loader: 'file-loader',
-                    options: { name: 'assets/[hash].[ext]' },
+                    options: { name: 'assets/[name].[ext]' },
                 },
                 ],
             }
@@ -41,7 +41,8 @@ module.exports = {
     filename: 'app.bundle.js'
   },
   plugins: [new HtmlWebpackPlugin({
-      template: './public/index.html'
+      template: './public/index.html',
+      favicon: './public/favicon.ico'
   })],
   devServer: {
       historyApiFallback: true

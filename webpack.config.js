@@ -1,9 +1,10 @@
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 const path = require('path');
 
 module.exports = {
-    mode: 'production',
+    mode: 'development',
     resolve: {
         extensions: ['.js', '.jsx']
     },
@@ -45,7 +46,7 @@ module.exports = {
       new HtmlWebpackPlugin({
       template: './public/index.html',
       favicon: './public/favicon.ico'
-  }),
+    }),
     new WebpackPwaManifest({
         name: 'BrokerHub - Real State Development',
         short_name: 'BrokerHub',
@@ -83,7 +84,13 @@ module.exports = {
                 purpose: 'maskable'
             }
         ]
-    })
+    }),
+    new WorkboxPlugin.GenerateSW({
+      // these options encourage the ServiceWorkers to get in there fast
+      // and not allow any straggling "old" SWs to hang around
+      clientsClaim: true,
+      skipWaiting: true,
+    }),
 ],
   devServer: {
       historyApiFallback: true

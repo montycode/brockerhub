@@ -4,7 +4,7 @@
   "description": "Brockerhub project made with MERN stack",
   "main": "index.js",
   "scripts": {
-    "build": "react-app-rewired build",
+    "build": "webpack",
     "lint": "standard",
     "now-build": "npm run build",
     "start": "webpack-dev-server --open"
@@ -36,7 +36,6 @@
     "react-gravatar": "^2.6.3",
     "react-router-dom": "^5.2.0",
     "rxjs": "^6.3.3",
-    "workbox-webpack-plugin": "^5.1.4",
     "yup": "^0.27.0"
   },
   "devDependencies": {
@@ -55,6 +54,7 @@
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
     "webpack-dev-server": "^3.11.0",
-    "webpack-pwa-manifest": "^4.3.0"
+    "webpack-pwa-manifest": "^4.3.0",
+    "workbox-webpack-plugin": "^5.1.4"
   }
 }

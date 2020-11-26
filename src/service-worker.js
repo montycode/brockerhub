@@ -6,5 +6,5 @@ reactAppRewireWorkbox.precaching.precacheAndRoute(self.__precacheManifest, {})
 
 // App shell
 workbox.routing.registerNavigationRoute(
-    workbox.precaching.getCacheKeyForURL('./index.html')
-  );
+    workbox.precaching.getCacheKeyForURL("/")
+);

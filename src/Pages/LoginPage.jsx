@@ -1,8 +1,8 @@
-import React from 'react';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
+import React from 'react'
+import { Formik, Field, Form, ErrorMessage } from 'formik'
+import * as Yup from 'yup'
 
-import { authenticationService } from '@/_services';
+import { authenticationService } from '@/_services'
 import '../styles/login.css'
 import '../styles/tailwind.css'
 import Logo from '../assets/img/logo-bh.png'
@@ -19,7 +19,7 @@ class LoginPage extends React.Component {
 
     render() {
         return (
-            <div className='login'>                
+            <div className='login'>         
                 <div className="logo mt-8">
                     <img src={Logo} className="object-contain h-60 w-full animate-pulse p-8" alt="Brokerhub Logo" />
                 </div>

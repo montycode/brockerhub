@@ -8,7 +8,7 @@ module.exports = function override(config, env) {
         const workboxConfig = {
             ...defaultInjectConfig,
             swSrc: path.join(__dirname, 'src', 'service-worker.js'),
-            maximumFileSizeToCacheInBytes: 15
+            maximumFileSizeToCacheInBytes: 150000000
         }
         config = rewireWorkboxInject(workboxConfig)(config, env)
     }

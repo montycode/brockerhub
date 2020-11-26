@@ -3,7 +3,7 @@ const WebpackPwaManifest = require('webpack-pwa-manifest');
 const path = require('path');
 
 module.exports = {
-    mode: 'development',
+    mode: 'production',
     resolve: {
         extensions: ['.js', '.jsx']
     },

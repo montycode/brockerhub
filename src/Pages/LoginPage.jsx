@@ -50,7 +50,7 @@ class LoginPage extends React.Component {
                         <div className="login__form p-6">
                             <Form>
                                 <div className="form-group p-2">
-                                    <label htmlFor="username" className='sr-onl font-bold'>Correo Electronico</label>
+                                    <label htmlFor="username" className='sr-onl font-bold'>Correo Electrónico</label>
                                     <Field name="username" type="email" className={'mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md' + (errors.username && touched.username ? ' border-red-500' : '')} />
                                     <ErrorMessage name="username" component="div" className="text-red-500 italic" />
                                 </div>
@@ -71,9 +71,14 @@ class LoginPage extends React.Component {
                                             </svg>
                                         </div>
                                     </div>
-                                }
+                                }                                
+                                <div className="flex justify-around p-2">
+                                    <div className="inline-flex rounded-md">
+                                        <button id="install_button" className='bg-orange text-white' hidden>Instalar Aplicación</button>
+                                    </div>
+                                </div>
                                 <div className="login__actions container flex flex-col p-2">
-                                    <button type="submit" className="btn-primary font-bold uppercase text-white p-2" disabled={isSubmitting}>Iniciar Sesion</button>
+                                    <button type="submit" className="btn-primary font-bold uppercase text-white p-2" disabled={isSubmitting}>Iniciar Sesión</button>
                                 </div>
                             </Form>
                             <div className="login__actions container flex flex-col p-2">

@@ -6,6 +6,7 @@ import { authenticationService } from '@/_services'
 import '../styles/login.css'
 import '../styles/tailwind.css'
 import Logo from '../assets/img/logo-bh.png'
+import { InstallButton } from '../_components/InstallButton'
 
 class LoginPage extends React.Component {
     constructor(props) {
@@ -22,6 +23,7 @@ class LoginPage extends React.Component {
             <div className='login'>         
                 <div className="logo mt-8">
                     <img src={Logo} className="object-contain h-60 w-full animate-pulse p-8" alt="Brokerhub Logo" />
+                    <InstallButton />
                 </div>
                 <Formik
                     initialValues={{
@@ -71,12 +73,7 @@ class LoginPage extends React.Component {
                                             </svg>
                                         </div>
                                     </div>
-                                }                                
-                                <div className="flex justify-around p-2">
-                                    <div className="inline-flex rounded-md">
-                                        <button id="install_button" className='bg-orange text-white' hidden>Instalar Aplicación</button>
-                                    </div>
-                                </div>
+                                }
                                 <div className="login__actions container flex flex-col p-2">
                                     <button type="submit" className="btn-primary font-bold uppercase text-white p-2" disabled={isSubmitting}>Iniciar Sesión</button>
                                 </div>

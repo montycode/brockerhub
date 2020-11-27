@@ -62,24 +62,24 @@ module.exports = {
         crossorigin: 'use-credentials', //can be null, use-credentials or anonymous
         icons: [
             {
-                src: path.resolve('src/assets/img/logo-bh.png'),
+                src: path.resolve('src/assets/img/maskable_icon.png'),
                 sizes: [120, 152, 167, 180, 1024],
                 destination: path.join('icons', 'ios'),
                 ios: true
             },
             {
-                src: path.resolve('src/assets/img/logo-bh.png'),
+                src: path.resolve('src/assets/img/maskable_icon.png'),
                 size: 1024,
                 destination: path.join('icons', 'ios'),
                 ios: 'startup'
             },
             {
-                src: path.resolve('src/assets/img/logo-bh.png'),
+                src: path.resolve('src/assets/img/maskable_icon.png'),
                 sizes: [36, 48, 72, 96, 144, 192, 512],
                 destination: path.join('icons', 'android')
             },
             {
-                src: path.resolve('src/assets/img/logo-bh.png'),
+                src: path.resolve('src/assets/img/maskable_icon.png'),
                 size: '1024x1024',
                 purpose: 'maskable'
             }

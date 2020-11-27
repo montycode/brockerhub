@@ -44,7 +44,7 @@ class ProspectPage extends React.Component {
                                     <select id="country" className="mt-1 block w-full py-1 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:ring-orange focus:border-orange text-sm text-black">
                                         <option>Seleccione</option>
                                         <option>Cita Programada</option>
-                                        <option>Cita Canelada</option>
+                                        <option>Cita Cancelada</option>
                                     </select>
                                 </div>
                             </div>

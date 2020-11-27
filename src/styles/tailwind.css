@@ -48,13 +48,28 @@
     background-color: #3b3b3b;
 }
 
-.project__banner a, .project__banner img{
+.project__banner label, .project__banner img{
     height: 86px;
     width: 100%;
     opacity: 0.3;
     z-index: 1;
+    cursor: pointer;
 }
 
+.project__banner label [type=radio] { 
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.project__banner label [type=radio] + img {
+  cursor: pointer;
+}
+
+.project__banner label [type=radio]:checked + img {
+  opacity: 0.9;
+}
 .project__banner{
     position: relative;
 }
@@ -63,15 +78,16 @@
     display: block;
 }
 
-.project__banner:hover + .project__banner a:hover + .project__banner img:hover + .project__banner img:active, a:active + .project__banner:active{
-    opacity: 0.9;
-}
-.project__banner{
-    background-image: linear-gradient(rgba(255,0,0,0,0.3));
-}
 
 .projects{
     height: 70vh;
+}
+
+.prospect__info {
+    height: 40vh;
+}
+.prospect_details{
+    height: 30vh;
 }
 
 .selected{

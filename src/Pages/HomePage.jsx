@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { authenticationService } from '@/_services';
 import { Navbar } from '@/_components';
@@ -35,7 +36,7 @@ class HomePage extends React.Component {
                 <div className="schedules rounded-tl-2xl">
                     <p className="p-4">Tus numeros</p>
                     <div className="schedules__data p-2 flex">
-                        <div className="prospects container rounded-xl p-2 bg-white m-2">
+                        <Link to='/myprospects' className="prospects container rounded-xl p-2 bg-white m-2">
                             <div className="icon inline-block p-2">
                                 <UserIcon color={'orange large'} />
                             </div>
@@ -43,8 +44,8 @@ class HomePage extends React.Component {
                                 <h4 className="font-bold text-3xl">{currentUser.prospects}</h4>
                                 <p>Prospectos</p>
                             </div>
-                        </div>
-                        <div className="appointments container rounded-xl p-2 bg-white m-2">
+                        </Link>
+                        <Link to='/itinerary' className="appointments container rounded-xl p-2 bg-white m-2">
                             <div className="icon inline-block p-2">
                                 <AttendanceIcon color={'orange-fill large'} />
                             </div>
@@ -52,7 +53,7 @@ class HomePage extends React.Component {
                                 <h4 className="font-bold text-3xl">{currentUser.appointments}</h4>
                                 <p>Citas</p>
                             </div>                
-                        </div>
+                        </Link>
                     </div>            
                     <section className="holder">
                         <div className="activities text-white text-center rounded-tl-2xl pb-8 pt-8">
@@ -61,8 +62,8 @@ class HomePage extends React.Component {
                                 <h4 className="font-bold text-3xl">{currentUser.appointments} Citas</h4>
                             </div>
                             <div className="activities__actions container flex flex-col p-4 uppercase">
-                                <button className="btn uppercase p-2 m-2">CONSULTAR ITINERARIO</button>
-                                <button className="btn-primary uppercase p-2 m-2">PROGRAMAR CITAS</button>
+                                <Link to='/itinerary' className="btn uppercase p-2 m-2">CONSULTAR ITINERARIO</Link>
+                                <Link to='/appointments' className="btn-primary uppercase p-2 m-2">PROGRAMAR CITAS</Link>
                             </div>    
                         </div>
                     </section>

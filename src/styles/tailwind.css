@@ -96,3 +96,20 @@
     margin-right: 40px;
     margin-top: -40px;
 }
+
+.help_button{
+    border-radius: 20px;
+}
+
+.assistance_icon{
+    stroke: #f4f0f0;
+    width: 36px;
+    height: 36px;
+}
+
+.assist_button{
+    display: block;
+    position: absolute;
+    right: 0;
+    transform: translateY(-50%) translateX(-50%);
+}

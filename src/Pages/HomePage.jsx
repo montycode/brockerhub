@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { authenticationService } from '@/_services';
-import { Navbar } from '@/_components';
+import { Navbar, AssistButton } from '@/_components';
 import UserIcon from '../_components/icons/UserIcon';
 import AttendanceIcon from '../_components/icons/AttendanceIcon';
 import Gravatar from 'react-gravatar'
@@ -25,7 +25,7 @@ class HomePage extends React.Component {
         return (
             <div className="profile flex-col">
                 {currentUser && <Navbar /> }
-                <div className="profile__data text-center p-6">
+                <div className="profile__data text-center p-6 mb-6">
                     <Gravatar email={currentUser.username} className="w-32 h-32 rounded-full mx-auto object-cover shadow-md" />
                     <h4 className="font-bold text-3xl">{currentUser.firstName} {currentUser.lastName}</h4>
                     {currentUser.gender === 1 ?
@@ -34,7 +34,8 @@ class HomePage extends React.Component {
                     }
                 </div>
                 <div className="schedules rounded-tl-2xl">
-                    <p className="p-4">Tus numeros</p>
+                    <AssistButton classNames='fill-current text-white w-6 h-6' />
+                    <p className="p-4 mt-6">Tus numeros</p>
                     <div className="schedules__data p-2 flex">
                         <Link to='/myprospects' className="prospects container rounded-xl p-2 bg-white m-2">
                             <div className="icon inline-block p-2">

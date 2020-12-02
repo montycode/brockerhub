@@ -3,7 +3,7 @@ import DayPickerInput from 'react-day-picker/DayPickerInput'
 import 'react-day-picker/lib/style.css'
 
 import { authenticationService } from '@/_services'
-import { Navbar } from '@/_components'
+import { Navbar, AssistButton } from '@/_components'
 import { Link } from 'react-router-dom';
 
 class ItineraryPage extends React.Component {
@@ -35,8 +35,9 @@ class ItineraryPage extends React.Component {
                     <div className="title font-bold text-white text-l uppercase p-8">
                         <h3>Mi Itinerario</h3>
                     </div>
+                    <AssistButton classNames='fill-current text-white w-6 h-6' />
                     <div className="prospect__container bg-white rounded-tl-2xl pt-8 pr-8 pl-8">
-                        <DayPickerInput onDayChange={this.handleDayChange} />
+                        <DayPickerInput classNames='mt-2' onDayChange={this.handleDayChange} />
                         <div className="projects overflow-auto overscroll-contain">
                             <table className='table-auto flex container'>
                                 <tbody className='container flex flex-col'>

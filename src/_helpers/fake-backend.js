@@ -2,7 +2,7 @@ export function configureFakeBackend() {
     let users = [   { id: 1, username: 'test', password: 'test', firstName: 'Test', lastName: 'User', prospects: 32, appointments: 15, gender: 1 },
                     { id: 2, username: 'omar@cilabs.io', password: 'erickso10', firstName: 'Omar', lastName: 'Montoya', prospects: 18, appointments: 8, gender: 1 },
                     { id: 3, username: 'ux@cilabs.io', password: 'Termopilas01', firstName: 'Valeria', lastName: 'Landeros', prospects: 11, appointments: 18, gender: 2 },
-                    { id: 4, username: 'coropeza@bajaestate.com.mx', password: 'baja01', firstName: 'Baja', lastName: 'State', prospects: 12, appointments: 5, gender: 1 }
+                    { id: 4, username: 'coropeza@bajaestate.com.mx', password: 'baja01', firstName: 'Baja', lastName: 'Estate', prospects: 12, appointments: 5, gender: 1 }
                 ];
     let projects = [ { id: 1, name: 'Black Eleven', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus libero turpis, euismod sed risus eget, pretium laoreet neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec quis egestas ante, eu finibus eros.', drive_url: 'https://www.google.com/intl/es-419_ve/drive/' },
                      { id: 3, name: 'City Points', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus libero turpis, euismod sed risus eget, pretium laoreet neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec quis egestas ante, eu finibus eros.', drive_url: 'https://www.google.com/intl/es-419_ve/drive/' },

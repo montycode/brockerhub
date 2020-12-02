@@ -41,174 +41,140 @@ class ItineraryPage extends React.Component {
                             <table className='table-auto flex container'>
                                 <tbody className='container flex flex-col'>
                                     <tr className='flex justify-between'>
-                                        <td className='font-bold text-l p-2'><Link to='' >9:00 AM </Link></td>
+                                        <td className='font-bold text-l p-2'>9:00 AM</td>
                                         <td className='text-xs p-2'>
-                                            <Link to='' >
-                                                <p>Lina Bo</p>
-                                                <p className='text-gray-300'>City Point</p>
-                                            </Link>
+                                            <p>Lina Bo</p>
+                                            <p className='text-gray-300'>City Point</p>
                                         </td>
-                                        <td className='text-xs p-2'><Link to='' >5 Nov 2020 </Link></td>
+                                        <td className='text-xs p-2'>5 Nov 2020</td>
                                     </tr>
                                     <tr className='flex justify-between'>
-                                        <td className='font-bold text-l p-2'><Link to='' >9:00 AM </Link></td>
+                                        <td className='font-bold text-l p-2'>9:00 AM</td>
                                         <td className='text-xs p-2'>
-                                            <Link to='' >
-                                                <p>Lina Bo</p>
-                                                <p className='text-gray-300'>City Point</p>
-                                            </Link>
+                                            <p>Lina Bo</p>
+                                            <p className='text-gray-300'>City Point</p>
                                         </td>
-                                        <td className='text-xs p-2'><Link to='' >5 Nov 2020 </Link></td>
+                                        <td className='text-xs p-2'>5 Nov 2020</td>
                                     </tr>
                                     <tr className='flex justify-between'>
-                                        <td className='font-bold text-l p-2'><Link to='' >9:00 AM </Link></td>
+                                        <td className='font-bold text-l p-2'>9:00 AM</td>
                                         <td className='text-xs p-2'>
-                                            <Link to='' >
-                                                <p>Lina Bo</p>
-                                                <p className='text-gray-300'>City Point</p>
-                                            </Link>
+                                            <p>Lina Bo</p>
+                                            <p className='text-gray-300'>City Point</p>
                                         </td>
-                                        <td className='text-xs p-2'><Link to='' >5 Nov 2020 </Link></td>
+                                        <td className='text-xs p-2'>5 Nov 2020</td>
                                     </tr>
                                     <tr className='flex justify-between'>
-                                        <td className='font-bold text-l p-2'><Link to='' >9:00 AM </Link></td>
+                                        <td className='font-bold text-l p-2'>9:00 AM</td>
                                         <td className='text-xs p-2'>
-                                            <Link to='' >
-                                                <p>Lina Bo</p>
-                                                <p className='text-gray-300'>City Point</p>
-                                            </Link>
+                                            <p>Lina Bo</p>
+                                            <p className='text-gray-300'>City Point</p>
                                         </td>
-                                        <td className='text-xs p-2'><Link to='' >5 Nov 2020 </Link></td>
+                                        <td className='text-xs p-2'>5 Nov 2020</td>
                                     </tr>
                                     <tr className='flex justify-between'>
-                                        <td className='font-bold text-l p-2'><Link to='' >9:00 AM </Link></td>
+                                        <td className='font-bold text-l p-2'>9:00 AM</td>
                                         <td className='text-xs p-2'>
-                                            <Link to='' >
-                                                <p>Lina Bo</p>
-                                                <p className='text-gray-300'>City Point</p>
-                                            </Link>
+                                            <p>Lina Bo</p>
+                                            <p className='text-gray-300'>City Point</p>
                                         </td>
-                                        <td className='text-xs p-2'><Link to='' >5 Nov 2020 </Link></td>
+                                        <td className='text-xs p-2'>5 Nov 2020</td>
                                     </tr>
                                     <tr className='flex justify-between'>
-                                        <td className='font-bold text-l p-2'><Link to='' >9:00 AM </Link></td>
+                                        <td className='font-bold text-l p-2'>9:00 AM</td>
                                         <td className='text-xs p-2'>
-                                            <Link to='' >
-                                                <p>Lina Bo</p>
-                                                <p className='text-gray-300'>City Point</p>
-                                            </Link>
+                                            <p>Lina Bo</p>
+                                            <p className='text-gray-300'>City Point</p>
                                         </td>
-                                        <td className='text-xs p-2'><Link to='' >5 Nov 2020 </Link></td>
+                                        <td className='text-xs p-2'>5 Nov 2020</td>
                                     </tr>
                                     <tr className='flex justify-between'>
-                                        <td className='font-bold text-l p-2'><Link to='' >9:00 AM </Link></td>
+                                        <td className='font-bold text-l p-2'>9:00 AM</td>
                                         <td className='text-xs p-2'>
-                                            <Link to='' >
-                                                <p>Lina Bo</p>
-                                                <p className='text-gray-300'>City Point</p>
-                                            </Link>
+                                            <p>Lina Bo</p>
+                                            <p className='text-gray-300'>City Point</p>
                                         </td>
-                                        <td className='text-xs p-2'><Link to='' >5 Nov 2020 </Link></td>
+                                        <td className='text-xs p-2'>5 Nov 2020</td>
                                     </tr>
                                     <tr className='flex justify-between'>
-                                        <td className='font-bold text-l p-2'><Link to='' >9:00 AM </Link></td>
+                                        <td className='font-bold text-l p-2'>9:00 AM</td>
                                         <td className='text-xs p-2'>
-                                            <Link to='' >
-                                                <p>Lina Bo</p>
-                                                <p className='text-gray-300'>City Point</p>
-                                            </Link>
+                                            <p>Lina Bo</p>
+                                            <p className='text-gray-300'>City Point</p>
                                         </td>
-                                        <td className='text-xs p-2'><Link to='' >5 Nov 2020 </Link></td>
+                                        <td className='text-xs p-2'>5 Nov 2020</td>
                                     </tr>
                                     <tr className='flex justify-between'>
-                                        <td className='font-bold text-l p-2'><Link to='' >9:00 AM </Link></td>
+                                        <td className='font-bold text-l p-2'>9:00 AM</td>
                                         <td className='text-xs p-2'>
-                                            <Link to='' >
-                                                <p>Lina Bo</p>
-                                                <p className='text-gray-300'>City Point</p>
-                                            </Link>
+                                            <p>Lina Bo</p>
+                                            <p className='text-gray-300'>City Point</p>
                                         </td>
-                                        <td className='text-xs p-2'><Link to='' >5 Nov 2020 </Link></td>
+                                        <td className='text-xs p-2'>5 Nov 2020</td>
                                     </tr>
                                     <tr className='flex justify-between'>
-                                        <td className='font-bold text-l p-2'><Link to='' >9:00 AM </Link></td>
+                                        <td className='font-bold text-l p-2'>9:00 AM</td>
                                         <td className='text-xs p-2'>
-                                            <Link to='' >
-                                                <p>Lina Bo</p>
-                                                <p className='text-gray-300'>City Point</p>
-                                            </Link>
+                                            <p>Lina Bo</p>
+                                            <p className='text-gray-300'>City Point</p>
                                         </td>
-                                        <td className='text-xs p-2'><Link to='' >5 Nov 2020 </Link></td>
+                                        <td className='text-xs p-2'>5 Nov 2020</td>
                                     </tr>
                                     <tr className='flex justify-between'>
-                                        <td className='font-bold text-l p-2'><Link to='' >9:00 AM </Link></td>
+                                        <td className='font-bold text-l p-2'>9:00 AM</td>
                                         <td className='text-xs p-2'>
-                                            <Link to='' >
-                                                <p>Lina Bo</p>
-                                                <p className='text-gray-300'>City Point</p>
-                                            </Link>
+                                            <p>Lina Bo</p>
+                                            <p className='text-gray-300'>City Point</p>
                                         </td>
-                                        <td className='text-xs p-2'><Link to='' >5 Nov 2020 </Link></td>
+                                        <td className='text-xs p-2'>5 Nov 2020</td>
                                     </tr>
                                     <tr className='flex justify-between'>
-                                        <td className='font-bold text-l p-2'><Link to='' >9:00 AM </Link></td>
+                                        <td className='font-bold text-l p-2'>9:00 AM</td>
                                         <td className='text-xs p-2'>
-                                            <Link to='' >
-                                                <p>Lina Bo</p>
-                                                <p className='text-gray-300'>City Point</p>
-                                            </Link>
+                                            <p>Lina Bo</p>
+                                            <p className='text-gray-300'>City Point</p>
                                         </td>
-                                        <td className='text-xs p-2'><Link to='' >5 Nov 2020 </Link></td>
+                                        <td className='text-xs p-2'>5 Nov 2020</td>
                                     </tr>
                                     <tr className='flex justify-between'>
-                                        <td className='font-bold text-l p-2'><Link to='' >9:00 AM </Link></td>
+                                        <td className='font-bold text-l p-2'>9:00 AM</td>
                                         <td className='text-xs p-2'>
-                                            <Link to='' >
-                                                <p>Lina Bo</p>
-                                                <p className='text-gray-300'>City Point</p>
-                                            </Link>
+                                            <p>Lina Bo</p>
+                                            <p className='text-gray-300'>City Point</p>
                                         </td>
-                                        <td className='text-xs p-2'><Link to='' >5 Nov 2020 </Link></td>
+                                        <td className='text-xs p-2'>5 Nov 2020</td>
                                     </tr>
                                     <tr className='flex justify-between'>
-                                        <td className='font-bold text-l p-2'><Link to='' >9:00 AM </Link></td>
+                                        <td className='font-bold text-l p-2'>9:00 AM</td>
                                         <td className='text-xs p-2'>
-                                            <Link to='' >
-                                                <p>Lina Bo</p>
-                                                <p className='text-gray-300'>City Point</p>
-                                            </Link>
+                                            <p>Lina Bo</p>
+                                            <p className='text-gray-300'>City Point</p>
                                         </td>
-                                        <td className='text-xs p-2'><Link to='' >5 Nov 2020 </Link></td>
+                                        <td className='text-xs p-2'>5 Nov 2020</td>
                                     </tr>
                                     <tr className='flex justify-between'>
-                                        <td className='font-bold text-l p-2'><Link to='' >9:00 AM </Link></td>
+                                        <td className='font-bold text-l p-2'>9:00 AM</td>
                                         <td className='text-xs p-2'>
-                                            <Link to='' >
-                                                <p>Lina Bo</p>
-                                                <p className='text-gray-300'>City Point</p>
-                                            </Link>
+                                            <p>Lina Bo</p>
+                                            <p className='text-gray-300'>City Point</p>
                                         </td>
-                                        <td className='text-xs p-2'><Link to='' >5 Nov 2020 </Link></td>
+                                        <td className='text-xs p-2'>5 Nov 2020</td>
                                     </tr>
                                     <tr className='flex justify-between'>
-                                        <td className='font-bold text-l p-2'><Link to='' >9:00 AM </Link></td>
+                                        <td className='font-bold text-l p-2'>9:00 AM</td>
                                         <td className='text-xs p-2'>
-                                            <Link to='' >
-                                                <p>Lina Bo</p>
-                                                <p className='text-gray-300'>City Point</p>
-                                            </Link>
+                                            <p>Lina Bo</p>
+                                            <p className='text-gray-300'>City Point</p>
                                         </td>
-                                        <td className='text-xs p-2'><Link to='' >5 Nov 2020 </Link></td>
+                                        <td className='text-xs p-2'>5 Nov 2020</td>
                                     </tr>
                                     <tr className='flex justify-between'>
-                                        <td className='font-bold text-l p-2'><Link to='' >9:00 AM </Link></td>
+                                        <td className='font-bold text-l p-2'>9:00 AM</td>
                                         <td className='text-xs p-2'>
-                                            <Link to='' >
-                                                <p>Lina Bo</p>
-                                                <p className='text-gray-300'>City Point</p>
-                                            </Link>
+                                            <p>Lina Bo</p>
+                                            <p className='text-gray-300'>City Point</p>
                                         </td>
-                                        <td className='text-xs p-2'><Link to='' >5 Nov 2020 </Link></td>
+                                        <td className='text-xs p-2'>5 Nov 2020</td>
                                     </tr>
                                 </tbody>
                             </table>

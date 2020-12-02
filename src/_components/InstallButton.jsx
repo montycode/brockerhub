@@ -6,7 +6,7 @@ export const InstallButton = () => {
   return(
     <PWAInstallerPrompt 
       render={({ onClick }) => (        
-        <div className="flex justify-around p-2 container">
+        <div className="flex justify-around p-2 w-full">
             <div className="inline-flex rounded-md">
                 <button className='btn-primary font-bold uppercase text-white p-2' onClick={onClick}>Instalar Aplicación</button>
             </div>

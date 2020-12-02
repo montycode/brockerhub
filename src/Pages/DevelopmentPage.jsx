@@ -14,6 +14,7 @@ class DevelopmentPage extends React.Component {
 
         this.state = {
             currentUser: authenticationService.currentUserValue,
+            isActive: true
         };
     }
 
@@ -70,7 +71,7 @@ class DevelopmentPage extends React.Component {
                             </div>
                         </div>                
                         <div className="actions container flex flex-col p-4 text-white">
-                            <Link to='/prospect/new' className="btn-primary text-center uppercase p-2 m-2">Programar Cita</Link>
+                            <Link to='/project' className="btn-primary text-center uppercase p-2 m-2">Ver Más</Link>
                         </div>
                     </div>
                 </div>

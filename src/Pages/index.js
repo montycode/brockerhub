@@ -1,6 +1,7 @@
 export * from './LoginPage'
 export * from './HomePage'
 export * from './DevelopmentPage'
+export * from './DevelopmentDetailsPage'
 export * from './ItineraryPage'
 export * from './ErrorPage'
 export * from './NewProspectPage'

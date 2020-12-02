@@ -3,6 +3,12 @@ export function configureFakeBackend() {
                     { id: 2, username: 'omar@cilabs.io', password: 'erickso10', firstName: 'Omar', lastName: 'Montoya', prospects: 18, appointments: 8, gender: 1 },
                     { id: 3, username: 'ux@cilabs.io', password: 'Termopilas01', firstName: 'Valeria', lastName: 'Landeros', prospects: 11, appointments: 18, gender: 2 }
                 ];
+    let projects = [ { id: 1, name: 'Black Eleven', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus libero turpis, euismod sed risus eget, pretium laoreet neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec quis egestas ante, eu finibus eros.', drive_url: 'https://www.google.com/intl/es-419_ve/drive/' },
+                     { id: 3, name: 'City Points', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus libero turpis, euismod sed risus eget, pretium laoreet neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec quis egestas ante, eu finibus eros.', drive_url: 'https://www.google.com/intl/es-419_ve/drive/' },
+                     { id: 4, name: 'Central', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus libero turpis, euismod sed risus eget, pretium laoreet neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec quis egestas ante, eu finibus eros.', drive_url: 'https://www.google.com/intl/es-419_ve/drive/' },
+                     { id: 5, name: 'Black Eleven', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus libero turpis, euismod sed risus eget, pretium laoreet neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec quis egestas ante, eu finibus eros.', drive_url: 'https://www.google.com/intl/es-419_ve/drive/' }
+                ];
+
     let realFetch = window.fetch;
     window.fetch = function (url, opts) {
         const isLoggedIn = opts.headers['Authorization'] === 'Bearer fake-jwt-token';
@@ -31,6 +37,12 @@ export function configureFakeBackend() {
                 if (url.endsWith('/users') && opts.method === 'GET') {
                     if (!isLoggedIn) return unauthorised();
                     return ok(users);
+                }
+
+                // get projects - secure
+                if (url.endsWith('/projects') && opts.method === 'GET') {
+                    if (!isLoggedIn) return unauthorised();
+                    return ok(projects);
                 }
 
                 // pass through any requests not handled above

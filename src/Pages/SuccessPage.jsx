@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import { authenticationService } from '@/_services'
-import { Navbar } from '@/_components'
+import { Navbar, AssistButton } from '@/_components'
 
 import Success from '../assets/img/success.png'
 
@@ -28,8 +28,9 @@ class SuccessPage extends React.Component {
                     <div className='title font-bold text-white text-l uppercase p-4'>
                         <h3>VALIDACIÓN PROSPECTOS</h3>
                     </div>
+                    <AssistButton classNames='fill-current text-white w-6 h-6' />
                     <div className='prospect__container bg-white rounded-tl-2xl pr-6 pl-6'>
-                        <div className='projects container'>
+                        <div className='projects container mt-2'>
                             <div className='w-120 p-6 mt-2'>
                                 <img className='object-contain mx-auto' src={Success} alt='Success'/>
                             </div>
@@ -39,7 +40,7 @@ class SuccessPage extends React.Component {
                             </div>
                         </div>                
                         <div className='actions container flex flex-col p-4 text-white'>
-                            <Link to='/appointments' className='btn-primary uppercase p-2 m-2'>REGISTRAR OTRO PROSPECTO</Link>
+                            <Link to='/appointments' className='btn-primary uppercase p-2 m-2 text-center font-bold'>REGISTRAR OTRO PROSPECTO</Link>
                         </div>
                     </div>
                 </div>

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { authenticationService } from '@/_services'
-import { Navbar } from '@/_components'
+import { Navbar, AssistButton } from '@/_components'
 import { Link } from 'react-router-dom';
 
 import Project_One from '../assets/img/projects/project_1.jpg'
@@ -31,8 +31,9 @@ class DevelopmentPage extends React.Component {
                     <div className="title font-bold text-white text-l capitalize p-8">
                         <h3>SELECCIONAR DESARROLLO</h3>
                     </div>
+                    <AssistButton classNames='fill-current text-white w-6 h-6' />
                     <div className="prospect__container bg-white rounded-tl-2xl pt-8 pr-8 pl-8">
-                        <div className="projects overflow-auto overscroll-contain">
+                        <div className="projects overflow-auto overscroll-contain mt-2">
                             <div className="project__banner container p-4">
                                 <label className="bg-black shadow-lg">
                                     <input type="radio" name="dev_id" value="Project_One"/>

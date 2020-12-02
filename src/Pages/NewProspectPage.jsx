@@ -4,7 +4,7 @@ import TimePicker from 'react-time-picker'
 import 'react-day-picker/lib/style.css'
 
 import { authenticationService } from '@/_services'
-import { Navbar } from '@/_components'
+import { Navbar, AssistButton } from '@/_components'
 import { Link } from 'react-router-dom';
 
 class NewProspectPage extends React.Component {
@@ -43,8 +43,9 @@ class NewProspectPage extends React.Component {
                     <div className="title font-bold text-white text-l uppercase p-8">
                         <h3>Datos del Cliente</h3>
                     </div>
+                    <AssistButton classNames={'fill-current text-white w-6 h-6'} />
                     <div className="prospect__container bg-white rounded-tl-2xl pt-8 pr-8 pl-8">
-                        <div className="projects overflow-auto overscroll-contain">
+                        <div className="projects overflow-auto overscroll-contain mt-2">
                             <div className="prospect__form grid grid-cols-2">
                                 <div className="col-span-1 p-2">
                                     <label htmlFor="name" className="block text-sm font-medium text-gray-700">Nombre(s)</label>
@@ -76,10 +77,10 @@ class NewProspectPage extends React.Component {
                                     </div>
                                 </div>
                             </div> 
-                        </div>                     
-                    </div>
-                    <div className="actions container flex flex-col p-4 text-white">
-                        <Link to='/success' className="btn-primary text-center uppercase p-2 m-2">VERIFICAR DISPONIBILIDAD</Link>
+                        </div>
+                        <div className="actions container flex flex-col p-4 text-white">
+                            <Link to='/success' className="btn-primary text-center uppercase p-2 m-2">VERIFICAR DISPONIBILIDAD</Link>
+                        </div> 
                     </div>
                 </div>
             </div>

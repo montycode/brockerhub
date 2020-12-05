@@ -27,34 +27,24 @@ class LoginPage extends React.Component {
                 </div>
                 <Formik
                     initialValues={{
-                        username: '',
+                        email: '',
                         password: ''
                     }}
                     validationSchema={Yup.object().shape({
-                        username: Yup.string().required('*Este campo es requerido'),
+                        email: Yup.string().required('*Este campo es requerido'),
                         password: Yup.string().required('*Este campo es requerido')
                     })}
-                    onSubmit={({ username, password }, { setStatus, setSubmitting }) => {
+                    onSubmit={({ email, password }, { setStatus, setSubmitting }) => {
                         setStatus();
-                        authenticationService.login(username, password)
-                            .then(
-                                user => {
-                                    const { from } = this.props.location.state || { from: { pathname: "/" } };
-                                    this.props.history.push(from);
-                                },
-                                error => {
-                                    setSubmitting(false);
-                                    setStatus(error);
-                                }
-                            );
+                        authenticationService.getToken(email, password);
                     }}
                     render={({ errors, status, touched, isSubmitting }) => (
                         <div className="login__form p-6">
                             <Form>
                                 <div className="form-group p-2">
-                                    <label htmlFor="username" className='sr-onl font-bold'>Correo Electrónico</label>
-                                    <Field name="username" type="email" className={'mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md' + (errors.username && touched.username ? ' border-red-500' : '')} />
-                                    <ErrorMessage name="username" component="div" className="text-red-500 italic" />
+                                    <label htmlFor="email" className='sr-onl font-bold'>Correo Electrónico</label>
+                                    <Field name="email" type="email" className={'mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md' + (errors.email && touched.email ? ' border-red-500' : '')} />
+                                    <ErrorMessage name="email" component="div" className="text-red-500 italic" />
                                 </div>
                                 <div className="form-group p-2">
                                     <label htmlFor="password" className='font-bold'>Contraseña</label>

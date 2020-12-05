@@ -26,7 +26,7 @@ class HomePage extends React.Component {
             <div className="profile flex-col">
                 {currentUser && <Navbar /> }
                 <div className="profile__data text-center p-6 mb-6">
-                    <Gravatar email={currentUser.username} className="w-32 h-32 rounded-full mx-auto object-cover shadow-md bg-white" />
+                    <Gravatar email={currentUser.email} className="w-32 h-32 rounded-full mx-auto object-cover shadow-md bg-white" />
                     <h4 className="font-bold text-3xl">{currentUser.firstName} {currentUser.lastName}</h4>
                     {currentUser.gender === 1 ?
                         <p className="font-bold text-sm">Bienvenido a Brokerhub</p> :

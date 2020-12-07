@@ -36,19 +36,28 @@ class LoginPage extends React.Component {
                     })}
                     onSubmit={({ email, password }, { setStatus, setSubmitting }) => {
                         setStatus();
-                        authenticationService.getToken(email, password);
+                        authenticationService.login(email, password).then(
+                            token => {
+                                const { from } = this.props.location.state || { from: { pathname: "/" } };
+                                this.props.history.push(from);
+                            },
+                            error => {
+                                setSubmitting(false);
+                                setStatus(error);
+                            }
+                        );
                     }}
                     render={({ errors, status, touched, isSubmitting }) => (
                         <div className="login__form p-6">
                             <Form>
                                 <div className="form-group p-2">
                                     <label htmlFor="email" className='sr-onl font-bold'>Correo Electrónico</label>
-                                    <Field name="email" type="email" className={'mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md' + (errors.email && touched.email ? ' border-red-500' : '')} />
+                                    <Field name="email" type="email" autoComplete="on" className={'mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md' + (errors.email && touched.email ? ' border-red-500' : '')} />
                                     <ErrorMessage name="email" component="div" className="text-red-500 italic" />
                                 </div>
                                 <div className="form-group p-2">
                                     <label htmlFor="password" className='font-bold'>Contraseña</label>
-                                    <Field name="password" type="password" className={'mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md' + (errors.password && touched.password ? ' border-red-500' : '')} />
+                                    <Field name="password" type="password" autoComplete="on" className={'mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md' + (errors.password && touched.password ? ' border-red-500' : '')} />
                                     <ErrorMessage name="password" component="div" className="text-red-500 italic" />
                                 </div>                                
                                 {status &&

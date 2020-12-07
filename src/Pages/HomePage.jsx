@@ -27,10 +27,10 @@ class HomePage extends React.Component {
                 {currentUser && <Navbar /> }
                 <div className="profile__data text-center p-6 mb-6">
                     <Gravatar email={currentUser.email} className="w-32 h-32 rounded-full mx-auto object-cover shadow-md bg-white" />
-                    <h4 className="font-bold text-3xl">{currentUser.firstName} {currentUser.lastName}</h4>
-                    {currentUser.gender === 1 ?
-                        <p className="font-bold text-sm">Bienvenido a Brokerhub</p> :
-                        <p className="font-bold text-sm">Bienvenida a Brokerhub</p> 
+                    <h4 className="font-bold text-3xl">{currentUser.first_name} {currentUser.last_name}</h4>
+                    {currentUser.gender === 0 ?
+                        <p className="font-bold text-sm">Bienvenida a Brokerhub</p> :
+                        <p className="font-bold text-sm">Bienvenido a Brokerhub</p> 
                     }
                 </div>
                 <div className="schedules rounded-tl-2xl">

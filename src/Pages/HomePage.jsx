@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { authenticationService } from '@/_services';
-import { Navbar, AssistButton } from '@/_components';
-import UserIcon from '../_components/icons/UserIcon';
-import AttendanceIcon from '../_components/icons/AttendanceIcon';
+import { authenticationService } from '@/_services'
+import { Navbar, AssistButton } from '@/_components'
+import UserIcon from '../_components/icons/UserIcon'
+import AttendanceIcon from '../_components/icons/AttendanceIcon'
 import Gravatar from 'react-gravatar'
 
 class HomePage extends React.Component {
@@ -26,8 +26,8 @@ class HomePage extends React.Component {
             <div className="profile flex-col">
                 {currentUser && <Navbar /> }
                 <div className="profile__data text-center p-6 mb-6">
-                    <Gravatar email={currentUser.email} className="w-32 h-32 rounded-full mx-auto object-cover shadow-md bg-white" />
-                    <h4 className="font-bold text-3xl">{currentUser.first_name} {currentUser.last_name}</h4>
+                    <Gravatar email={currentUser.user.email} className="w-32 h-32 rounded-full mx-auto object-cover shadow-md bg-white" />
+                    <h4 className="font-bold text-3xl">{currentUser.user.first_name} {currentUser.user.last_name}</h4>
                     {currentUser.gender === 0 ?
                         <p className="font-bold text-sm">Bienvenida a Brokerhub</p> :
                         <p className="font-bold text-sm">Bienvenido a Brokerhub</p> 

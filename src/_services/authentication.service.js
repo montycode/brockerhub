@@ -1,5 +1,5 @@
 import { BehaviorSubject } from 'rxjs'
-import axios from 'axios'
+import { handleResponse } from '@/_helpers'
 
 import config from 'config'
 
@@ -13,37 +13,34 @@ export const authenticationService = {
 }
 
 function login(email, password) {
-    try{
-        return axios({
-            method: 'post',
-            mode: 'no-cors',
-            url: `${config.apiUrl}/authenticate`,
-            data: {
-              email: email,
+  const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+              email: email, 
               password: password
-            }
-          })
-          .then(token => {
-            const jwt = token.data.auth_token;
-            axios({
-                method: 'get',
-                url: `${config.apiUrl}/user`,
-                headers: {Authorization: 'Bearer ' + jwt}
-              })
-              .then(user => {
-                console.log(user.data.user);
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('currentUser', JSON.stringify(user.data.user));
-                currentUserSubject.next(user.data.user);
-                return user
-              });
-            console.log(token.data.auth_token)
-            return token
-        });
-    }
-    catch(error){
-        return error
-    }
+      })
+  };
+
+  return fetch( `${config.apiUrl}/authenticate`, requestOptions)
+              .then(handleResponse)
+              .then(token => {
+                let auth_token = token.auth_token;
+                const requestUserOptions = { 
+                    method: 'GET', 
+                    headers: { Authorization: `Bearer ${auth_token}` }
+                }
+                return fetch(`${config.apiUrl}/user`, requestUserOptions)
+                            .then(handleResponse)
+                            .then(user => {
+                              user.token = token.auth_token;
+                              // store user details and jwt token in local storage to keep user logged in between page refreshes
+                              localStorage.setItem('currentUser', JSON.stringify(user));
+                              currentUserSubject.next(user);
+                  
+                              return user;
+                          })
+            })
 }
 
 function logout() {

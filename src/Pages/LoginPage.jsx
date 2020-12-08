@@ -37,7 +37,7 @@ class LoginPage extends React.Component {
                     onSubmit={({ email, password }, { setStatus, setSubmitting }) => {
                         setStatus();
                         authenticationService.login(email, password).then(
-                            token => {
+                            user => {
                                 const { from } = this.props.location.state || { from: { pathname: "/" } };
                                 this.props.history.push(from);
                             },

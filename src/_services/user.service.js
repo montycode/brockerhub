@@ -1,19 +1,11 @@
-import config from 'config';
-import { authHeader, handleResponse } from '@/_helpers';
+import config from 'config'
+import { authHeader, handleResponse } from '@/_helpers'
 
 export const userService = {
-    getAll
+    getUser
 };
 
-export const fetchProjects ={
-    getProjects
-};
-
-function getAll() {
+function getUser() {
     const requestOptions = { method: 'GET', headers: authHeader() };
-    return fetch(`${config.apiUrl}/users`, requestOptions).then(handleResponse);
-}
-
-function getProjects() {
-    return fetch(`${config.apiUrl}/projects`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/user`, requestOptions).then(handleResponse);
 }

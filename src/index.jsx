@@ -15,9 +15,6 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-// setup fake backend
-import { configureFakeBackend } from './_helpers';
-configureFakeBackend();
 
 render(
     <App />,

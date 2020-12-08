@@ -32,7 +32,7 @@ class Navbar extends React.Component {
                     <div className="hidden w-full" id="menu">
                         <nav>
                             <ul className="items-center justify-between text-base text-gray-400 pt-4">
-                                <li><a href='#!' className="py-3 px-0 block border-b-2 border-transparent hover:border-orange">Acerca de Nosotros</a></li>
+                                <li><Link to='/about' className="py-3 px-0 block border-b-2 border-transparent hover:border-orange">Acerca de Nosotros</Link></li>
                                 <li><a onClick={this.logout} className="py-3 px-0 block border-b-2 border-transparent hover:border-orange">Cerrar Sesión</a></li>
                             </ul>
                         </nav>

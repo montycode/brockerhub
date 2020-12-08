@@ -1,33 +1,46 @@
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs'
+import { handleResponse } from '@/_helpers'
 
-import config from 'config';
-import { handleResponse } from '@/_helpers';
+import config from 'config'
 
-const currentUserSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('currentUser')));
+const currentUserSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('currentUser')))
 
 export const authenticationService = {
     login,
     logout,
     currentUser: currentUserSubject.asObservable(),
     get currentUserValue () { return currentUserSubject.value }
-};
+}
 
-function login(username, password) {
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
-    };
+function login(email, password) {
+  const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+              email: email, 
+              password: password
+      })
+  };
 
-    return fetch(`${config.apiUrl}/users/authenticate`, requestOptions)
-        .then(handleResponse)
-        .then(user => {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('currentUser', JSON.stringify(user));
-            currentUserSubject.next(user);
-
-            return user;
-        });
+  return fetch( `${config.apiUrl}/authenticate`, requestOptions)
+              .then(handleResponse)
+              .then(token => {
+                let auth_token = token.auth_token;
+                const requestUserOptions = { 
+                    method: 'GET', 
+                    headers: { Authorization: `Bearer ${auth_token}` }
+                }
+                return fetch(`${config.apiUrl}/user`, requestUserOptions)
+                            .then(handleResponse)
+                            .then(user => {
+                              user.token = token.auth_token;
+                              // store user details and jwt token in local storage to keep user logged in between page refreshes
+                              localStorage.setItem('currentUser', JSON.stringify(user));
+                              currentUserSubject.next(user);
+                  
+                              return user;
+                          })
+            })
 }
 
 function logout() {

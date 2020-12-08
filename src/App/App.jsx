@@ -4,7 +4,7 @@ import { Router, Route } from 'react-router-dom'
 import { history } from '@/_helpers'
 import { authenticationService } from '@/_services'
 import { PrivateRoute } from '@/_components'
-import { HomePage, LoginPage, DevelopmentPage, ErrorPage, ProspectListPage,
+import { HomePage, LoginPage, DevelopmentPage, ErrorPage, ProspectListPage, AboutPage,
          ProspectPage, NewProspectPage, SuccessPage, ItineraryPage, DevelopmentDetailsPage
         } from '@/Pages'
 
@@ -35,6 +35,7 @@ class App extends React.Component {
                 <PrivateRoute exact path="/prospect/new" component={NewProspectPage} />
                 <PrivateRoute exact path="/error" component={ErrorPage} />
                 <PrivateRoute exact path="/success" component={SuccessPage} />
+                <PrivateRoute exact path="/about" component={AboutPage} />
                 <Route path="/login" component={LoginPage} />
             </Router>
         );

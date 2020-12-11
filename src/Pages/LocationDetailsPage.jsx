@@ -5,8 +5,6 @@ import { authenticationService, locationsService } from '@/_services'
 import { Navbar, AssistButton } from '@/_components'
 import { Link } from 'react-router-dom'
 
-import DriveIcon from '../assets/img/drive.png'
-
 class LocationDetailsPage extends React.Component {
     constructor(props) {
         super(props);
@@ -19,16 +17,13 @@ class LocationDetailsPage extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.state);
         this.getLocation();
-        console.log(this.state);
     };
 
     getLocation(){
         locationsService.getSingleLocation(this.state.id)
         .then(location => this.setState({ location }))
         .catch(err => console.log(err))
-        console.log(this.state);
     }
 
     render() {

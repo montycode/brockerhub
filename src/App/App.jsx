@@ -31,7 +31,7 @@ class App extends React.Component {
                     <PrivateRoute exact path={'/locations'} component={LocationsPage} />
                     <PrivateRoute exact path={'/location/:id'} component={LocationDetailsPage} />
                     <PrivateRoute exact path={'/itinerary'} component={ItineraryPage} />
-                    <PrivateRoute exact path={'/prospect'} component={ProspectPage} />
+                    <PrivateRoute exact path={'/prospect/:id'} component={ProspectPage} />
                     <PrivateRoute exact path={'/myprospects'} component={ProspectListPage} />
                     <PrivateRoute exact path={'/prospect/new'} component={NewProspectPage} />
                     <PrivateRoute exact path={'/error'} component={ErrorPage} />

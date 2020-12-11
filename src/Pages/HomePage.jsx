@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { authenticationService } from '@/_services'
+import { authenticationService, leadsService } from '@/_services'
 import { Navbar, AssistButton } from '@/_components'
 import UserIcon from '../_components/icons/UserIcon'
 import AttendanceIcon from '../_components/icons/AttendanceIcon'
@@ -13,25 +13,35 @@ class HomePage extends React.Component {
 
         this.state = {
             currentUser: authenticationService.currentUserValue,
+            loading: true,
+            appointments: [],
+            leads: []
         };
     }
 
     componentDidMount() {
+        this.getLeads();
+        this.setState({ loading: false })
         console.log(this.state);
     };
 
+    getLeads() {
+        leadsService.getLeads()
+        .then(leads => this.setState({ leads }))
+        .catch(err => console.log(err))
+    }
+
     render() {
         const { currentUser } = this.state;
+        const { leads } = this.state;
+        const { appointments } = this.state;
         return (
             <div className="profile flex-col">
                 {currentUser && <Navbar /> }
                 <div className="profile__data text-center p-6 mb-6">
                     <Gravatar email={currentUser.user.email} className="w-32 h-32 rounded-full mx-auto object-cover shadow-md bg-white" />
                     <h4 className="font-bold text-3xl">{currentUser.user.first_name} {currentUser.user.last_name}</h4>
-                    {currentUser.gender === 0 ?
-                        <p className="font-bold text-sm">Bienvenida a Brokerhub</p> :
-                        <p className="font-bold text-sm">Bienvenido a Brokerhub</p> 
-                    }
+                    <p className="font-bold text-sm">Bienvenido a Brokerhub</p> 
                 </div>
                 <div className="schedules rounded-tl-2xl">
                     <AssistButton classNames='fill-current text-white w-6 h-6' />
@@ -42,7 +52,7 @@ class HomePage extends React.Component {
                                 <UserIcon color={'orange large'} />
                             </div>
                             <div className="prospects__data inline-block">
-                                <h4 className="font-bold text-3xl">{currentUser.prospects}</h4>
+                                <h4 className="font-bold text-3xl">{leads.results ? leads.results.length : 0}</h4>
                                 <p>Prospectos</p>
                             </div>
                         </Link>
@@ -51,7 +61,7 @@ class HomePage extends React.Component {
                                 <AttendanceIcon color={'orange-fill large'} />
                             </div>
                             <div className="appointments__data inline-block">
-                                <h4 className="font-bold text-3xl">{currentUser.appointments}</h4>
+                                <h4 className="font-bold text-3xl">{appointments.results ? appointments.results.length : 0}</h4>
                                 <p>Citas</p>
                             </div>                
                         </Link>
@@ -60,7 +70,7 @@ class HomePage extends React.Component {
                         <div className="activities text-white text-center rounded-tl-2xl pb-8 pt-8">
                             <div className="activities__info">
                                 <p>Hoy tienes programadas</p>
-                                <h4 className="font-bold text-3xl">{currentUser.appointments} Citas</h4>
+                                <h4 className="font-bold text-3xl">{appointments.results ? appointments.results.length : 0} Citas</h4>
                             </div>
                             <div className="activities__actions container flex flex-col p-4 uppercase">
                                 <Link to='/itinerary' className="btn uppercase p-2 m-2">CONSULTAR ITINERARIO</Link>

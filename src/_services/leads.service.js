@@ -1,5 +1,6 @@
 import config from 'config'
 import { authHeader, handleResponse } from '@/_helpers'
+import { authenticationService } from '@/_services'
 
 export const leadsService = {
     createLead,
@@ -8,9 +9,12 @@ export const leadsService = {
 };
 
 function createLead(first_name, last_name, mobile_phone, email, location_id) {
+    const currentUser = authenticationService.currentUserValue;
     const requestOptions = {
         method: 'POST',
-        headers: authHeader(),
+        headers: { 'Content-Type': 'application/json', 
+                    'Authorization': `Bearer ${currentUser.token}`
+        },
         body: JSON.stringify({ 
                 first_name: first_name,
                 last_name: last_name,
@@ -19,9 +23,11 @@ function createLead(first_name, last_name, mobile_phone, email, location_id) {
                 location_id: location_id
         })
     };
+    console.log(requestOptions);
     return fetch(`${config.apiUrl}/leads`, requestOptions)
-    .then(handleResponse)
+    .then(response => response.json())
     .then(lead =>{
+        console.log(lead)
         return lead;
     });
 }

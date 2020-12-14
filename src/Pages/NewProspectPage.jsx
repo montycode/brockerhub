@@ -1,13 +1,11 @@
 import React from 'react'
-import DatePicker from "react-datepicker"
-import "react-datepicker/dist/react-datepicker.css"
-
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 
-import { authenticationService, locationsService } from '@/_services'
+import { authenticationService, locationsService, leadsService } from '@/_services'
 import { Navbar, AssistButton } from '@/_components'
 import { Link } from 'react-router-dom'
+import { appointmentService } from '../_services/appointment.service'
 
 class NewProspectPage extends React.Component {
     constructor(props) {
@@ -34,6 +32,7 @@ class NewProspectPage extends React.Component {
     render() {
         const { currentUser } = this.state;
         const { location } = this.state;
+        const { id } = this.state;
         return (
             <div className='prospect flex-col'>
                 <div className='prospect__data text-left'>
@@ -44,31 +43,28 @@ class NewProspectPage extends React.Component {
                     <AssistButton classNames={'fill-current text-white w-6 h-6'} />
                     <div className="prospect__container bg-white rounded-tl-2xl pt-8 pr-8 pl-8">
                         <div className="projects overflow-auto overscroll-contain mt-2">
+                            {console.log(location.id)}
                             <Formik
                                 initialValues={{
                                     first_name: '',
                                     last_name: '',
                                     mobile_phone: '',
                                     email: '',
-                                    location_id: location.id,
-                                    location_name: location.name,
-                                    date: new Date(),
-                                    hour: new Date()
+                                    location_id: 0
                                 }}
                                 validationSchema={Yup.object().shape({
                                     first_name: Yup.string().required('*Este campo es requerido'),
                                     last_name: Yup.string().required('*Este campo es requerido'),
                                     mobile_phone: Yup.string().required('*Este campo es requerido'),
-                                    date: Yup.string().required('*Este campo es requerido'),
-                                    hour: Yup.string().required('*Este campo es requerido')
+                                    location_id: Yup.string().required('*Este campo es requerido')
 
                                 })}
-                                onSubmit={({ first_name, last_name, mobile_phone, location_id, location_name}, { setStatus, setSubmitting }) => {
+                                onSubmit={({ first_name, last_name, mobile_phone, location_id, email}, { setStatus, setSubmitting }) => {
                                     setStatus();
-                                    authenticationService.login(email, password).then(
-                                        user => {
-                                            const { from } = this.props.location.state || { from: { pathname: "/" } };
-                                            this.props.history.push(from);
+                                    leadsService.createLead(first_name, last_name, mobile_phone, location_id, email).then(
+                                        lead => {
+                                            console.log(lead);
+                                            setSubmitting(false);
                                         },
                                         error => {
                                             setSubmitting(false);
@@ -76,7 +72,7 @@ class NewProspectPage extends React.Component {
                                         }
                                     );
                                 }}
-                                render={({ errors, status, touched, isSubmitting }) => (
+                                render={({ errors, status, touched, isSubmitting, handleChange }) => (
                                     <Form className="login__form p-6">
                                         <div className="prospect__form grid grid-cols-2">
                                             <div className="col-span-1 p-2">
@@ -95,19 +91,14 @@ class NewProspectPage extends React.Component {
                                                 <ErrorMessage name="mobile_phone" component="div" className="text-red-500 italic" />
                                             </div>
                                             <div className="col-span-2 p-2">
+                                                <label htmlFor="location_id" className="block text-sm font-medium text-gray-700">Proyecto</label>
+                                                <Field type="text" name="location_id" className="mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md" onChange={handleChange} defaultValue={location.id} placeholder={location.id}/>
+                                                <ErrorMessage name="location_id" component="div" className="text-red-500 italic" />
+                                            </div>
+                                            <div className="col-span-2 p-2">
                                                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">Correo Electrónico</label>
                                                 <Field type="email" name="email" className="mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md"/>
                                                 <ErrorMessage name="email" component="div" className="text-red-500 italic" />
-                                            </div>
-                                            <div className="col-span-2 p-2">
-                                                <label htmlFor="date" className="block text-sm font-medium text-gray-700">Fecha</label>
-                                                <Field type="date" name="date" className="mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md"/>
-                                                <ErrorMessage name="date" component="div" className="text-red-500 italic" />
-                                            </div>
-                                            <div className="col-span-2 p-2">
-                                                <label htmlFor="hour" className="block text-sm font-medium text-gray-700">Horario</label>
-                                                <Field type="time" name="hour" className="mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md"/>
-                                                <ErrorMessage name="hour" component="div" className="text-red-500 italic" />
                                             </div>
                                             {status &&
                                                 <div className='text-center italic text-red-500 font-bold p-2'><p>*El prospecto ya se encuentra registrado.</p></div>

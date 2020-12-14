@@ -1,12 +1,12 @@
 import React from 'react'
 import Skeleton from 'react-loading-skeleton'
 import Gravatar from 'react-gravatar'
+import Moment from 'react-moment'
+import 'moment/locale/es-mx'
 
 import { authenticationService, leadsService} from '@/_services'
 import { Navbar } from '@/_components'
 import { Link } from 'react-router-dom'
-
-import Logo from '../assets/img/maskable_icon.png'
 
 class ProspectListPage extends React.Component {
     constructor(props) {
@@ -66,7 +66,7 @@ class ProspectListPage extends React.Component {
                                         </td>
                                     </tr> 
                                     {leads.results ? leads.results.map(lead => 
-                                    <tr className='flex justify-between items-center'>
+                                    <tr key={lead.id} className='flex justify-between items-center'>
                                         <td className='text-xs p-2'>
                                             <Link to={`/prospect/${lead.id}`} className='flex flex-row items-center'>
                                                 <Gravatar email={lead.email || <Skeleton />} className="w-6 h-6 rounded-full bg-gray-100 mr-1" />
@@ -76,7 +76,7 @@ class ProspectListPage extends React.Component {
                                                 </div>
                                             </Link>
                                         </td>
-                                        <td className='text-xs p-2'><Link to={`/prospect/${lead.id}`} >9 Sep 2020 </Link></td>
+                                        <td className='text-xs p-2 capitalize'><Link to={`/prospect/${lead.id}`} >{<Moment locale="es-mx" format="DD MMM YYYY">{lead.created_at}</Moment> || <Skeleton />}</Link></td>
                                     </tr>
                                     ) : <div style={{lineHeight: 3}}><Skeleton count={15} /></div>}                         
                                 </tbody>

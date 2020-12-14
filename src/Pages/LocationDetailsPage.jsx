@@ -54,7 +54,7 @@ class LocationDetailsPage extends React.Component {
                                     <p className='self-center'>Drive</p>                                    
                                 </div>
                             </a>
-                            <Link to='/prospect/new' className="btn-primary text-center uppercase p-2 m-2 w-full">Programar Cita</Link>
+                            <Link to={`/location/${location.id}/new`} className="btn-primary text-center uppercase p-2 m-2 w-full">Programar Cita</Link>
                         </div>
                     </div>
                 </div>

@@ -4,7 +4,7 @@ import { Router, Route, Switch, Redirect  } from 'react-router-dom'
 import { history } from '@/_helpers'
 import { authenticationService } from '@/_services'
 import { PrivateRoute } from '@/_components'
-import { HomePage, LoginPage, LocationsPage, ErrorPage, ProspectListPage, AboutPage,
+import { HomePage, LoginPage, LocationsPage, ErrorPage, ProspectListPage, AboutPage, RegisterPage,
          ProspectPage, NewProspectPage, SuccessPage, ItineraryPage, LocationDetailsPage
         } from '@/Pages'
 
@@ -33,11 +33,12 @@ class App extends React.Component {
                     <PrivateRoute exact path={'/itinerary'} component={ItineraryPage} />
                     <PrivateRoute exact path={'/prospect/:id'} component={ProspectPage} />
                     <PrivateRoute exact path={'/myprospects'} component={ProspectListPage} />
-                    <PrivateRoute exact path={'/prospect/new'} component={NewProspectPage} />
+                    <PrivateRoute exact path={'/location/:id/new'} component={NewProspectPage} />
                     <PrivateRoute exact path={'/error'} component={ErrorPage} />
                     <PrivateRoute exact path={'/success'} component={SuccessPage} />
                     <PrivateRoute exact path={'/about'} component={AboutPage} />
                     <Route path='/login' component={LoginPage} />
+                    <Route path='/register' component={RegisterPage} />
                     <Redirect to={'/'} />
                 </Switch>
             </Router>

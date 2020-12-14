@@ -50,7 +50,7 @@ class ProspectPage extends React.Component {
                     <div className="prospect__info pl-8 pr-8">
                         <div className="overflow-auto overscroll-contain">
                             <div className="p-4 flex space-x-4 text-white text-l items-center">
-                                <Gravatar email={lead.email} className="flex-none w-16 h-16 rounded-full object-cover bg-gray-100" />
+                            {lead !== undefined ? <Gravatar email={lead.email} className="flex-none w-16 h-16 rounded-full object-cover bg-gray-100" /> : <Skeleton rounded={true} />}
                                 <div className="min-w-0 relative flex-auto p-1">
                                     {lead !== undefined ? <h4 className='p-1 font-bold'>{lead.first_name} {lead.last_name}</h4> : <Skeleton />}
                                     <div className="mb-1 mb-1 flex content-center">

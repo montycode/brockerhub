@@ -44,35 +44,35 @@ class NewProspectPage extends React.Component {
                     <div className="prospect__container bg-white rounded-tl-2xl pt-8 pr-8 pl-8">
                         <div className="projects overflow-auto overscroll-contain mt-2">
                             {console.log(location.id)}
-                            <Formik
+                            <Formik enableReinitialize={true}
                                 initialValues={{
                                     first_name: '',
                                     last_name: '',
                                     mobile_phone: '',
-                                    email: '',
-                                    location_id: 0
+                                    location_id: location.id,
+                                    email: ''
                                 }}
                                 validationSchema={Yup.object().shape({
                                     first_name: Yup.string().required('*Este campo es requerido'),
                                     last_name: Yup.string().required('*Este campo es requerido'),
                                     mobile_phone: Yup.string().required('*Este campo es requerido'),
-                                    location_id: Yup.string().required('*Este campo es requerido')
+                                    email: Yup.string().required('*Este campo es requerido')
 
                                 })}
                                 onSubmit={({ first_name, last_name, mobile_phone, location_id, email}, { setStatus, setSubmitting }) => {
                                     setStatus();
                                     leadsService.createLead(first_name, last_name, mobile_phone, location_id, email).then(
                                         lead => {
-                                            console.log(lead);
+                                            console.log("Lead: " + lead);
                                             setSubmitting(false);
                                         },
                                         error => {
                                             setSubmitting(false);
-                                            setStatus(error);
+                                            setStatus("Error: " + error);
                                         }
                                     );
                                 }}
-                                render={({ errors, status, touched, isSubmitting, handleChange }) => (
+                                render={({ errors, status, touched, isSubmitting }) => (
                                     <Form className="login__form p-6">
                                         <div className="prospect__form grid grid-cols-2">
                                             <div className="col-span-1 p-2">
@@ -91,17 +91,12 @@ class NewProspectPage extends React.Component {
                                                 <ErrorMessage name="mobile_phone" component="div" className="text-red-500 italic" />
                                             </div>
                                             <div className="col-span-2 p-2">
-                                                <label htmlFor="location_id" className="block text-sm font-medium text-gray-700">Proyecto</label>
-                                                <Field type="text" name="location_id" className="mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md" onChange={handleChange} defaultValue={location.id} placeholder={location.id}/>
-                                                <ErrorMessage name="location_id" component="div" className="text-red-500 italic" />
-                                            </div>
-                                            <div className="col-span-2 p-2">
                                                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">Correo Electrónico</label>
                                                 <Field type="email" name="email" className="mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md"/>
                                                 <ErrorMessage name="email" component="div" className="text-red-500 italic" />
                                             </div>
                                             {status &&
-                                                <div className='text-center italic text-red-500 font-bold p-2'><p>*El prospecto ya se encuentra registrado.</p></div>
+                                                <div className='text-center italic text-red-500 font-bold p-2'><p>*Este prospecto ya se encuentra registrado.</p></div>
                                             }
                                             {isSubmitting &&
                                                 <div className="flex justify-around p-2">

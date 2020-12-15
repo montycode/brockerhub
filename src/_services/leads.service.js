@@ -8,7 +8,7 @@ export const leadsService = {
     getSingleLead
 };
 
-function createLead(first_name, last_name, mobile_phone, email, location_id) {
+function createLead(first_name, last_name, mobile_phone, location_id, email) {
     const currentUser = authenticationService.currentUserValue;
     const requestOptions = {
         method: 'POST',
@@ -19,17 +19,17 @@ function createLead(first_name, last_name, mobile_phone, email, location_id) {
                 first_name: first_name,
                 last_name: last_name,
                 mobile_phone: mobile_phone,
-                email: email,
-                location_id: location_id
+                location_id: location_id,
+                email: email
         })
     };
     console.log(requestOptions);
     return fetch(`${config.apiUrl}/leads`, requestOptions)
-    .then(response => response.json())
+    .then(handleResponse)
     .then(lead =>{
         console.log(lead)
         return lead;
-    });
+    })
 }
 
 function getLeads() {

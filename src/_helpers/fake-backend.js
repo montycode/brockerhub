@@ -27,7 +27,7 @@ export function configureFakeBackend() {
                         email: user.email,
                         firstName: user.firstName,
                         lastName: user.lastName,
-                        prospects: user.prospects,
+                        leads: user.leads,
                         appointments: user.appointments,
                         gender: user.gender,
                         token: 'fake-jwt-token'

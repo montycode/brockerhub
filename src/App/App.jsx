@@ -4,8 +4,8 @@ import { Router, Route, Switch, Redirect  } from 'react-router-dom'
 import { history } from '@/_helpers'
 import { authenticationService } from '@/_services'
 import { PrivateRoute } from '@/_components'
-import { HomePage, LoginPage, LocationsPage, ErrorPage, ProspectListPage, AboutPage, RegisterPage,
-         ProspectPage, NewProspectPage, SuccessPage, ItineraryPage, LocationDetailsPage
+import { HomePage, LoginPage, LocationsPage, ErrorPage, LeadListPage, AboutPage, RegisterPage,
+    LeadPage, NewLeadPage, SuccessPage, ItineraryPage, LocationDetailsPage
         } from '@/Pages'
 
 import 'tailwindcss/tailwind.css'
@@ -32,9 +32,9 @@ class App extends React.Component {
                     <PrivateRoute exact path={'/locations'} component={LocationsPage} />
                     <PrivateRoute exact path={'/location/:id'} component={LocationDetailsPage} />
                     <PrivateRoute exact path={'/itinerary'} component={ItineraryPage} />
-                    <PrivateRoute exact path={'/prospect/:id'} component={ProspectPage} />
-                    <PrivateRoute exact path={'/myprospects'} component={ProspectListPage} />
-                    <PrivateRoute exact path={'/location/:id/new'} component={NewProspectPage} />
+                    <PrivateRoute exact path={'/lead/:id'} component={LeadPage} />
+                    <PrivateRoute exact path={'/myleads'} component={LeadListPage} />
+                    <PrivateRoute exact path={'/location/:id/new'} component={NewLeadPage} />
                     <PrivateRoute exact path={'/error'} component={ErrorPage} />
                     <PrivateRoute exact path={'/success'} component={SuccessPage} />
                     <PrivateRoute exact path={'/about'} component={AboutPage} />

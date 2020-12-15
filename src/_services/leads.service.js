@@ -1,5 +1,5 @@
 import config from 'config'
-import { authHeader, handleResponse } from '@/_helpers'
+import { authHeader, handleFetch } from '@/_helpers'
 import { authenticationService } from '@/_services'
 
 export const leadsService = {
@@ -25,7 +25,7 @@ function createLead(first_name, last_name, mobile_phone, location_id, email) {
     };
     console.log(requestOptions);
     return fetch(`${config.apiUrl}/leads`, requestOptions)
-    .then(handleResponse)
+    .then(handleFetch)
     .then(lead =>{
         console.log(lead)
         return lead;

@@ -5,7 +5,6 @@ import { authenticationService, leadsService } from '@/_services'
 import { Navbar } from '@/_components'
 import { Link } from 'react-router-dom'
 
-import Logo from '../assets/img/maskable_icon.png'
 import { ProjectSchedules, Schedules } from '../_components'
 import MailIcon from '../_components/icons/MailIcon'
 import PhoneIcon from '../_components/icons/PhoneIcon'

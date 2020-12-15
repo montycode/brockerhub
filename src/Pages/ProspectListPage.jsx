@@ -1,26 +1,40 @@
 import React from 'react'
+import Skeleton from 'react-loading-skeleton'
+import Gravatar from 'react-gravatar'
+import Moment from 'react-moment'
+import 'moment/locale/es-mx'
 
-import { authenticationService } from '@/_services'
+import { authenticationService, leadsService} from '@/_services'
 import { Navbar } from '@/_components'
 import { Link } from 'react-router-dom'
-
-import Logo from '../assets/img/maskable_icon.png'
 
 class ProspectListPage extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            currentUser: authenticationService.currentUserValue
+            currentUser: authenticationService.currentUserValue,
+            loading: true,
+            leads: []
         };
     };
 
     componentDidMount() {
         console.log(this.state);
+        this.getLeads();
+        this.setState({ loading: false })
+        console.log(this.state);
     };    
+
+    getLeads() {
+        leadsService.getLeads()
+        .then(leads => this.setState({ leads }))
+        .catch(err => console.log(err))
+    }
 
     render() {
         const { currentUser } = this.state;
+        const { leads } = this.state;
         return (
             <div className='prospect flex-col'>
                 <div className='prospect__data text-left'>
@@ -50,229 +64,24 @@ class ProspectListPage extends React.Component {
                                         <td className='text-xs text-gray-300 p-2'>
                                             <p>Fecha de Alta</p>
                                         </td>
-                                    </tr>  
-                                    <tr className='flex justify-between items-center'>
+                                    </tr> 
+                                    {leads.results ? leads.results.map(lead => 
+                                    <tr key={lead.id} className='flex justify-between items-center'>
                                         <td className='text-xs p-2'>
-                                            <Link to='/prospect' className='flex flex-row items-center'>
-                                                <img className='fw-6 h-6 rounded-full bg-gray-100' src={Logo} alt="Logo"/>
+                                            <Link to={`/prospect/${lead.id}`} className='flex flex-row items-center'>
+                                                <Gravatar email={lead.email || <Skeleton />} className="w-6 h-6 rounded-full bg-gray-100 mr-1" />
                                                 <div className="data flex-auto">
-                                                    <p>Lina Bo</p>
-                                                    <p className='text-gray-300'>(664) 123-4567</p>
+                                                    <p>{lead.first_name || <Skeleton />} {lead.last_name || <Skeleton />}</p>
+                                                    <p className='text-gray-300'>{lead.mobile_phone || <Skeleton />}</p>
                                                 </div>
                                             </Link>
                                         </td>
-                                        <td className='text-xs p-2'><Link to='/prospect' >9 Sep 2020 </Link></td>
+                                        <td className='text-xs p-2 capitalize'><Link to={`/prospect/${lead.id}`} >{<Moment locale="es-mx" format="DD MMM YYYY">{lead.created_at}</Moment> || <Skeleton />}</Link></td>
                                     </tr>
-                                    <tr className='flex justify-between items-center'>
-                                        <td className='text-xs p-2'>
-                                            <Link to='/prospect' className='flex flex-row items-center'>
-                                                <img className='fw-6 h-6 rounded-full bg-gray-100' src={Logo} alt="Logo"/>
-                                                <div className="data flex-auto">
-                                                    <p>Lina Bo</p>
-                                                    <p className='text-gray-300'>(664) 123-4567</p>
-                                                </div>
-                                            </Link>
-                                        </td>
-                                        <td className='text-xs p-2'><Link to='/prospect' >9 Sep 2020 </Link></td>
-                                    </tr>  
-                                    <tr className='flex justify-between items-center'>
-                                        <td className='text-xs p-2'>
-                                            <Link to='/prospect' className='flex flex-row items-center'>
-                                                <img className='fw-6 h-6 rounded-full bg-gray-100' src={Logo} alt="Logo"/>
-                                                <div className="data flex-auto">
-                                                    <p>Lina Bo</p>
-                                                    <p className='text-gray-300'>(664) 123-4567</p>
-                                                </div>
-                                            </Link>
-                                        </td>
-                                        <td className='text-xs p-2'><Link to='/prospect' >9 Sep 2020 </Link></td>
-                                    </tr>  
-                                    <tr className='flex justify-between items-center'>
-                                        <td className='text-xs p-2'>
-                                            <Link to='/prospect' className='flex flex-row items-center'>
-                                                <img className='fw-6 h-6 rounded-full bg-gray-100' src={Logo} alt="Logo"/>
-                                                <div className="data flex-auto">
-                                                    <p>Lina Bo</p>
-                                                    <p className='text-gray-300'>(664) 123-4567</p>
-                                                </div>
-                                            </Link>
-                                        </td>
-                                        <td className='text-xs p-2'><Link to='/prospect' >9 Sep 2020 </Link></td>
-                                    </tr>  
-                                    <tr className='flex justify-between items-center'>
-                                        <td className='text-xs p-2'>
-                                            <Link to='/prospect' className='flex flex-row items-center'>
-                                                <img className='fw-6 h-6 rounded-full bg-gray-100' src={Logo} alt="Logo"/>
-                                                <div className="data flex-auto">
-                                                    <p>Lina Bo</p>
-                                                    <p className='text-gray-300'>(664) 123-4567</p>
-                                                </div>
-                                            </Link>
-                                        </td>
-                                        <td className='text-xs p-2'><Link to='/prospect' >9 Sep 2020 </Link></td>
-                                    </tr>
-                                    <tr className='flex justify-between items-center'>
-                                        <td className='text-xs p-2'>
-                                            <Link to='/prospect' className='flex flex-row items-center'>
-                                                <img className='fw-6 h-6 rounded-full bg-gray-100' src={Logo} alt="Logo"/>
-                                                <div className="data flex-auto">
-                                                    <p>Lina Bo</p>
-                                                    <p className='text-gray-300'>(664) 123-4567</p>
-                                                </div>
-                                            </Link>
-                                        </td>
-                                        <td className='text-xs p-2'><Link to='/prospect' >9 Sep 2020 </Link></td>
-                                    </tr>  
-                                    <tr className='flex justify-between items-center'>
-                                        <td className='text-xs p-2'>
-                                            <Link to='/prospect' className='flex flex-row items-center'>
-                                                <img className='fw-6 h-6 rounded-full bg-gray-100' src={Logo} alt="Logo"/>
-                                                <div className="data flex-auto">
-                                                    <p>Lina Bo</p>
-                                                    <p className='text-gray-300'>(664) 123-4567</p>
-                                                </div>
-                                            </Link>
-                                        </td>
-                                        <td className='text-xs p-2'><Link to='/prospect' >9 Sep 2020 </Link></td>
-                                    </tr>  
-                                    <tr className='flex justify-between items-center'>
-                                        <td className='text-xs p-2'>
-                                            <Link to='/prospect' className='flex flex-row items-center'>
-                                                <img className='fw-6 h-6 rounded-full bg-gray-100' src={Logo} alt="Logo"/>
-                                                <div className="data flex-auto">
-                                                    <p>Lina Bo</p>
-                                                    <p className='text-gray-300'>(664) 123-4567</p>
-                                                </div>
-                                            </Link>
-                                        </td>
-                                        <td className='text-xs p-2'><Link to='/prospect' >9 Sep 2020 </Link></td>
-                                    </tr>  
-                                    <tr className='flex justify-between items-center'>
-                                        <td className='text-xs p-2'>
-                                            <Link to='/prospect' className='flex flex-row items-center'>
-                                                <img className='fw-6 h-6 rounded-full bg-gray-100' src={Logo} alt="Logo"/>
-                                                <div className="data flex-auto">
-                                                    <p>Lina Bo</p>
-                                                    <p className='text-gray-300'>(664) 123-4567</p>
-                                                </div>
-                                            </Link>
-                                        </td>
-                                        <td className='text-xs p-2'><Link to='/prospect' >9 Sep 2020 </Link></td>
-                                    </tr>  
-                                    <tr className='flex justify-between items-center'>
-                                        <td className='text-xs p-2'>
-                                            <Link to='/prospect' className='flex flex-row items-center'>
-                                                <img className='fw-6 h-6 rounded-full bg-gray-100' src={Logo} alt="Logo"/>
-                                                <div className="data flex-auto">
-                                                    <p>Lina Bo</p>
-                                                    <p className='text-gray-300'>(664) 123-4567</p>
-                                                </div>
-                                            </Link>
-                                        </td>
-                                        <td className='text-xs p-2'><Link to='/prospect' >9 Sep 2020 </Link></td>
-                                    </tr>  
-                                    <tr className='flex justify-between items-center'>
-                                        <td className='text-xs p-2'>
-                                            <Link to='/prospect' className='flex flex-row items-center'>
-                                                <img className='fw-6 h-6 rounded-full bg-gray-100' src={Logo} alt="Logo"/>
-                                                <div className="data flex-auto">
-                                                    <p>Lina Bo</p>
-                                                    <p className='text-gray-300'>(664) 123-4567</p>
-                                                </div>
-                                            </Link>
-                                        </td>
-                                        <td className='text-xs p-2'><Link to='/prospect' >9 Sep 2020 </Link></td>
-                                    </tr>  
-                                    <tr className='flex justify-between items-center'>
-                                        <td className='text-xs p-2'>
-                                            <Link to='/prospect' className='flex flex-row items-center'>
-                                                <img className='fw-6 h-6 rounded-full bg-gray-100' src={Logo} alt="Logo"/>
-                                                <div className="data flex-auto">
-                                                    <p>Lina Bo</p>
-                                                    <p className='text-gray-300'>(664) 123-4567</p>
-                                                </div>
-                                            </Link>
-                                        </td>
-                                        <td className='text-xs p-2'><Link to='/prospect' >9 Sep 2020 </Link></td>
-                                    </tr>  
-                                    <tr className='flex justify-between items-center'>
-                                        <td className='text-xs p-2'>
-                                            <Link to='/prospect' className='flex flex-row items-center'>
-                                                <img className='fw-6 h-6 rounded-full bg-gray-100' src={Logo} alt="Logo"/>
-                                                <div className="data flex-auto">
-                                                    <p>Lina Bo</p>
-                                                    <p className='text-gray-300'>(664) 123-4567</p>
-                                                </div>
-                                            </Link>
-                                        </td>
-                                        <td className='text-xs p-2'><Link to='/prospect' >9 Sep 2020 </Link></td>
-                                    </tr>  
-                                    <tr className='flex justify-between items-center'>
-                                        <td className='text-xs p-2'>
-                                            <Link to='/prospect' className='flex flex-row items-center'>
-                                                <img className='fw-6 h-6 rounded-full bg-gray-100' src={Logo} alt="Logo"/>
-                                                <div className="data flex-auto">
-                                                    <p>Lina Bo</p>
-                                                    <p className='text-gray-300'>(664) 123-4567</p>
-                                                </div>
-                                            </Link>
-                                        </td>
-                                        <td className='text-xs p-2'><Link to='/prospect' >9 Sep 2020 </Link></td>
-                                    </tr>  
-                                    <tr className='flex justify-between items-center'>
-                                        <td className='text-xs p-2'>
-                                            <Link to='/prospect' className='flex flex-row items-center'>
-                                                <img className='fw-6 h-6 rounded-full bg-gray-100' src={Logo} alt="Logo"/>
-                                                <div className="data flex-auto">
-                                                    <p>Lina Bo</p>
-                                                    <p className='text-gray-300'>(664) 123-4567</p>
-                                                </div>
-                                            </Link>
-                                        </td>
-                                        <td className='text-xs p-2'><Link to='/prospect' >9 Sep 2020 </Link></td>
-                                    </tr>  
-                                    <tr className='flex justify-between items-center'>
-                                        <td className='text-xs p-2'>
-                                            <Link to='/prospect' className='flex flex-row items-center'>
-                                                <img className='fw-6 h-6 rounded-full bg-gray-100' src={Logo} alt="Logo"/>
-                                                <div className="data flex-auto">
-                                                    <p>Lina Bo</p>
-                                                    <p className='text-gray-300'>(664) 123-4567</p>
-                                                </div>
-                                            </Link>
-                                        </td>
-                                        <td className='text-xs p-2'><Link to='/prospect' >9 Sep 2020 </Link></td>
-                                    </tr>  
-                                    <tr className='flex justify-between items-center'>
-                                        <td className='text-xs p-2'>
-                                            <Link to='/prospect' className='flex flex-row items-center'>
-                                                <img className='fw-6 h-6 rounded-full bg-gray-100' src={Logo} alt="Logo"/>
-                                                <div className="data flex-auto">
-                                                    <p>Lina Bo</p>
-                                                    <p className='text-gray-300'>(664) 123-4567</p>
-                                                </div>
-                                            </Link>
-                                        </td>
-                                        <td className='text-xs p-2'><Link to='/prospect' >9 Sep 2020 </Link></td>
-                                    </tr>  
-                                    <tr className='flex justify-between items-center'>
-                                        <td className='text-xs p-2'>
-                                            <Link to='/prospect' className='flex flex-row items-center'>
-                                                <img className='fw-6 h-6 rounded-full bg-gray-100' src={Logo} alt="Logo"/>
-                                                <div className="data flex-auto">
-                                                    <p>Lina Bo</p>
-                                                    <p className='text-gray-300'>(664) 123-4567</p>
-                                                </div>
-                                            </Link>
-                                        </td>
-                                        <td className='text-xs p-2'><Link to='/prospect' >9 Sep 2020 </Link></td>
-                                    </tr>                                    
+                                    ) : <div style={{lineHeight: 3}}><Skeleton count={15} /></div>}                         
                                 </tbody>
                             </table>
-                        </div>                        
-                        <div className="actions container flex flex-col p-4 text-white">
-                            <Link to='/prospect' className="btn-primary text-center uppercase p-2 m-2">Continuar</Link>
-                        </div>                     
+                        </div>                   
                     </div>
                 </div>
             </div>

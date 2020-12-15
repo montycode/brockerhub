@@ -1,14 +1,14 @@
 import React from 'react'
-import { Router, Route } from 'react-router-dom'
+import { Router, Route, Switch, Redirect  } from 'react-router-dom'
 
 import { history } from '@/_helpers'
 import { authenticationService } from '@/_services'
 import { PrivateRoute } from '@/_components'
-import { HomePage, LoginPage, DevelopmentPage, ErrorPage, ProspectListPage, AboutPage,
-         ProspectPage, NewProspectPage, SuccessPage, ItineraryPage, DevelopmentDetailsPage
+import { HomePage, LoginPage, LocationsPage, ErrorPage, ProspectListPage, AboutPage, RegisterPage,
+         ProspectPage, NewProspectPage, SuccessPage, ItineraryPage, LocationDetailsPage
         } from '@/Pages'
 
-import "tailwindcss/tailwind.css"
+import 'tailwindcss/tailwind.css'
 
 class App extends React.Component {
     constructor(props) {
@@ -26,17 +26,21 @@ class App extends React.Component {
     render() {
         return (
             <Router history={history}>
-                <PrivateRoute exact path="/" component={HomePage} />
-                <PrivateRoute exact path="/appointments" component={DevelopmentPage} />
-                <PrivateRoute exact path="/project" component={DevelopmentDetailsPage} />
-                <PrivateRoute exact path="/itinerary" component={ItineraryPage} />
-                <PrivateRoute exact path="/prospect" component={ProspectPage} />
-                <PrivateRoute exact path="/myprospects" component={ProspectListPage} />
-                <PrivateRoute exact path="/prospect/new" component={NewProspectPage} />
-                <PrivateRoute exact path="/error" component={ErrorPage} />
-                <PrivateRoute exact path="/success" component={SuccessPage} />
-                <PrivateRoute exact path="/about" component={AboutPage} />
-                <Route path="/login" component={LoginPage} />
+                <Switch>
+                    <PrivateRoute exact path={'/'} component={HomePage} />
+                    <PrivateRoute exact path={'/locations'} component={LocationsPage} />
+                    <PrivateRoute exact path={'/location/:id'} component={LocationDetailsPage} />
+                    <PrivateRoute exact path={'/itinerary'} component={ItineraryPage} />
+                    <PrivateRoute exact path={'/prospect/:id'} component={ProspectPage} />
+                    <PrivateRoute exact path={'/myprospects'} component={ProspectListPage} />
+                    <PrivateRoute exact path={'/location/:id/new'} component={NewProspectPage} />
+                    <PrivateRoute exact path={'/error'} component={ErrorPage} />
+                    <PrivateRoute exact path={'/success'} component={SuccessPage} />
+                    <PrivateRoute exact path={'/about'} component={AboutPage} />
+                    <Route path='/login' component={LoginPage} />
+                    <Route path='/register' component={RegisterPage} />
+                    <Redirect to={'/'} />
+                </Switch>
             </Router>
         );
     }

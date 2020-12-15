@@ -1,27 +1,34 @@
 import React from 'react'
+import Skeleton from 'react-loading-skeleton'
 
-import { authenticationService } from '@/_services'
+import { authenticationService, locationsService } from '@/_services'
 import { Navbar, AssistButton } from '@/_components'
 import { Link } from 'react-router-dom'
 
-import Project_One from '../assets/img/projects/project_1.jpg'
-import DriveIcon from '../assets/img/drive.png'
-
-class DevelopmentDetailsPage extends React.Component {
+class LocationDetailsPage extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            id: this.props.match.params.id,
             currentUser: authenticationService.currentUserValue,
+            location: []
         };
     }
 
     componentDidMount() {
-        console.log(this.state);
+        this.getLocation();
     };
+
+    getLocation(){
+        locationsService.getSingleLocation(this.state.id)
+        .then(location => this.setState({ location }))
+        .catch(err => console.log(err))
+    }
 
     render() {
         const { currentUser } = this.state;
+        const { location } = this.state;
         return (
             <div className="prospect flex-col">
                 <div className="prospect__data text-left">
@@ -33,21 +40,21 @@ class DevelopmentDetailsPage extends React.Component {
                     <div className="prospect__container bg-white rounded-tl-2xl pt-8 pr-8 pl-8">
                         <div className="projects overflow-auto overscroll-contain mt-2">
                             <div className="project__image w-full mx-auto">
-                                <img className="object-cover" src={Project_One} alt="Project Image"/>
+                                <img className="object-cover" src={location.picture || <Skeleton circle={true} height={500} width={500} />} alt="Project Image"/>
                             </div>
-                            <h2 className="project__title mt-2 mb-4 font-bold">Project Name</h2>
-                            <p className="project__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer a est lorem. Fusce tristique ligula sit amet felis fermentum, non congue magna pretium. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ut risus ac ex sollicitudin mollis. Nulla ut auctor odio, et vehicula est.</p>
+                            <h2 className="project__title mt-2 mb-4 font-bold">{location.name || <Skeleton height={25} />}</h2> 
+                            <p className="project__description">{location.description || <Skeleton count={10} />}</p>
                         </div>                
                         <div className="actions w-full flex flex-row text-white uppercase font-bold">
-                            <a href='https://www.google.com/intl/es-419_ve/drive/' className="bg-gray-200 p-2 m-2 text-center rounded text-gray-500 text-xs">
+                            <a href={location.drive_url} className="bg-gray-200 p-2 m-2 text-center rounded text-gray-500 text-xs">
                                 <div className="flex content-center">
-                                    <div className="drive_img w-6">
-                                        <img className='object-cover' src={DriveIcon} alt="Google Drive"/>
+                                    <div className="drive_img w-4 m-1">
+                                        <img className='object-cover' src="https://cdn1.iconfinder.com/data/icons/logotypes/32/google-drive-512.png" alt="Google Drive"/>
                                     </div>
                                     <p className='self-center'>Drive</p>                                    
                                 </div>
                             </a>
-                            <Link to='/prospect/new' className="btn-primary text-center uppercase p-2 m-2 w-full">Programar Cita</Link>
+                            <Link to={`/location/${location.id}/new`} className="btn-primary text-center uppercase p-2 m-2 w-full">Programar Cita</Link>
                         </div>
                     </div>
                 </div>
@@ -56,4 +63,4 @@ class DevelopmentDetailsPage extends React.Component {
     }
 }
 
-export { DevelopmentDetailsPage };
+export { LocationDetailsPage };

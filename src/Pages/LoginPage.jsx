@@ -1,6 +1,7 @@
 import React from 'react'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
+import { Link } from 'react-router-dom'
 
 import { authenticationService } from '@/_services'
 import '../styles/login.css'
@@ -84,7 +85,7 @@ class LoginPage extends React.Component {
                                     </div>
                                 </div>
                                 <p className='text-center p-2 font-bold'>No cuentas con acceso?</p>
-                                <button className='btn uppercase p-2 m-2 font-bold text-white'>Crear cuenta</button>
+                                <Link to={'/register'} className='btn uppercase p-2 m-2 font-bold text-white text-center'>Crear cuenta</Link>
                             </div>
                         </div>
                     )}

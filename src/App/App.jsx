@@ -9,6 +9,7 @@ import { HomePage, LoginPage, LocationsPage, ErrorPage, ProspectListPage, AboutP
         } from '@/Pages'
 
 import 'tailwindcss/tailwind.css'
+import 'react-widgets/dist/css/react-widgets.css'
 
 class App extends React.Component {
     constructor(props) {

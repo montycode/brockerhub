@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { authenticationService, leadsService } from '@/_services'
+import { authenticationService, leadsService, appointmentService } from '@/_services'
 import { Navbar, AssistButton } from '@/_components'
 import UserIcon from '../_components/icons/UserIcon'
 import AttendanceIcon from '../_components/icons/AttendanceIcon'
@@ -21,6 +21,7 @@ class HomePage extends React.Component {
 
     componentDidMount() {
         this.getLeads();
+        this.getAppointments();
         this.setState({ loading: false })
         console.log(this.state);
     };
@@ -28,6 +29,12 @@ class HomePage extends React.Component {
     getLeads() {
         leadsService.getLeads()
         .then(leads => this.setState({ leads }))
+        .catch(err => console.log(err))
+    }
+
+    getAppointments() {
+        appointmentService.getAppointments()
+        .then(appointments => this.setState({ appointments }))
         .catch(err => console.log(err))
     }
 

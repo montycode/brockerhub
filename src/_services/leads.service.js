@@ -27,6 +27,7 @@ function createLead(first_name, last_name, mobile_phone, location_id, email) {
     return fetch(`${config.apiUrl}/leads`, requestOptions)
     .then(handleFetch)
     .then(lead =>{
+        lead = lead.results;
         console.log(lead)
         return lead;
     })
@@ -48,9 +49,10 @@ function getSingleLead(id) {
     .then(response => response.json())
     .then(leads => {
         leads = leads.results;
-        leads.filter(lead =>{
+        leads.filter(lead => {
             lead.id === id;
             leads = lead
+            console.log(lead);
             return lead;
         })
         return leads;

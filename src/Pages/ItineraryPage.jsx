@@ -1,8 +1,9 @@
 import React from 'react'
-import DayPickerInput from 'react-day-picker/DayPickerInput'
+import Skeleton from 'react-loading-skeleton'
 import 'react-day-picker/lib/style.css'
+import Moment from 'react-moment'
 
-import { authenticationService } from '@/_services'
+import { authenticationService, appointmentService } from '@/_services'
 import { Navbar, AssistButton } from '@/_components'
 import { Link } from 'react-router-dom';
 
@@ -12,22 +13,23 @@ class ItineraryPage extends React.Component {
 
         this.state = {
             currentUser: authenticationService.currentUserValue,
-            selectedDay: undefined
+            appointments: []
         };
-
-        this.handleDayChange = this.handleDayChange.bind(this);
-    };
-
-    handleDayChange(day) {
-        this.setState({ selectedDay: day });
     };
 
     componentDidMount() {
-        console.log(this.state);
-    };    
+        this.getAppointments();
+    };
+
+    getAppointments() {
+        appointmentService.getAppointments()
+        .then(appointments => this.setState({ appointments }))
+        .catch(err => console.log(err))
+    }
 
     render() {
         const { currentUser } = this.state;
+        const { appointments } = this.state;
         return (
             <div className='prospect flex-col'>
                 <div className='prospect__data text-left'>
@@ -37,151 +39,24 @@ class ItineraryPage extends React.Component {
                     </div>
                     <AssistButton classNames='fill-current text-white w-6 h-6' />
                     <div className="prospect__container bg-white rounded-tl-2xl pt-8 pr-8 pl-8">
-                        <DayPickerInput classNames='mt-2' onDayChange={this.handleDayChange} />
                         <div className="projects overflow-auto overscroll-contain">
                             <table className='table-auto flex container'>
-                                <tbody className='container flex flex-col'>
-                                    <tr className='flex justify-between'>
-                                        <td className='font-bold text-l p-2'>9:00 AM</td>
-                                        <td className='text-xs p-2'>
-                                            <p>Lina Bo</p>
-                                            <p className='text-gray-300'>City Point</p>
-                                        </td>
-                                        <td className='text-xs p-2'>5 Nov 2020</td>
-                                    </tr>
-                                    <tr className='flex justify-between'>
-                                        <td className='font-bold text-l p-2'>9:00 AM</td>
-                                        <td className='text-xs p-2'>
-                                            <p>Lina Bo</p>
-                                            <p className='text-gray-300'>City Point</p>
-                                        </td>
-                                        <td className='text-xs p-2'>5 Nov 2020</td>
-                                    </tr>
-                                    <tr className='flex justify-between'>
-                                        <td className='font-bold text-l p-2'>9:00 AM</td>
-                                        <td className='text-xs p-2'>
-                                            <p>Lina Bo</p>
-                                            <p className='text-gray-300'>City Point</p>
-                                        </td>
-                                        <td className='text-xs p-2'>5 Nov 2020</td>
-                                    </tr>
-                                    <tr className='flex justify-between'>
-                                        <td className='font-bold text-l p-2'>9:00 AM</td>
-                                        <td className='text-xs p-2'>
-                                            <p>Lina Bo</p>
-                                            <p className='text-gray-300'>City Point</p>
-                                        </td>
-                                        <td className='text-xs p-2'>5 Nov 2020</td>
-                                    </tr>
-                                    <tr className='flex justify-between'>
-                                        <td className='font-bold text-l p-2'>9:00 AM</td>
-                                        <td className='text-xs p-2'>
-                                            <p>Lina Bo</p>
-                                            <p className='text-gray-300'>City Point</p>
-                                        </td>
-                                        <td className='text-xs p-2'>5 Nov 2020</td>
-                                    </tr>
-                                    <tr className='flex justify-between'>
-                                        <td className='font-bold text-l p-2'>9:00 AM</td>
-                                        <td className='text-xs p-2'>
-                                            <p>Lina Bo</p>
-                                            <p className='text-gray-300'>City Point</p>
-                                        </td>
-                                        <td className='text-xs p-2'>5 Nov 2020</td>
-                                    </tr>
-                                    <tr className='flex justify-between'>
-                                        <td className='font-bold text-l p-2'>9:00 AM</td>
-                                        <td className='text-xs p-2'>
-                                            <p>Lina Bo</p>
-                                            <p className='text-gray-300'>City Point</p>
-                                        </td>
-                                        <td className='text-xs p-2'>5 Nov 2020</td>
-                                    </tr>
-                                    <tr className='flex justify-between'>
-                                        <td className='font-bold text-l p-2'>9:00 AM</td>
-                                        <td className='text-xs p-2'>
-                                            <p>Lina Bo</p>
-                                            <p className='text-gray-300'>City Point</p>
-                                        </td>
-                                        <td className='text-xs p-2'>5 Nov 2020</td>
-                                    </tr>
-                                    <tr className='flex justify-between'>
-                                        <td className='font-bold text-l p-2'>9:00 AM</td>
-                                        <td className='text-xs p-2'>
-                                            <p>Lina Bo</p>
-                                            <p className='text-gray-300'>City Point</p>
-                                        </td>
-                                        <td className='text-xs p-2'>5 Nov 2020</td>
-                                    </tr>
-                                    <tr className='flex justify-between'>
-                                        <td className='font-bold text-l p-2'>9:00 AM</td>
-                                        <td className='text-xs p-2'>
-                                            <p>Lina Bo</p>
-                                            <p className='text-gray-300'>City Point</p>
-                                        </td>
-                                        <td className='text-xs p-2'>5 Nov 2020</td>
-                                    </tr>
-                                    <tr className='flex justify-between'>
-                                        <td className='font-bold text-l p-2'>9:00 AM</td>
-                                        <td className='text-xs p-2'>
-                                            <p>Lina Bo</p>
-                                            <p className='text-gray-300'>City Point</p>
-                                        </td>
-                                        <td className='text-xs p-2'>5 Nov 2020</td>
-                                    </tr>
-                                    <tr className='flex justify-between'>
-                                        <td className='font-bold text-l p-2'>9:00 AM</td>
-                                        <td className='text-xs p-2'>
-                                            <p>Lina Bo</p>
-                                            <p className='text-gray-300'>City Point</p>
-                                        </td>
-                                        <td className='text-xs p-2'>5 Nov 2020</td>
-                                    </tr>
-                                    <tr className='flex justify-between'>
-                                        <td className='font-bold text-l p-2'>9:00 AM</td>
-                                        <td className='text-xs p-2'>
-                                            <p>Lina Bo</p>
-                                            <p className='text-gray-300'>City Point</p>
-                                        </td>
-                                        <td className='text-xs p-2'>5 Nov 2020</td>
-                                    </tr>
-                                    <tr className='flex justify-between'>
-                                        <td className='font-bold text-l p-2'>9:00 AM</td>
-                                        <td className='text-xs p-2'>
-                                            <p>Lina Bo</p>
-                                            <p className='text-gray-300'>City Point</p>
-                                        </td>
-                                        <td className='text-xs p-2'>5 Nov 2020</td>
-                                    </tr>
-                                    <tr className='flex justify-between'>
-                                        <td className='font-bold text-l p-2'>9:00 AM</td>
-                                        <td className='text-xs p-2'>
-                                            <p>Lina Bo</p>
-                                            <p className='text-gray-300'>City Point</p>
-                                        </td>
-                                        <td className='text-xs p-2'>5 Nov 2020</td>
-                                    </tr>
-                                    <tr className='flex justify-between'>
-                                        <td className='font-bold text-l p-2'>9:00 AM</td>
-                                        <td className='text-xs p-2'>
-                                            <p>Lina Bo</p>
-                                            <p className='text-gray-300'>City Point</p>
-                                        </td>
-                                        <td className='text-xs p-2'>5 Nov 2020</td>
-                                    </tr>
-                                    <tr className='flex justify-between'>
-                                        <td className='font-bold text-l p-2'>9:00 AM</td>
-                                        <td className='text-xs p-2'>
-                                            <p>Lina Bo</p>
-                                            <p className='text-gray-300'>City Point</p>
-                                        </td>
-                                        <td className='text-xs p-2'>5 Nov 2020</td>
-                                    </tr>
+                                <tbody className='container flex flex-col'>                                    
+                                    {appointments.results ? appointments.results.map(appointment =>
+                                        <tr key={appointment.id} className='flex justify-between'>
+                                            <td className='font-bold text-l p-2'><Moment format="h:mm A">{appointment.reservation_date}</Moment></td>
+                                            <td className='text-xs p-2'>
+                                                <p>{appointment.lead_name}</p>
+                                                <p className='text-gray-300'>{appointment.location_name}</p>
+                                            </td>
+                                            <td className='text-xs p-2 capitalize'><Moment locale="es-mx" format="DD MMM YYYY">{appointment.reservation_date}</Moment></td>
+                                        </tr>
+                                    ) : <Skeleton count={15} />}    
                                 </tbody>
                             </table>
                         </div>                        
                         <div className="actions container flex flex-col p-4 text-white">
-                            <Link to='/appointments' className="btn-primary text-center uppercase p-2 m-2">PROGRAMAR CITA</Link>
+                            <Link to='/locations' className="btn-primary text-center uppercase p-2 m-2">PROGRAMAR CITA</Link>
                         </div>                     
                     </div>
                 </div>

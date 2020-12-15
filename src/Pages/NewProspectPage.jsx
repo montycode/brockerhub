@@ -1,11 +1,17 @@
 import React from 'react'
+import DateTimePicker from 'react-widgets/lib/DateTimePicker'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
+
+import momentLocalizer from 'react-widgets-moment'
+import moment from 'moment'
+
+
+momentLocalizer()
+
 import * as Yup from 'yup'
 
-import { authenticationService, locationsService, leadsService } from '@/_services'
+import { authenticationService, locationsService, leadsService, appointmentService } from '@/_services'
 import { Navbar, AssistButton } from '@/_components'
-import { Link } from 'react-router-dom'
-import { appointmentService } from '../_services/appointment.service'
 
 class NewProspectPage extends React.Component {
     constructor(props) {
@@ -32,7 +38,6 @@ class NewProspectPage extends React.Component {
     render() {
         const { currentUser } = this.state;
         const { location } = this.state;
-        const { id } = this.state;
         return (
             <div className='prospect flex-col'>
                 <div className='prospect__data text-left'>
@@ -50,25 +55,39 @@ class NewProspectPage extends React.Component {
                                     last_name: '',
                                     mobile_phone: '',
                                     location_id: location.id,
-                                    email: ''
+                                    email: '',
+                                    reservation_date: new Date()
                                 }}
                                 validationSchema={Yup.object().shape({
                                     first_name: Yup.string().required('*Este campo es requerido'),
                                     last_name: Yup.string().required('*Este campo es requerido'),
                                     mobile_phone: Yup.string().required('*Este campo es requerido'),
-                                    email: Yup.string().required('*Este campo es requerido')
+                                    email: Yup.string().required('*Este campo es requerido'),
+                                    reservation_date: Yup.string().required('*Este campo es requerido')
 
                                 })}
-                                onSubmit={({ first_name, last_name, mobile_phone, location_id, email}, { setStatus, setSubmitting }) => {
+                                onSubmit={({ first_name, last_name, mobile_phone, location_id, email, reservation_date}, { setStatus, setSubmitting }) => {
                                     setStatus();
                                     leadsService.createLead(first_name, last_name, mobile_phone, location_id, email).then(
                                         lead => {
-                                            console.log("Lead: " + lead);
-                                            setSubmitting(false);
+                                            let lead_id = lead.id;
+                                            location_id = location.id;
+                                            let parseDate = moment(reservation_date).format();
+                                            reservation_date = parseDate;
+                                            console.log("Lead: " + lead_id + "Location: " + location_id + "Date: " + reservation_date);
+                                            appointmentService.createAppointment(location_id, reservation_date, lead_id).then(
+                                                appointment =>{
+                                                    this.props.history.push('/success');
+                                                },
+                                                error =>{
+                                                    setSubmitting(false);
+                                                    setStatus(error);
+                                                }
+                                            )
                                         },
                                         error => {
                                             setSubmitting(false);
-                                            setStatus("Error: " + error);
+                                            setStatus(error);
                                         }
                                     );
                                 }}
@@ -94,6 +113,18 @@ class NewProspectPage extends React.Component {
                                                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">Correo Electrónico</label>
                                                 <Field type="email" name="email" className="mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md"/>
                                                 <ErrorMessage name="email" component="div" className="text-red-500 italic" />
+                                            </div>
+                                            <div className="col-span-2 p-2">
+                                                <label htmlFor="reservation_date" className="block text-sm font-medium text-gray-700">Fecha y Hora</label>
+                                                <DateTimePicker
+                                                    containerClassName='mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md'
+                                                    name="reservation_date"
+                                                    min={new Date()}
+                                                    format={"yyyy-MM-DD HH:mm"}
+                                                    step={30}
+                                                    defaultValue={new Date()}                                                    
+                                                />
+                                                <ErrorMessage name="reservation_date" component="div" className="text-red-500 italic" />
                                             </div>
                                             {status &&
                                                 <div className='text-center italic text-red-500 font-bold col-span-2 p-2'><p>*Este prospecto ya se encuentra registrado.</p></div>

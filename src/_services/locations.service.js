@@ -21,7 +21,6 @@ function getSingleLocation(id) {
     .then(response => response.json())
     .then(location => {
         location = location.results[id-1];
-        console.log(location);
         return location;
     });
 }

@@ -8,7 +8,7 @@ import { authenticationService, leadsService} from '@/_services'
 import { Navbar } from '@/_components'
 import { Link } from 'react-router-dom'
 
-class ProspectListPage extends React.Component {
+class LeadListPage extends React.Component {
     constructor(props) {
         super(props);
 
@@ -20,10 +20,8 @@ class ProspectListPage extends React.Component {
     };
 
     componentDidMount() {
-        console.log(this.state);
         this.getLeads();
         this.setState({ loading: false })
-        console.log(this.state);
     };    
 
     getLeads() {
@@ -68,7 +66,7 @@ class ProspectListPage extends React.Component {
                                     {leads.results ? leads.results.map(lead => 
                                     <tr key={lead.id} className='flex justify-between items-center'>
                                         <td className='text-xs p-2'>
-                                            <Link to={`/prospect/${lead.id}`} className='flex flex-row items-center'>
+                                            <Link to={`/lead/${lead.id}`} className='flex flex-row items-center'>
                                                 <Gravatar email={lead.email || <Skeleton />} className="w-6 h-6 rounded-full bg-gray-100 mr-1" />
                                                 <div className="data flex-auto">
                                                     <p>{lead.first_name || <Skeleton />} {lead.last_name || <Skeleton />}</p>
@@ -76,7 +74,7 @@ class ProspectListPage extends React.Component {
                                                 </div>
                                             </Link>
                                         </td>
-                                        <td className='text-xs p-2 capitalize'><Link to={`/prospect/${lead.id}`} >{<Moment locale="es-mx" format="DD MMM YYYY">{lead.created_at}</Moment> || <Skeleton />}</Link></td>
+                                        <td className='text-xs p-2 capitalize'><Link to={`/lead/${lead.id}`} >{<Moment locale="es-mx" format="DD MMM YYYY">{lead.created_at}</Moment> || <Skeleton />}</Link></td>
                                     </tr>
                                     ) : <div style={{lineHeight: 3}}><Skeleton count={15} /></div>}                         
                                 </tbody>
@@ -89,4 +87,4 @@ class ProspectListPage extends React.Component {
     }
 }
 
-export { ProspectListPage };
+export { LeadListPage };

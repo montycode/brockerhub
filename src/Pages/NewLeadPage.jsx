@@ -13,7 +13,7 @@ import * as Yup from 'yup'
 import { authenticationService, locationsService, leadsService, appointmentService } from '@/_services'
 import { Navbar, AssistButton } from '@/_components'
 
-class NewProspectPage extends React.Component {
+class NewLeadPage extends React.Component {
     constructor(props) {
         super(props);
 
@@ -154,4 +154,4 @@ class NewProspectPage extends React.Component {
     }
 }
 
-export { NewProspectPage };
+export { NewLeadPage };

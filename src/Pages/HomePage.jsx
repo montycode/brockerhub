@@ -15,15 +15,16 @@ class HomePage extends React.Component {
             currentUser: authenticationService.currentUserValue,
             loading: true,
             appointments: [],
-            leads: []
+            leads: [],
+            todayBookings: []
         };
     }
 
     componentDidMount() {
         this.getLeads();
         this.getAppointments();
+        this.getTodayBookings();
         this.setState({ loading: false })
-        console.log(this.state);
     };
 
     getLeads() {
@@ -37,11 +38,20 @@ class HomePage extends React.Component {
         .then(appointments => this.setState({ appointments }))
         .catch(err => console.log(err))
     }
+    
+
+    getTodayBookings() {
+        let date = new Date();
+        appointmentService.getTodayAppointments(date)
+        .then(res => this.setState({ todayBookings: res }))
+        .catch(err => console.log(err))
+    }
 
     render() {
         const { currentUser } = this.state;
         const { leads } = this.state;
         const { appointments } = this.state;
+        const { todayBookings } = this.state;
         return (
             <div className="profile flex-col">
                 {currentUser && <Navbar /> }
@@ -54,7 +64,7 @@ class HomePage extends React.Component {
                     <AssistButton classNames='fill-current text-white w-6 h-6' />
                     <p className="p-4 mt-6">Tus numeros</p>
                     <div className="schedules__data p-2 flex">
-                        <Link to='/myprospects' className="prospects container rounded-xl p-2 bg-white m-2">
+                        <Link to='/myleads' className="prospects container rounded-xl p-2 bg-white m-2">
                             <div className="icon inline-block p-2">
                                 <UserIcon color={'orange large'} />
                             </div>
@@ -77,7 +87,7 @@ class HomePage extends React.Component {
                         <div className="activities text-white text-center rounded-tl-2xl pb-8 pt-8">
                             <div className="activities__info">
                                 <p>Hoy tienes programadas</p>
-                                <h4 className="font-bold text-3xl">{appointments.results ? appointments.results.length : 0} Citas</h4>
+                                <h4 className="font-bold text-3xl">{todayBookings ? todayBookings.length : 0} {todayBookings.length == 1 ? 'Cita' : 'Citas'}</h4>
                             </div>
                             <div className="activities__actions container flex flex-col p-4 uppercase">
                                 <Link to='/itinerary' className="btn uppercase p-2 m-2">CONSULTAR ITINERARIO</Link>

@@ -1,7 +1,8 @@
 import React from 'react'
 import Skeleton from 'react-loading-skeleton'
+import Moment from 'react-moment'
 
-import { authenticationService, leadsService } from '@/_services'
+import { authenticationService, leadsService, appointmentService } from '@/_services'
 import { Navbar } from '@/_components'
 import { Link } from 'react-router-dom'
 
@@ -10,7 +11,7 @@ import MailIcon from '../_components/icons/MailIcon'
 import PhoneIcon from '../_components/icons/PhoneIcon'
 import Gravatar from 'react-gravatar'
 
-class ProspectPage extends React.Component {
+class LeadPage extends React.Component {
     constructor(props) {
         super(props);
 
@@ -18,24 +19,32 @@ class ProspectPage extends React.Component {
             id: this.props.match.params.id,
             currentUser: authenticationService.currentUserValue,
             isActive: true,
-            lead: []
+            lead: [],
+            bookings: []
         };
     };
 
     componentDidMount() {
-        console.log(this.state);
         this.getLead();
+        this.getLeadBookings();
     };
 
-    getLead(){
+    getLead() {
         leadsService.getSingleLead(this.state.id)
         .then(lead => this.setState({ lead }))
+        .catch(err => console.log(err))
+    }
+
+    getLeadBookings() {
+        appointmentService.getLeadAppointments(this.state.id)
+        .then(res => this.setState({ bookings: res }))
         .catch(err => console.log(err))
     }
 
     render() {
         const { currentUser } = this.state;
         const { lead } = this.state;
+        const { bookings } = this.state;
         return (
             <div className='prospect flex-col'>
                 <div className='prospect__data text-left'>
@@ -90,7 +99,60 @@ class ProspectPage extends React.Component {
                                     >Desarrollos</button>
                         </div>
                         <div className="prospect_details overflow-auto overscroll-contain">
-                                {this.state.isActive ? <Schedules /> : <ProjectSchedules />}
+                                {this.state.isActive ? 
+                                <table className='table-auto flex container'>
+                                    <tbody className='container flex flex-col'>
+                                        <tr className='flex justify-between'>
+                                            <td className='text-xs text-gray-300 p-2'>
+                                                <p>Desarrollo</p>
+                                            </td>
+                                            <td className='text-xs text-gray-300 p-2'>
+                                                <p>Fecha de Cita</p>
+                                            </td>
+                                        </tr> 
+                                        {bookings != undefined && bookings.length > 0 ? bookings.map(booking => 
+                                            <tr className='flex justify-between items-center'>
+                                                <td className='text-xs p-2 flex flex-row items-center'>
+                                                    <input type="checkbox" className="form-checkbox rounded-full text-gray-300 p-1" disabled />
+                                                    <div className="data flex-auto p-1">
+                                                        <p className='text-sm'>{booking.location_name || <Skeleton />}</p>
+                                                    </div>
+                                                </td>
+                                                <td className='text-xs p-2'><Moment locale="es-mx" format="DD MMM YYYY">{booking.reservation_date || <Skeleton />}</Moment></td>
+                                            </tr>
+                                        ) : <tr className='flex justify-between items-center'><p className="text-sm italic">*Este prospecto no tiene citas programadas.</p></tr>
+                                        } 
+                                    </tbody>
+                                </table> :
+                                <table className='table-auto flex container'>
+                                    <tbody className='container flex flex-col'>
+                                        <tr className='flex justify-between'>
+                                            <td className='text-xs text-gray-300 p-2'>
+                                                <p>Contacto</p>
+                                            </td>
+                                            <td className='text-xs text-gray-300 p-2'>
+                                                <p>Fecha de Cita</p>
+                                            </td>
+                                        </tr>
+                                        {bookings != undefined && bookings.length > 0 ? bookings.map(booking => 
+                                        <tr className='flex justify-between items-center'>
+                                            <td className='text-xs p-2'>
+                                                <div className='flex flex-row items-center'>
+                                                    <input type="checkbox" className="form-checkbox rounded-full text-gray-300 p-1 mr-2" checked disabled />
+                                                    <div className="data flex-auto">
+                                                        <p className='font-bold'>{booking.location_name}</p>
+                                                        <p className='text-purple-600'>Contrato</p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td className='text-xs p-2'><Moment locale="es-mx" format="DD MMM YYYY">{booking.reservation_date || <Skeleton />}</Moment></td>
+                                        </tr>
+                                        ) : <tr className='flex justify-between items-center'><p className="text-sm italic">*Este prospecto no tiene citas programadas.</p></tr>
+                                        }                                  
+                                    </tbody>
+                                </table>
+                            
+                            }
                         </div>                        
                         <div className="actions container flex flex-col p-4 text-white">
                             <Link to='/appointments' className="btn-primary text-center font-bold uppercase p-2 m-2">Programar Nueva Visita</Link>
@@ -102,4 +164,4 @@ class ProspectPage extends React.Component {
     }
 }
 
-export { ProspectPage };
+export { LeadPage };

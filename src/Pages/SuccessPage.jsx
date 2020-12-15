@@ -40,7 +40,7 @@ class SuccessPage extends React.Component {
                             </div>
                         </div>                
                         <div className='actions container flex flex-col p-4 text-white'>
-                            <Link to='/appointments' className='btn-primary uppercase p-2 m-2 text-center font-bold'>REGISTRAR OTRO PROSPECTO</Link>
+                            <Link to='/locations' className='btn-primary uppercase p-2 m-2 text-center font-bold'>REGISTRAR OTRO PROSPECTO</Link>
                         </div>
                     </div>
                 </div>

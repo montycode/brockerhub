@@ -23,12 +23,10 @@ function createLead(first_name, last_name, mobile_phone, location_id, email) {
                 email: email
         })
     };
-    console.log(requestOptions);
     return fetch(`${config.apiUrl}/leads`, requestOptions)
     .then(handleFetch)
     .then(lead =>{
         lead = lead.results;
-        console.log(lead)
         return lead;
     })
 }
@@ -38,24 +36,16 @@ function getLeads() {
     return fetch(`${config.apiUrl}/leads`, requestOptions)
     .then(response => response.json())
     .then(leads => {
-        console.log(leads);
         return leads;
     });
 }
 
 function getSingleLead(id) {
     const requestOptions = { method: 'GET', headers: authHeader() };
-    return fetch(`${config.apiUrl}/leads`, requestOptions)
+    return fetch(`${config.apiUrl}/leads/${id}`, requestOptions)
     .then(response => response.json())
-    .then(leads => {
-        leads = leads.results;
-        leads.filter(lead => {
-            lead.id === id;
-            leads = lead
-            console.log(lead);
-            return lead;
-        })
-        return leads;
+    .then(lead => {
+        lead = lead.results;
+        return lead;
     });
-
 }

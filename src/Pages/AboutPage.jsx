@@ -16,7 +16,6 @@ class AboutPage extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.state);
     };
 
     render() {

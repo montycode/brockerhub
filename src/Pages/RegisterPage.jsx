@@ -38,7 +38,7 @@ class RegisterPage extends React.Component {
                           then: Yup.string().oneOf(
                             [Yup.ref("password")],
                             "Las contraseñas deben coincidir."
-                          )
+                          ).required('*Este campo es requerido')
                         })
                     })}
                     onSubmit={({ first_name, last_name, email, password }, { setStatus, setSubmitting }) => {

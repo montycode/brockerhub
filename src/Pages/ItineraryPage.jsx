@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom';
 
 import momentLocalizer from 'react-widgets-moment'
 import DateTimePicker from 'react-widgets/lib/DateTimePicker'
-import moment from 'moment'
 
 
 momentLocalizer()
@@ -26,11 +25,10 @@ class ItineraryPage extends React.Component {
     };
 
     componentDidMount() {
-        this.getTodayBookings();
+        this.getTodayBookings(this.state.dateFilter);
     };
 
-    getTodayBookings() {
-        let date = this.state.dateFilter;
+    getTodayBookings(date) {
         appointmentService.getTodayAppointments(date)
         .then(res => this.setState({ appointments: res }))
         .catch(err => console.log(err))
@@ -39,7 +37,6 @@ class ItineraryPage extends React.Component {
     render() {
         const { currentUser } = this.state;
         const { appointments } = this.state;
-        const { dateFilter } = this.state;
         return (
             <div className='prospect flex-col'>
                 <div className='prospect__data text-left'>
@@ -52,19 +49,18 @@ class ItineraryPage extends React.Component {
                         <DateTimePicker
                             containerClassName='mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md'
                             name="dateFilter"
-                            format={"MM/DD/yyyy"}
+                            format={"DD/MM/yyyy"}
                             value={this.state.dateFilter}
                             onChange={dateFilter => {
                                 this.setState({ dateFilter });
-                                this.setState({ dateFilter });
-                                this.getTodayBookings();
+                                this.getTodayBookings(dateFilter);
                             }}
-                            clock={false}
+                            time={false}
                         />
                         <div className="projects overflow-auto overscroll-contain">
                             <table className='table-auto flex container'>
                                 <tbody className='container flex flex-col'>                                    
-                                    {appointments != undefined ? appointments.map(appointment =>
+                                    {appointments != undefined && appointments.length > 0 ? appointments.map(appointment =>
                                         <tr key={appointment.id} className='flex justify-between'>
                                             <td className='font-bold text-l p-2'><Moment format="h:mm A">{appointment.reservation_date}</Moment></td>
                                             <td className='text-xs p-2'>
@@ -73,8 +69,8 @@ class ItineraryPage extends React.Component {
                                             </td>
                                             <td className='text-xs p-2 capitalize'><Moment locale="es-mx" format="DD MMM YYYY">{appointment.reservation_date}</Moment></td>
                                         </tr>
-                                    ) : <tr key={appointment.id} className='flex justify-between'>
-                                            <p >*No hay citas programadas para hoy.</p>
+                                    ) : <tr className='flex justify-between'>
+                                            <p>*No hay citas programadas para hoy.</p>
                                         </tr>}    
                                 </tbody>
                             </table>

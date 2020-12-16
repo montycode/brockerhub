@@ -90,6 +90,10 @@
     height: 40vh;
 }
 
+.form-control{
+    width: 100%!important;
+}
+
 .selected{
     position: absolute;
     right: 0;

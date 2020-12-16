@@ -6,23 +6,6 @@ import { Formik, Field, Form, ErrorMessage } from 'formik'
 import momentLocalizer from 'react-widgets-moment'
 import moment from 'moment'
 
-const phoneNumberMask = [
-    "(",
-    /[1-9]/,
-    /\d/,
-    /\d/,
-    ")",
-    " ",
-    /\d/,
-    /\d/,
-    /\d/,
-    "-",
-    /\d/,
-    /\d/,
-    /\d/,
-    /\d/
-  ];
-
 momentLocalizer()
 
 import * as Yup from 'yup'
@@ -30,14 +13,16 @@ import * as Yup from 'yup'
 import { authenticationService, locationsService, leadsService, appointmentService } from '@/_services'
 import { Navbar, AssistButton } from '@/_components'
 
-class NewLeadPage extends React.Component {
+class LeadBooking extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {            
-            id: this.props.match.params.id,
+            id_lead: this.props.match.params.id_lead,
+            id_location: this.props.match.params.id_location,
             currentUser: authenticationService.currentUserValue,
-            location: []
+            location: [],
+            lead: []
         };
     };
 
@@ -188,4 +173,4 @@ class NewLeadPage extends React.Component {
     }
 }
 
-export { NewLeadPage };
+export { LeadBooking };

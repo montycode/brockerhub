@@ -6,7 +6,6 @@ import { authenticationService, leadsService, appointmentService } from '@/_serv
 import { Navbar } from '@/_components'
 import { Link } from 'react-router-dom'
 
-import { ProjectSchedules, Schedules } from '../_components'
 import MailIcon from '../_components/icons/MailIcon'
 import PhoneIcon from '../_components/icons/PhoneIcon'
 import Gravatar from 'react-gravatar'

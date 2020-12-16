@@ -7,29 +7,39 @@ import { authenticationService, appointmentService } from '@/_services'
 import { Navbar, AssistButton } from '@/_components'
 import { Link } from 'react-router-dom';
 
+import momentLocalizer from 'react-widgets-moment'
+import DateTimePicker from 'react-widgets/lib/DateTimePicker'
+import moment from 'moment'
+
+
+momentLocalizer()
+
 class ItineraryPage extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             currentUser: authenticationService.currentUserValue,
-            appointments: []
+            appointments: [],
+            dateFilter: new Date()
         };
     };
 
     componentDidMount() {
-        this.getAppointments();
+        this.getTodayBookings();
     };
 
-    getAppointments() {
-        appointmentService.getAppointments()
-        .then(appointments => this.setState({ appointments }))
+    getTodayBookings() {
+        let date = this.state.dateFilter;
+        appointmentService.getTodayAppointments(date)
+        .then(res => this.setState({ appointments: res }))
         .catch(err => console.log(err))
     }
 
     render() {
         const { currentUser } = this.state;
         const { appointments } = this.state;
+        const { dateFilter } = this.state;
         return (
             <div className='prospect flex-col'>
                 <div className='prospect__data text-left'>
@@ -39,10 +49,22 @@ class ItineraryPage extends React.Component {
                     </div>
                     <AssistButton classNames='fill-current text-white w-6 h-6' />
                     <div className="prospect__container bg-white rounded-tl-2xl pt-8 pr-8 pl-8">
+                        <DateTimePicker
+                            containerClassName='mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md'
+                            name="dateFilter"
+                            format={"MM/DD/yyyy"}
+                            value={this.state.dateFilter}
+                            onChange={dateFilter => {
+                                this.setState({ dateFilter });
+                                this.setState({ dateFilter });
+                                this.getTodayBookings();
+                            }}
+                            clock={false}
+                        />
                         <div className="projects overflow-auto overscroll-contain">
                             <table className='table-auto flex container'>
                                 <tbody className='container flex flex-col'>                                    
-                                    {appointments.results ? appointments.results.map(appointment =>
+                                    {appointments != undefined ? appointments.map(appointment =>
                                         <tr key={appointment.id} className='flex justify-between'>
                                             <td className='font-bold text-l p-2'><Moment format="h:mm A">{appointment.reservation_date}</Moment></td>
                                             <td className='text-xs p-2'>
@@ -51,7 +73,9 @@ class ItineraryPage extends React.Component {
                                             </td>
                                             <td className='text-xs p-2 capitalize'><Moment locale="es-mx" format="DD MMM YYYY">{appointment.reservation_date}</Moment></td>
                                         </tr>
-                                    ) : <Skeleton count={15} />}    
+                                    ) : <tr key={appointment.id} className='flex justify-between'>
+                                            <p >*No hay citas programadas para hoy.</p>
+                                        </tr>}    
                                 </tbody>
                             </table>
                         </div>                        

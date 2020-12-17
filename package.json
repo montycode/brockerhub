@@ -44,6 +44,7 @@
     "react-globalize": "^1.0.0",
     "react-gravatar": "^2.6.3",
     "react-loading-skeleton": "^2.1.1",
+    "react-modal": "^3.12.1",
     "react-moment": "^1.0.0",
     "react-phone-input-2": "^2.13.9",
     "react-phone-number-input": "^3.1.8",

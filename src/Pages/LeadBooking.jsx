@@ -1,10 +1,9 @@
 import React from 'react'
 import DateTimePicker from 'react-widgets/lib/DateTimePicker'
-import MaskedInput from "react-text-mask"
 import { Formik, Field, Form, ErrorMessage } from 'formik'
+import DropdownList from 'react-widgets/lib/DropdownList'
 
 import momentLocalizer from 'react-widgets-moment'
-import moment from 'moment'
 
 momentLocalizer()
 
@@ -12,6 +11,7 @@ import * as Yup from 'yup'
 
 import { authenticationService, locationsService, leadsService, appointmentService } from '@/_services'
 import { Navbar, AssistButton } from '@/_components'
+import Skeleton from 'react-loading-skeleton'
 
 class LeadBooking extends React.Component {
     constructor(props) {
@@ -19,27 +19,39 @@ class LeadBooking extends React.Component {
 
         this.state = {            
             id_lead: this.props.match.params.id_lead,
-            id_location: this.props.match.params.id_location,
             currentUser: authenticationService.currentUserValue,
-            location: [],
-            lead: []
+            location_id: '',
+            lead: [],
+            locations: []
         };
     };
 
     componentDidMount() {
-        this.getLocation();
+        this.getLead();
+        this.getLocations();
         console.log(this.state);
     }; 
 
-    getLocation(){
-        locationsService.getSingleLocation(this.state.id)
-        .then(location => this.setState({ location }))
+    getLead(){
+        leadsService.getSingleLead(this.state.id_lead)
+        .then(lead => {
+            this.setState({ lead });
+        })
         .catch(err => console.log(err))
-    }   
+    }  
+
+    getLocations(){
+        locationsService.getLocations()
+        .then(res => this.setState({ locations: res.results }))
+        .catch(err => console.log(err))
+    }
 
     render() {
         const { currentUser } = this.state;
-        const { location } = this.state;
+        const { lead } = this.state;
+        const { locations } = this.state;
+        const locationList = Array.from(locations);
+        console.log(locationList);
         return (
             <div className='prospect flex-col'>
                 <div className='prospect__data text-left'>
@@ -50,88 +62,59 @@ class LeadBooking extends React.Component {
                     <AssistButton classNames={'fill-current text-white w-6 h-6'} />
                     <div className="prospect__container bg-white rounded-tl-2xl pt-8 pr-8 pl-8">
                         <div className="projects overflow-auto overscroll-contain mt-2">
-                            {console.log(location.id)}
+                            {lead != undefined ?
                             <Formik enableReinitialize={true}
                                 initialValues={{
-                                    first_name: '',
-                                    last_name: '',
-                                    mobile_phone: '',
-                                    location_id: location.id,
-                                    email: '',
+                                    lead_id: lead.id,
+                                    first_name: lead.first_name,
+                                    last_name: lead.last_name,
+                                    location_id: this.state.location_id,
                                     reservation_date: new Date()
                                 }}
                                 validationSchema={Yup.object().shape({
                                     first_name: Yup.string().required('*Este campo es requerido'),
                                     last_name: Yup.string().required('*Este campo es requerido'),
-                                    mobile_phone: Yup.string().required('*Este campo es requerido'),
-                                    email: Yup.string().required('*Este campo es requerido'),
+                                    location_id: Yup.string().required('*Este campo es requerido'),
                                     reservation_date: Yup.string().required('*Este campo es requerido')
-
                                 })}
-                                onSubmit={({ first_name, last_name, mobile_phone, location_id, email, reservation_date}, { setStatus, setSubmitting }) => {
+                                onSubmit={({ location_id, reservation_date, lead_id}, { setStatus, setSubmitting }) => {
                                     setStatus();
-                                    leadsService.createLead(first_name, last_name, mobile_phone, location_id, email).then(
-                                        lead => {
-                                            let lead_id = lead.id;
-                                            location_id = location.id;
-                                            let parseDate = moment(reservation_date).format();
-                                            reservation_date = parseDate;
-                                            console.log("Lead: " + lead_id + "Location: " + location_id + "Date: " + reservation_date);
-                                            appointmentService.createAppointment(location_id, reservation_date, lead_id).then(
-                                                appointment =>{
-                                                    this.props.history.push('/success');
-                                                },
-                                                error =>{
-                                                    setSubmitting(false);
-                                                    setStatus(error);
-                                                }
-                                            )
-                                        },
+                                        appointmentService.createAppointment(location_id, reservation_date, lead_id).then(
+                                            appointment =>{
+                                                this.props.history.push('/success');
+                                            },
                                         error => {
                                             setSubmitting(false);
                                             setStatus(error);
                                         }
                                     );
                                 }}
-                                render={({ errors, status, touched, isSubmitting, handleChange, handleBlur }) => (
+                                render={({ status, isSubmitting, handleChange, handleBlur }) => (
                                     <Form className="login__form p-6">
                                         <div className="prospect__form grid grid-cols-2">
                                             <div className="col-span-1 p-2">
-                                                <label htmlFor="first_name" className="block text-sm font-medium text-gray-700">Nombre(s)</label>
-                                                <Field type="text" name="first_name" type="text" autoComplete="on" className={'mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md' + (errors.first_name && touched.first_name ? ' border-red-500' : '')} />
+                                                <label htmlFor="first_name" className="block text-sm font-medium text-gray-700 disabled:opacity-50">Nombre(s)</label>
+                                                <Field type="text" name="first_name" type="text" autoComplete="on" className={'mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md'} disabled />
                                                 <ErrorMessage name="first_name" component="div" className="text-red-500 italic" />
                                             </div>
                                             <div className="col-span-1 p-2">
-                                                <label htmlFor="last_name" className="block text-sm font-medium text-gray-700">Apellido(s)</label>
-                                                <Field type="text" name="last_name" className={'mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md' + (errors.last_name && touched.last_name ? ' border-red-500' : '')}/>
+                                                <label htmlFor="last_name" className="block text-sm font-medium text-gray-700 disabled:opacity-50">Apellido(s)</label>
+                                                <Field type="text" name="last_name" className={'mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md'} disabled/>
                                                 <ErrorMessage name="last_name" component="div" className="text-red-500 italic" />
                                             </div>
                                             <div className="col-span-2 p-2">
-                                                <label htmlFor="mobile_phone" className="block text-sm font-medium text-gray-700">Teléfono Móvil</label>
-                                                <Field
-                                                    name="mobile_phone"
-                                                    render={({ field }) => (
-                                                        <MaskedInput
-                                                        {...field}
-                                                        mask={phoneNumberMask}
-                                                        id="mobile_phone"
-                                                        type="text"
-                                                        onChange={handleChange}
-                                                        onBlur={handleBlur}
-                                                        className={
-                                                            errors.mobile_phone && touched.mobile_phone
-                                                            ? "mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md border-red-500"
-                                                            : "mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md"
-                                                        }
-                                                        />
-                                                    )}
-                                                />
-                                                <ErrorMessage name="mobile_phone" component="div" className="text-red-500 italic" />
-                                            </div>
-                                            <div className="col-span-2 p-2">
-                                                <label htmlFor="email" className="block text-sm font-medium text-gray-700">Correo Electrónico</label>
-                                                <Field type="email" name="email" className="mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md"/>
-                                                <ErrorMessage name="email" component="div" className="text-red-500 italic" />
+                                                <label htmlFor="location_id" className="block text-sm font-medium text-gray-700">Desarrollo</label>
+                                                { lead != undefined ? 
+                                                    <DropdownList
+                                                        name="location_id"
+                                                        data={locationList}
+                                                        valueField='id'
+                                                        textField='name'
+                                                        onChange={value => this.setState({ location_id: value.id })}
+                                                    /> 
+                                                :   <Skeleton />
+                                                }
+                                                <ErrorMessage name="location_id" component="div" className="text-red-500 italic" />
                                             </div>
                                             <div className="col-span-2 p-2">
                                                 <label htmlFor="reservation_date" className="block text-sm font-medium text-gray-700">Fecha y Hora</label>
@@ -146,7 +129,7 @@ class LeadBooking extends React.Component {
                                                 <ErrorMessage name="reservation_date" component="div" className="text-red-500 italic" />
                                             </div>
                                             {status &&
-                                                <div className='text-center italic text-red-500 font-bold col-span-2 p-2'><p>*Este prospecto ya se encuentra registrado.</p></div>
+                                                <div className='text-center italic text-red-500 font-bold col-span-2 p-2'><p>*Este horario no esta disponible.</p></div>
                                             }
                                             {isSubmitting &&
                                                 <div className="flex justify-around col-span-2 p-2">
@@ -164,7 +147,7 @@ class LeadBooking extends React.Component {
                                         </div>
                                     </Form>
                                 )}
-                            />
+                            /> : <Skeleton />}
                         </div>
                     </div>
                 </div>

@@ -1,14 +1,33 @@
 import React from 'react'
 import Skeleton from 'react-loading-skeleton'
 import Moment from 'react-moment'
+import Modal from 'react-modal'
+import DropdownList from 'react-widgets/lib/DropdownList'
 
-import { authenticationService, leadsService, appointmentService } from '@/_services'
+import { authenticationService, leadsService, appointmentService, locationLeadService, statusService } from '@/_services'
+import { Formik, Field, Form, ErrorMessage } from 'formik'
 import { Navbar } from '@/_components'
 import { Link } from 'react-router-dom'
 
 import MailIcon from '../_components/icons/MailIcon'
 import PhoneIcon from '../_components/icons/PhoneIcon'
 import Gravatar from 'react-gravatar'
+
+import * as Yup from 'yup'
+
+const customStyles = {
+    content : {
+      width                 : '100%',
+      top                   : '50%',
+      left                  : '50%',
+      right                 : 'auto',
+      bottom                : 'auto',
+      marginRight           : '-50%',
+      transform             : 'translate(-50%, -50%)'
+    }
+};
+
+Modal.setAppElement('#app')
 
 class LeadPage extends React.Component {
     constructor(props) {
@@ -19,14 +38,36 @@ class LeadPage extends React.Component {
             currentUser: authenticationService.currentUserValue,
             isActive: true,
             lead: [],
-            bookings: []
+            bookings: [],
+            showModal: false,
+            locationLead: '',
+            leadStatus: [],
+            selectedStatus: ''
         };
+
+        this.handleOpenModal = this.handleOpenModal.bind(this);
+        this.handleCloseModal = this.handleCloseModal.bind(this);
     };
+
+    handleOpenModal() {
+        this.setState({ showModal: true });
+    }
+      
+    handleCloseModal() {
+        this.setState({ showModal: false });
+    }
 
     componentDidMount() {
         this.getLead();
         this.getLeadBookings();
+        this.getStatus();
     };
+
+    getStatus() {
+        statusService.getStatus()
+        .then(status => this.setState({ leadStatus: status }))
+        .catch(err => console.log(err))
+    }
 
     getLead() {
         leadsService.getSingleLead(this.state.id)
@@ -44,6 +85,9 @@ class LeadPage extends React.Component {
         const { currentUser } = this.state;
         const { lead } = this.state;
         const { bookings } = this.state;
+        const { leadStatus } = this.state;
+        const statusList = Array.from(leadStatus);
+        console.log(statusList);
         return (
             <div className='prospect flex-col'>
                 <div className='prospect__data text-left'>
@@ -110,7 +154,7 @@ class LeadPage extends React.Component {
                                             </td>
                                         </tr> 
                                         {bookings != undefined && bookings.length > 0 ? bookings.map(booking => 
-                                            <tr className='flex justify-between items-center'>
+                                            <tr key={booking.id} className='flex justify-between items-center'>
                                                 <td className='text-xs p-2 flex flex-row items-center'>
                                                     <input type="checkbox" className="form-checkbox rounded-full text-gray-300 p-1" disabled />
                                                     <div className="data flex-auto p-1">
@@ -130,23 +174,28 @@ class LeadPage extends React.Component {
                                                 <p>Contacto</p>
                                             </td>
                                             <td className='text-xs text-gray-300 p-2'>
-                                                <p>Fecha de Cita</p>
+                                                <p>Fecha de Registro</p>
                                             </td>
                                         </tr>
-                                        {bookings != undefined && bookings.length > 0 ? bookings.map(booking => 
-                                        <tr className='flex justify-between items-center'>
+                                        {lead != undefined && lead.locations.length > 0 ? lead.locations.map(location => 
+                                        <tr key={location.id} className='flex justify-between items-center'>
                                             <td className='text-xs p-2'>
-                                                <div className='flex flex-row items-center'>
-                                                    <input type="checkbox" className="form-checkbox rounded-full text-gray-300 p-1 mr-2" checked disabled />
-                                                    <div className="data flex-auto">
-                                                        <p className='font-bold'>{booking.location_name}</p>
-                                                        <p className='text-purple-600'>Contrato</p>
+                                                <a onClick={() => {
+                                                    this.setState({locationLead: location.id});
+                                                    this.handleOpenModal();
+                                                }}>
+                                                    <div className='flex flex-row items-center'>
+                                                        <input type="checkbox" className="form-checkbox rounded-full text-gray-300 p-1 mr-2" checked={location.status_id > 1 ? true : false} disabled />
+                                                        <div key={location.status_id} className="data flex-auto">
+                                                            <p className='font-bold'>{location.location_name}</p>
+                                                            <p className={`text-location${location.status_id}`}>{location.status_name}</p>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                </a>
                                             </td>
-                                            <td className='text-xs p-2'><Moment locale="es-mx" format="DD MMM YYYY">{booking.reservation_date || <Skeleton />}</Moment></td>
+                                            <td className='text-xs p-2'><Moment locale="es-mx" format="DD MMM YYYY">{location.created_at || <Skeleton />}</Moment></td>
                                         </tr>
-                                        ) : <tr className='flex justify-between items-center'><p className="text-sm italic">*Este prospecto no tiene citas programadas.</p></tr>
+                                        ) : <tr className='flex justify-between items-center'><p className="text-sm italic">*Este prospecto no tiene desarrollos asignados.</p></tr>
                                         }                                  
                                     </tbody>
                                 </table>
@@ -154,10 +203,76 @@ class LeadPage extends React.Component {
                             }
                         </div>                        
                         <div className="actions container flex flex-col p-4 text-white">
-                            <Link to='/appointments' className="btn-primary text-center font-bold uppercase p-2 m-2">Programar Nueva Visita</Link>
+                            <Link to={`/lead/${lead.id}/newBooking`} className="btn-primary text-center font-bold uppercase p-2 m-2">Programar Nueva Visita</Link>
                         </div>                     
                     </div>
                 </div>
+                <Modal
+                    isOpen={this.state.showModal}
+                    style={customStyles}
+                    contentLabel="Example Modal"
+                    >
+            
+                    <h2 className='font-bold text-xl text-orange'>Editar Estatus</h2>
+                    <Formik enableReinitialize={true}
+                                initialValues={{
+                                    location_id: this.state.locationLead,
+                                    status_id: this.state.selectedStatus
+                                }}
+                                validationSchema={Yup.object().shape({
+                                    status_id: Yup.string().required('*Este campo es requerido')
+                                })}
+                                onSubmit={({ location_id, status_id}, { setStatus, setSubmitting }) => {
+                                    setStatus();
+                                    locationLeadService.updateLocationLead(location_id, status_id).then(
+                                        response => {
+                                            setSubmitting(false);
+                                            this.props.history.push('/success');
+                                        },
+                                        error => {
+                                            setSubmitting(false);
+                                            setStatus(error);
+                                        }
+                                    );
+                                }}
+                                render={({ status, isSubmitting }) => (
+                                    <Form className="login__form p-6">
+                                        <div className="prospect__form grid grid-cols-2">
+                                            <div className="col-span-2 p-2">
+                                                <label htmlFor="status_id" className="block text-sm font-medium text-gray-700">Seleccione Estado</label>
+                                                <DropdownList
+                                                    name="status_id"
+                                                    data={statusList}
+                                                    valueField='id'
+                                                    textField='name'
+                                                    onChange={value => this.setState({ selectedStatus: value.id })}
+                                                />
+                                                <ErrorMessage name="status_id" component="div" className="text-red-500 italic" />
+                                            </div>                                            
+                                            {status &&
+                                                <div className='text-center italic text-red-500 font-bold col-span-2 p-2'><p>*Oops, algo salió mal, intenta nuevamente.</p></div>
+                                            }
+                                            {isSubmitting &&
+                                                <div className="flex justify-around col-span-2 p-2">
+                                                    <div className="inline-flex rounded-md">
+                                                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-orange" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            }
+                                            <div className="login__actions flex col-span-2">
+                                                <button type="submit" className="btn-primary font-bold uppercase text-white p-2 w-full" disabled={isSubmitting}>Actualizar</button>
+                                            </div>
+                                        </div>
+                                    </Form>
+                                )}
+                            />
+                    <div className="actions container flex flex-col p-4 text-white">
+                        <button className="btn-primary text-center font-bold uppercase p-1 m-1 text-white" onClick={this.handleCloseModal}>Cerrar</button>
+                    </div>
+                </Modal>
             </div>
         );
     }

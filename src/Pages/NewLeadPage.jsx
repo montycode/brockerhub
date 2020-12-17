@@ -1,10 +1,27 @@
 import React from 'react'
 import DateTimePicker from 'react-widgets/lib/DateTimePicker'
+import MaskedInput from "react-text-mask"
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 
 import momentLocalizer from 'react-widgets-moment'
 import moment from 'moment'
 
+const phoneNumberMask = [
+    "(",
+    /[1-9]/,
+    /\d/,
+    /\d/,
+    ")",
+    " ",
+    /\d/,
+    /\d/,
+    /\d/,
+    "-",
+    /\d/,
+    /\d/,
+    /\d/,
+    /\d/
+  ];
 
 momentLocalizer()
 
@@ -91,7 +108,7 @@ class NewLeadPage extends React.Component {
                                         }
                                     );
                                 }}
-                                render={({ errors, status, touched, isSubmitting }) => (
+                                render={({ errors, status, touched, isSubmitting, handleChange, handleBlur }) => (
                                     <Form className="login__form p-6">
                                         <div className="prospect__form grid grid-cols-2">
                                             <div className="col-span-1 p-2">
@@ -101,12 +118,29 @@ class NewLeadPage extends React.Component {
                                             </div>
                                             <div className="col-span-1 p-2">
                                                 <label htmlFor="last_name" className="block text-sm font-medium text-gray-700">Apellido(s)</label>
-                                                <Field type="text" name="last_name" className="mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md"/>
+                                                <Field type="text" name="last_name" className={'mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md' + (errors.last_name && touched.last_name ? ' border-red-500' : '')}/>
                                                 <ErrorMessage name="last_name" component="div" className="text-red-500 italic" />
                                             </div>
                                             <div className="col-span-2 p-2">
                                                 <label htmlFor="mobile_phone" className="block text-sm font-medium text-gray-700">Teléfono Móvil</label>
-                                                <Field type="tel" name="mobile_phone" className="mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md"/>
+                                                <Field
+                                                    name="mobile_phone"
+                                                    render={({ field }) => (
+                                                        <MaskedInput
+                                                        {...field}
+                                                        mask={phoneNumberMask}
+                                                        id="mobile_phone"
+                                                        type="text"
+                                                        onChange={handleChange}
+                                                        onBlur={handleBlur}
+                                                        className={
+                                                            errors.mobile_phone && touched.mobile_phone
+                                                            ? "mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md border-red-500"
+                                                            : "mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md"
+                                                        }
+                                                        />
+                                                    )}
+                                                />
                                                 <ErrorMessage name="mobile_phone" component="div" className="text-red-500 italic" />
                                             </div>
                                             <div className="col-span-2 p-2">

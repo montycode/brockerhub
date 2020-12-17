@@ -5,7 +5,7 @@ import { history } from '@/_helpers'
 import { authenticationService } from '@/_services'
 import { PrivateRoute } from '@/_components'
 import { HomePage, LoginPage, LocationsPage, ErrorPage, LeadListPage, AboutPage, RegisterPage,
-    LeadPage, NewLeadPage, SuccessPage, ItineraryPage, LocationDetailsPage
+    LeadPage, NewLeadPage, SuccessPage, ItineraryPage, LocationDetailsPage, LeadBooking
         } from '@/Pages'
 
 import 'tailwindcss/tailwind.css'
@@ -33,6 +33,7 @@ class App extends React.Component {
                     <PrivateRoute exact path={'/location/:id'} component={LocationDetailsPage} />
                     <PrivateRoute exact path={'/itinerary'} component={ItineraryPage} />
                     <PrivateRoute exact path={'/lead/:id'} component={LeadPage} />
+                    <PrivateRoute exact path={'/lead/:id_lead/newBooking'} component={LeadBooking} />
                     <PrivateRoute exact path={'/myleads'} component={LeadListPage} />
                     <PrivateRoute exact path={'/location/:id/new'} component={NewLeadPage} />
                     <PrivateRoute exact path={'/error'} component={ErrorPage} />

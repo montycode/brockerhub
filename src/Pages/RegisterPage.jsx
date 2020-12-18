@@ -4,6 +4,7 @@ import * as Yup from 'yup'
 import { Link } from 'react-router-dom'
 
 import { userService, authenticationService} from '@/_services'
+import Logo from '../assets/img/logo-bh.png'
 import '../styles/login.css'
 import '../styles/tailwind.css'
 
@@ -19,7 +20,7 @@ class RegisterPage extends React.Component {
 
     render() {
         return (
-            <div className='login overflow-auto overscroll-contain mt-2'> 
+            <div className='overflow-auto overscroll-contain mt-2 p-2'>
                 <Formik className="login__form p-6"
                     initialValues={{
                         first_name: '',

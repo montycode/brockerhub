@@ -69,7 +69,7 @@ class HomePage extends React.Component {
                                 <UserIcon color={'orange large'} />
                             </div>
                             <div className="prospects__data inline-block">
-                                <h4 className="font-bold text-3xl">{leads.results ? leads.results.length : 0}</h4>
+                                <h4 className="font-bold text-3xl">{leads ? leads.length : 0}</h4>
                                 <p>Prospectos</p>
                             </div>
                         </Link>

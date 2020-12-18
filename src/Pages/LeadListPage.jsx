@@ -15,7 +15,8 @@ class LeadListPage extends React.Component {
         this.state = {
             currentUser: authenticationService.currentUserValue,
             loading: true,
-            leads: []
+            leads: [],
+            leadFilter: ''
         };
     };
 
@@ -29,10 +30,22 @@ class LeadListPage extends React.Component {
         .then(leads => this.setState({ leads }))
         .catch(err => console.log(err))
     }
+    
+    filterLeads(leadFilter) {
+        leadsService.filterLeads(leadFilter)
+        .then(leads => this.setState({ leads }))
+        .catch(err => console.log(err))
+    }
+
+    handleChange(event) {
+        this.setState({leadFilter: event.target.value})
+        this.filterLeads(this.state.leadFilter);
+    }
 
     render() {
         const { currentUser } = this.state;
         const { leads } = this.state;
+        console.log("Leads:: ", leads);
         return (
             <div className='prospect flex-col'>
                 <div className='prospect__data text-left'>
@@ -43,7 +56,10 @@ class LeadListPage extends React.Component {
                     <div className="prospect__container bg-white rounded-tl-2xl pt-8 pr-8 pl-8">
                     <div className="pt-2 relative mx-auto text-gray-600">
                         <input className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:ring-orange focus:border-orange w-full"
-                        type="search" name="search" placeholder="Search" />
+                            value={this.state.leadFilter}
+                            onChange={this.handleChange.bind(this)}
+                            type="search" name="search" placeholder="Search" 
+                        />
                         <button type="submit" className="absolute left-0 top-0 mt-5 ml-1">
                             <svg className="text-gray-600 h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg"
                                 xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px"
@@ -63,7 +79,7 @@ class LeadListPage extends React.Component {
                                             <p>Fecha de Alta</p>
                                         </td>
                                     </tr> 
-                                    {leads.results ? leads.results.map(lead => 
+                                    {leads !== undefined && leads.length > 0 ? leads.map(lead => 
                                     <tr key={lead.id} className='flex justify-between items-center'>
                                         <td className='text-xs p-2'>
                                             <Link to={`/lead/${lead.id}`} className='flex flex-row items-center'>
@@ -76,7 +92,7 @@ class LeadListPage extends React.Component {
                                         </td>
                                         <td className='text-xs p-2 capitalize'><Link to={`/lead/${lead.id}`} >{<Moment locale="es-mx" format="DD MMM YYYY">{lead.created_at}</Moment> || <Skeleton />}</Link></td>
                                     </tr>
-                                    ) : <div style={{lineHeight: 3}}><Skeleton count={15} /></div>}                         
+                                    ) || <div style={{lineHeight: 3}}><Skeleton count={15} /></div> : <p className="text-xs italic">*No se encontraron prospectos</p>}                         
                                 </tbody>
                             </table>
                         </div>                   

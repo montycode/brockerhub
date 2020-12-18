@@ -60,15 +60,15 @@ module.exports = {
       favicon: './public/favicon.ico'
     }),
     new WebpackPwaManifest({
-        name: 'BrokerHub - Real State Development',
-        short_name: 'BrokerHub',
+        name: 'Brokerhub - Real Estate Development',
+        short_name: 'Brokerhub',
         display: "standalone",
         start_url: '/',
         description: 'Brokerhub - Made and developed by CILABS.',
         background_color: '#ffffff',
         theme_color: '#fc5b06',        
         ios: {
-            'apple-mobile-web-app-title': 'BrokerHub',
+            'apple-mobile-web-app-title': 'Brokerhub',
             'apple-mobile-web-app-status-bar-style': 'black'
         },
         crossorigin: 'use-credentials', //can be null, use-credentials or anonymous

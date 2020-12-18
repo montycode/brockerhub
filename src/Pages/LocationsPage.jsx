@@ -45,11 +45,11 @@ class LocationsPage extends React.Component {
             <div className="prospect flex-col">
                 <div className="prospect__data text-left">
                     {currentUser && <Navbar /> }
-                    <div className="title font-bold text-white text-l capitalize p-8">
+                    <div className="title font-bold text-white text-l capitalize py-4 px-6">
                         <h3>SELECCIONAR DESARROLLO</h3>
                     </div>
                     <AssistButton classNames='fill-current text-white w-6 h-6' />
-                    <div className="prospect__container bg-white rounded-tl-2xl pt-8 pr-8 pl-8">
+                    <div className="prospect__container bg-white rounded-tl-2xl pt-8 px-6">
                         <div className="projects overflow-auto overscroll-contain mt-2">
                             {locations.results ? locations.results.map(location => 
                             <div key={location.id} className="project__banner container p-4">
@@ -61,7 +61,7 @@ class LocationsPage extends React.Component {
                             </div>
                             ) : <div style={{lineHeight: 3}}><Skeleton count={5} height={86} /></div>}
                         </div>                
-                        <div className="actions container flex flex-col p-4 text-white">
+                        <div className="actions flex flex-col p-2 text-white">
                             {selectedOption === '' ? <button className="bg-gray-300 text-center font-bold uppercase p-2 m-2 rounded-lg" disabled >Ver Más</button> :
                             <Link to={`/location/${selectedOption}`} className="btn-primary text-center font-bold uppercase p-2 m-2" >Ver Más</Link>}
                         </div>

@@ -57,6 +57,10 @@ class LeadPage extends React.Component {
         this.setState({ showModal: false });
     }
 
+    componentDidUpdate() {        
+        this.getLead();
+    }
+
     componentDidMount() {
         this.getLead();
         this.getLeadBookings();
@@ -87,7 +91,6 @@ class LeadPage extends React.Component {
         const { bookings } = this.state;
         const { leadStatus } = this.state;
         const statusList = Array.from(leadStatus);
-        console.log(statusList);
         return (
             <div className='prospect flex-col'>
                 <div className='prospect__data text-left'>
@@ -210,7 +213,7 @@ class LeadPage extends React.Component {
                 <Modal
                     isOpen={this.state.showModal}
                     style={customStyles}
-                    contentLabel="Example Modal"
+                    contentLabel="Actualizar Prospecto"
                     >
             
                     <h2 className='font-bold text-xl text-orange'>Editar Estatus</h2>
@@ -227,11 +230,17 @@ class LeadPage extends React.Component {
                                     locationLeadService.updateLocationLead(location_id, status_id).then(
                                         response => {
                                             setSubmitting(false);
-                                            this.props.history.push('/success');
+                                            setStatus({
+                                                sent: true,
+                                                msg: "Prospecto actualizado exitosamente"
+                                            });                                            
                                         },
-                                        error => {
+                                        err => {
                                             setSubmitting(false);
-                                            setStatus(error);
+                                            setStatus({
+                                                sent: false,
+                                                msg: `Oops! ${err}. Algo salió mal, intenta nuevamente.`
+                                            });
                                         }
                                     );
                                 }}
@@ -245,13 +254,16 @@ class LeadPage extends React.Component {
                                                     data={statusList}
                                                     valueField='id'
                                                     textField='name'
+                                                    defaultValue={this.state.selectedStatus}
                                                     onChange={value => this.setState({ selectedStatus: value.id })}
                                                 />
                                                 <ErrorMessage name="status_id" component="div" className="text-red-500 italic" />
-                                            </div>                                            
-                                            {status &&
-                                                <div className='text-center italic text-red-500 font-bold col-span-2 p-2'><p>*Oops, algo salió mal, intenta nuevamente.</p></div>
-                                            }
+                                            </div>
+                                            {status && status.msg && (
+                                                <p className={`text-center italic font-bold col-span-2 p-2 ${ status.sent ? "text-green-500" : "text-red-500"}`}>
+                                                    {status.msg}
+                                                </p>
+                                            )}
                                             {isSubmitting &&
                                                 <div className="flex justify-around col-span-2 p-2">
                                                     <div className="inline-flex rounded-md">

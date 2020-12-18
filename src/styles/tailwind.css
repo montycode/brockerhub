@@ -78,9 +78,15 @@
     display: block;
 }
 
-
+.prospect__container {
+    height: 100%;
+}
 .projects{
-    height: 70vh;
+    height: 65vh;
+}
+
+.bookings {
+    height: 60vh;
 }
 
 .prospect__info {

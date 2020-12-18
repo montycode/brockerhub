@@ -41,12 +41,13 @@ class ItineraryPage extends React.Component {
             <div className='prospect flex-col'>
                 <div className='prospect__data text-left'>
                     {currentUser && <Navbar /> }
-                    <div className="title font-bold text-white text-l uppercase p-8">
+                    <div className="title font-bold text-white text-l uppercase pb-4 pt-4 pr-6 pl-6">
                         <h3>Mi Itinerario</h3>
                     </div>
                     <AssistButton classNames='fill-current text-white w-6 h-6' />
-                    <div className="prospect__container bg-white rounded-tl-2xl pt-8 pr-8 pl-8">
+                    <div className="prospect__container bg-white rounded-tl-2xl pt-8 pr-6 pl-6">
                         <DateTimePicker
+                            className='my-2'
                             containerClassName='mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md'
                             name="dateFilter"
                             format={"DD/MM/yyyy"}
@@ -57,7 +58,7 @@ class ItineraryPage extends React.Component {
                             }}
                             time={false}
                         />
-                        <div className="projects overflow-auto overscroll-contain">
+                        <div className="bookings overflow-auto overscroll-contain">
                             <table className='table-auto flex container'>
                                 <tbody className='container flex flex-col'>                                    
                                     {appointments != undefined && appointments.length > 0 ? appointments.map(appointment =>
@@ -70,12 +71,14 @@ class ItineraryPage extends React.Component {
                                             <td className='text-xs p-2 capitalize'><Moment locale="es-mx" format="DD MMM YYYY">{appointment.reservation_date}</Moment></td>
                                         </tr>
                                     ) : <tr className='flex justify-between'>
-                                            <p>*No hay citas programadas para hoy.</p>
+                                            <td>
+                                                <p className="text-xs italic p-2">*No hay citas programadas para hoy.</p>
+                                            </td>
                                         </tr>}    
                                 </tbody>
                             </table>
                         </div>                        
-                        <div className="actions container flex flex-col p-4 text-white">
+                        <div className="actions flex flex-col p-2 text-white w-full">
                             <Link to='/locations' className="btn-primary text-center uppercase p-2 m-2">PROGRAMAR CITA</Link>
                         </div>                     
                     </div>

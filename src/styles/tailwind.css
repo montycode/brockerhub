@@ -78,6 +78,15 @@
     display: block;
 }
 
+.confirm_page{
+    height: 100%;
+    background-color: #f4f0f0;
+}
+
+.confirm_lead {
+    background-color: #202124;
+}
+
 .prospect__container {
     height: 100%;
 }

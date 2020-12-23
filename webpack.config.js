@@ -51,8 +51,13 @@ module.exports = {
           '@': path.resolve(__dirname, 'src/'),
       }
   },
+  entry: {
+    index: path.resolve(__dirname, 'src/index.jsx'),
+  },
   output: {
-    filename: 'app.bundle.js'
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'app.bundle.js',
+    publicPath: '/'
   },
   plugins: [
       new HtmlWebpackPlugin({

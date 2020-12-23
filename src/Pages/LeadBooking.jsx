@@ -2,6 +2,7 @@ import React from 'react'
 import DateTimePicker from 'react-widgets/lib/DateTimePicker'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import DropdownList from 'react-widgets/lib/DropdownList'
+import moment from 'moment'
 
 import momentLocalizer from 'react-widgets-moment'
 
@@ -22,7 +23,8 @@ class LeadBooking extends React.Component {
             currentUser: authenticationService.currentUserValue,
             location_id: '',
             lead: [],
-            locations: []
+            locations: [],
+            dateValue: new Date()
         };
     };
 
@@ -51,7 +53,7 @@ class LeadBooking extends React.Component {
         const { lead } = this.state;
         const { locations } = this.state;
         const locationList = Array.from(locations);
-        console.log(locationList);
+        const { dateValue } = this.state;
         return (
             <div className='prospect flex-col'>
                 <div className='prospect__data text-left'>
@@ -68,17 +70,18 @@ class LeadBooking extends React.Component {
                                     lead_id: lead.id,
                                     first_name: lead.first_name,
                                     last_name: lead.last_name,
-                                    location_id: this.state.location_id,
-                                    reservation_date: new Date()
+                                    location_id: this.state.location_id
                                 }}
                                 validationSchema={Yup.object().shape({
                                     first_name: Yup.string().required('*Este campo es requerido'),
                                     last_name: Yup.string().required('*Este campo es requerido'),
-                                    location_id: Yup.string().required('*Este campo es requerido'),
-                                    reservation_date: Yup.string().required('*Este campo es requerido')
+                                    location_id: Yup.string().required('*Este campo es requerido')
                                 })}
                                 onSubmit={({ location_id, reservation_date, lead_id}, { setStatus, setSubmitting }) => {
                                     setStatus();
+                                    let parseDate = moment(dateValue).format();
+                                    reservation_date = parseDate;
+                                    console.log("Lead: " + lead_id + "Location: " + location_id + "Date: " + reservation_date);
                                         appointmentService.createAppointment(location_id, reservation_date, lead_id).then(
                                             appointment =>{
                                                 this.props.history.push('/success');
@@ -123,8 +126,9 @@ class LeadBooking extends React.Component {
                                                     name="reservation_date"
                                                     min={new Date()}
                                                     format={"yyyy-MM-DD HH:mm"}
-                                                    step={30}
-                                                    defaultValue={new Date()}                                                    
+                                                    step={60}
+                                                    value={this.state.dateValue}
+                                                    onChange={dateValue => this.setState({ dateValue })}                                                 
                                                 />
                                                 <ErrorMessage name="reservation_date" component="div" className="text-red-500 italic" />
                                             </div>

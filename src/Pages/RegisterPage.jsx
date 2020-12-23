@@ -4,7 +4,6 @@ import * as Yup from 'yup'
 import { Link } from 'react-router-dom'
 
 import { userService, authenticationService} from '@/_services'
-import Logo from '../assets/img/logo-bh.png'
 import '../styles/login.css'
 import '../styles/tailwind.css'
 

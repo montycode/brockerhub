@@ -39,7 +39,7 @@
 }
 
 .prospect{
-    height: 100vh;
+    height: 100%;
     display: flex;
     justify-content: space-between;
 }
@@ -78,9 +78,24 @@
     display: block;
 }
 
+.confirm_page{
+    height: 100%;
+    background-color: #f4f0f0;
+}
 
+.confirm_lead {
+    background-color: #202124;
+}
+
+.prospect__container {
+    height: 100%;
+}
 .projects{
-    height: 70vh;
+    height: 65vh;
+}
+
+.bookings {
+    height: 60vh;
 }
 
 .prospect__info {

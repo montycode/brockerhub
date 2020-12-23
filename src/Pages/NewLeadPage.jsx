@@ -37,7 +37,8 @@ class NewLeadPage extends React.Component {
         this.state = {            
             id: this.props.match.params.id,
             currentUser: authenticationService.currentUserValue,
-            location: []
+            location: [],
+            dateValue: new Date()
         };
     };
 
@@ -55,32 +56,30 @@ class NewLeadPage extends React.Component {
     render() {
         const { currentUser } = this.state;
         const { location } = this.state;
+        const { dateValue } = this.state;
         return (
             <div className='prospect flex-col'>
                 <div className='prospect__data text-left'>
                     {currentUser && <Navbar /> }
-                    <div className="title font-bold text-white text-l uppercase p-8">
+                    <div className="title font-bold text-white text-l uppercase py-4 px-6">
                         <h3>Datos del Cliente</h3>
                     </div>
                     <AssistButton classNames={'fill-current text-white w-6 h-6'} />
-                    <div className="prospect__container bg-white rounded-tl-2xl pt-8 pr-8 pl-8">
-                        <div className="projects overflow-auto overscroll-contain mt-2">
-                            {console.log(location.id)}
-                            <Formik enableReinitialize={true}
+                    <div className="prospect__container bg-white rounded-tl-2xl pt-8 px-6">
+                        <div className="h-full mt-2">
+                            <Formik 
                                 initialValues={{
                                     first_name: '',
                                     last_name: '',
                                     mobile_phone: '',
                                     location_id: location.id,
-                                    email: '',
-                                    reservation_date: new Date()
+                                    email: ''
                                 }}
                                 validationSchema={Yup.object().shape({
                                     first_name: Yup.string().required('*Este campo es requerido'),
                                     last_name: Yup.string().required('*Este campo es requerido'),
                                     mobile_phone: Yup.string().required('*Este campo es requerido'),
-                                    email: Yup.string().required('*Este campo es requerido'),
-                                    reservation_date: Yup.string().required('*Este campo es requerido')
+                                    email: Yup.string().required('*Este campo es requerido')
 
                                 })}
                                 onSubmit={({ first_name, last_name, mobile_phone, location_id, email, reservation_date}, { setStatus, setSubmitting }) => {
@@ -89,7 +88,7 @@ class NewLeadPage extends React.Component {
                                         lead => {
                                             let lead_id = lead.id;
                                             location_id = location.id;
-                                            let parseDate = moment(reservation_date).format();
+                                            let parseDate = moment(dateValue).format();
                                             reservation_date = parseDate;
                                             console.log("Lead: " + lead_id + "Location: " + location_id + "Date: " + reservation_date);
                                             appointmentService.createAppointment(location_id, reservation_date, lead_id).then(
@@ -99,17 +98,19 @@ class NewLeadPage extends React.Component {
                                                 error =>{
                                                     setSubmitting(false);
                                                     setStatus(error);
+                                                    this.props.history.push('/error');
                                                 }
                                             )
                                         },
                                         error => {
                                             setSubmitting(false);
                                             setStatus(error);
+                                            this.props.history.push('/error');
                                         }
                                     );
                                 }}
                                 render={({ errors, status, touched, isSubmitting, handleChange, handleBlur }) => (
-                                    <Form className="login__form p-6">
+                                    <Form className="login__form">
                                         <div className="prospect__form grid grid-cols-2">
                                             <div className="col-span-1 p-2">
                                                 <label htmlFor="first_name" className="block text-sm font-medium text-gray-700">Nombre(s)</label>
@@ -155,8 +156,9 @@ class NewLeadPage extends React.Component {
                                                     name="reservation_date"
                                                     min={new Date()}
                                                     format={"yyyy-MM-DD HH:mm"}
-                                                    step={30}
-                                                    defaultValue={new Date()}                                                    
+                                                    step={60}
+                                                    value={this.state.dateValue}
+                                                    onChange={dateValue => this.setState({ dateValue })}                                                 
                                                 />
                                                 <ErrorMessage name="reservation_date" component="div" className="text-red-500 italic" />
                                             </div>
@@ -173,7 +175,7 @@ class NewLeadPage extends React.Component {
                                                     </div>
                                                 </div>
                                             }
-                                            <div className="login__actions flex col-span-2">
+                                            <div className="py-4 flex col-span-2">
                                                 <button type="submit" className="btn-primary font-bold uppercase text-white p-2 w-full" disabled={isSubmitting}>VERIFICAR DISPONIBILIDAD</button>
                                             </div>
                                         </div>

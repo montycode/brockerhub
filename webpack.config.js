@@ -51,8 +51,13 @@ module.exports = {
           '@': path.resolve(__dirname, 'src/'),
       }
   },
+  entry: {
+    index: path.resolve(__dirname, 'src/index.jsx'),
+  },
   output: {
-    filename: 'app.bundle.js'
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'app.bundle.js',
+    publicPath: '/'
   },
   plugins: [
       new HtmlWebpackPlugin({
@@ -64,7 +69,7 @@ module.exports = {
         short_name: 'brokerhub',
         display: "standalone",
         start_url: '/',
-        description: 'Brokerhub - Made and developed by CILABS.',
+        description: 'brokerhub - Made and developed by CILABS.',
         background_color: '#ffffff',
         theme_color: '#fc5b06',        
         ios: {

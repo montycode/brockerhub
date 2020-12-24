@@ -9,7 +9,8 @@ export const appointmentService = {
     getSingleAppointment,
     getAppointments,
     getLeadAppointments,
-    getTodayAppointments
+    getTodayAppointments,
+    confirmAppointment
 };
 
 function createAppointment(location_id, reservation_date, lead_id) {
@@ -42,14 +43,30 @@ function getAppointments() {
 }
 
 function getSingleAppointment(id) {
-    const requestOptions = { method: 'GET', headers: authHeader() };
-    return fetch(`${config.apiUrl}/bookings/${id}`, requestOptions)
+    const requestOptions = { method: 'GET' };
+    return fetch(`${config.apiUrl}/confirmations/${id}`, requestOptions)
     .then(response => response.json())
     .then(bookings => {
         bookings = bookings.results;
         return bookings;
     });
+}
 
+function confirmAppointment(booking_id, reservation_date, confirm) {
+    const requestOptions = { 
+        method: 'PUT',
+        headers: {  'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 
+            reservation_date: reservation_date,
+            confirm: confirm
+        })
+     };
+    return fetch(`${config.apiUrl}/confirmations/${booking_id}`, requestOptions)
+    .then(response => response.json())
+    .then(confirmation => {
+        return confirmation;
+    });
 }
 
 function getLeadAppointments(id) {

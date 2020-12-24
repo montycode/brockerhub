@@ -41,7 +41,7 @@ class App extends React.Component {
                     <PrivateRoute exact path={'/about'} component={AboutPage} />
                     <Route path='/login' component={LoginPage} />
                     <Route path='/register' component={RegisterPage} />
-                    <Route exact path='/confirm' component={ConfirmPage} />
+                    <Route exact path={'/confirm/:id/'} component={ConfirmPage} />
                     <Redirect to={'/'} />
                 </Switch>
             </Router>

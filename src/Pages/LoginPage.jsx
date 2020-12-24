@@ -23,7 +23,7 @@ class LoginPage extends React.Component {
         return (
             <div className='login'>         
                 <div className="logo mt-8">
-                    <img src={Logo} className="object-contain h-60 w-full animate-pulse p-8 mx-auto" alt="Brokerhub Logo" />
+                    <img src={Logo} className="object-contain h-60 w-full animate-pulse p-8 mx-auto" alt="brokerhub Logo" />
                     <InstallButton />
                 </div>
                 <Formik

@@ -108,7 +108,7 @@ class ConfirmPage extends React.Component {
                                                 <input
                                                     type='text'
                                                     className='mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md'
-                                                    value={moment(booking_data.reservation_date).format('DD/MMM/YYYY LT A')}
+                                                    value={moment(booking_data.reservation_date).format('DD/MMM/YYYY hh:mm A')}
                                                     disabled
                                                 />
                                             </div>
@@ -175,7 +175,7 @@ class ConfirmPage extends React.Component {
                                             </div>}
                                         </div>
                                         <div className='col-span-2 md:col-span-1 w-full mx-auto p-2'>
-                                            <label className='text-sm text-gray-400'>Asistente</label>
+                                            <label className='text-sm text-gray-400'>Asesor</label>
                                             {loading == true ? <Skeleton /> :
                                             <div className='w-full inline-flex'>
                                                 <div className='pt-2 mr-2 w-1/12'>
@@ -302,13 +302,17 @@ class ConfirmPage extends React.Component {
                                         </div>
                                     </div>}
                                 </div>
-                                <hr />
+                                {loading == true ? <Skeleton /> : booking_data.confirmed === false ? <hr /> : ''}
                                 {loading == true ? <Skeleton /> : booking_data.confirmed === false ? 
                                 <div className='space-y-4 w-full p-4 text-gray-500 items-center'>
                                     <h2 className='mx-auto font-bold uppercase'>Acciones</h2>
-                                    <div className='md:inline-flex w-full space-y-4 md:space-y-0 text-gray-500 items-center'>
-                                        <h2 className='md:w-3/12 mx-auto'>Reagendar Cita</h2>
-                                        <div className='md:w-6/12 w-full mx-auto space-y-5 md:inline-flex pr-2'>
+                                    <h2 className='mx-auto'>Reagendar Cita</h2>
+                                    <p className={`text-center italic col-span-2 p-2`}>
+                                        Nota: Si necesita confirmar la cita en un horario diferente, seleccione el la fecha y horario deseado,
+                                        posteriormente confirme la cita, una vez confirmada el horario no puede ser modificado nuevamente.
+                                    </p> 
+                                    <div className='grid grid-cols-2'>
+                                        <div className='col-span-2 w-full mx-auto p-2'>
                                             <div className='w-full inline-flex'>
                                                 <div className='w-1/12 pt-2 mr-2'>
                                                     <svg
@@ -327,16 +331,23 @@ class ConfirmPage extends React.Component {
                                                             d='M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm64-192c0-8.8 7.2-16 16-16h96c8.8 0 16 7.2 16 16v96c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16v-96zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z'
                                                         />
                                                     </svg>
-                                                </div>                                                
-                                                <DateTimePicker
-                                                    containerClassName='mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md'
-                                                    name="confirmDate"
-                                                    min={new Date()}
-                                                    format={"yyyy-MM-DD HH:mm"}
-                                                    step={60}
-                                                    value={this.state.confirmDate}
-                                                    onChange={confirmDate => this.setState({ confirmDate })}                                                 
-                                                />
+                                                </div> 
+                                                <div className="w-full">
+                                                    <DateTimePicker
+                                                        containerClassName='w-full'
+                                                        name="confirmDate"
+                                                        min={new Date()}
+                                                        inputProps={
+                                                        { className: 'mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md'}
+                                                        }
+                                                        timeFormat={"hh:mm A"}
+                                                        format={"yyyy-MM-DD hh:mm A"}
+                                                        step={60}
+                                                        defaultValue={this.state.confirmDate}
+                                                        value={this.state.confirmDate}
+                                                        onChange={confirmDate => this.setState({ confirmDate })}                                                 
+                                                    />
+                                                </div>
                                             </div>
                                             <div className="">                                                
                                                 {status && status.msg && (

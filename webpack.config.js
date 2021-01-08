@@ -116,7 +116,7 @@ module.exports = {
   externals: {
       // global app config object
       config: JSON.stringify({
-          apiUrl: 'http://api.brokerhub.mx/api/v1'
+          apiUrl: 'https://brokerhubmx.herokuapp.com/api/v1'
       })
   }
 }

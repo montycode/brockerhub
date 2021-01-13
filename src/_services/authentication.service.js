@@ -15,6 +15,7 @@ export const authenticationService = {
 function login(email, password) {
   const requestOptions = {
       method: 'POST',
+      mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 
               email: email, 
@@ -28,6 +29,7 @@ function login(email, password) {
                 let auth_token = token.auth_token;
                 const requestUserOptions = { 
                     method: 'GET', 
+                    mode: 'no-cors',
                     headers: { Authorization: `Bearer ${auth_token}` }
                 }
                 return fetch(`${config.apiUrl}/user`, requestUserOptions)

@@ -45,12 +45,18 @@ class RegisterPage extends React.Component {
                         setStatus();
                         userService.createUser(first_name, last_name, email, password).then(
                             user => {
-                                const { from } = this.props.location.state || { from: { pathname: "/login" } };
-                                this.props.history.push(from);
+                                setSubmitting(false);
+                                setStatus({
+                                    sent: true,
+                                    msg: "Registro exitoso, deberás confirmar tu correo electrónico antes de acceder a la aplicación."
+                                });
                             },
                             error => {
                                 setSubmitting(false);
-                                setStatus(error);
+                                setStatus({
+                                    sent: false,
+                                    msg: `Oops! ${error}. Algo salió mal, intenta nuevamente.`
+                                });
                             }
                         );
                     }}
@@ -81,10 +87,12 @@ class RegisterPage extends React.Component {
                                     <label htmlFor="confirmPassword" className='font-bold'>Confirmar Contraseña</label>
                                     <Field name="confirmPassword" type="password" autoComplete="on" className={'mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md' + (errors.confirmPassword && touched.confirmPassword ? ' border-red-500' : '')} />
                                     <ErrorMessage name="confirmPassword" component="div" className="text-red-500 italic" />
-                                </div>                                
-                                {status &&
-                                    <div className='text-center italic text-red-500 font-bold p-2'><p>{error.message}</p></div>
-                                }
+                                </div>
+                                {status && status.msg && (
+                                    <p className={`text-center italic font-bold col-span-2 p-2 ${ status.sent ? "text-green-500" : "text-red-500"}`}>
+                                        {status.msg}
+                                    </p>
+                                )}
                                 {isSubmitting &&
                                     <div className="flex justify-around col-span-2 p-2">
                                         <div className="inline-flex rounded-md">

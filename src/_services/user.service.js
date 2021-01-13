@@ -24,11 +24,7 @@ function createUser(first_name, last_name, email, password) {
     };
 
     return fetch( `${config.apiUrl}/registrations`, requestOptions)
-            .then(handleResponse)
             .then(user => {
                 return user;
-            })
-            .catch(error => {
-                return error;
-            })
+            });
 }

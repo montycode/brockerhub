@@ -1,5 +1,5 @@
 import { BehaviorSubject } from 'rxjs'
-import { handleResponse } from '@/_helpers'
+import { handleLogin } from '@/_helpers'
 
 import config from 'config'
 
@@ -23,7 +23,7 @@ function login(email, password) {
   };
 
   return fetch( `${config.apiUrl}/authenticate`, requestOptions)
-              .then(handleResponse)
+              .then(handleLogin)
               .then(token => {
                 let auth_token = token.auth_token;
                 const requestUserOptions = { 
@@ -31,7 +31,7 @@ function login(email, password) {
                     headers: { Authorization: `Bearer ${auth_token}` }
                 }
                 return fetch(`${config.apiUrl}/user`, requestUserOptions)
-                            .then(handleResponse)
+                            .then(handleLogin)
                             .then(user => {
                               user.token = token.auth_token;
                               // store user details and jwt token in local storage to keep user logged in between page refreshes

@@ -56,7 +56,7 @@ class Navbar extends React.Component {
                                 </nav>
                             </div>
                         </div>
-                        <div className={`absolute top-0 inset-x-0 p-2 transition transform origin-top-right ${this.state.isOpen ? '' : 'hidden'}`} >
+                        <div className={`absolute top-0 inset-x-0 p-2 transition transform origin-top-right z-50 ${this.state.isOpen ? '' : 'hidden'}`} >
                             <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
                                 <div className="pt-5 pb-6 px-5">
                                     <div className="flex items-center justify-between">
@@ -74,11 +74,11 @@ class Navbar extends React.Component {
                                     </div>
                                     <div className="mt-6">
                                         <nav className="grid gap-y-8">
-                                            <a href="#" className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
+                                            <Link to='/about' className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
                                                 <span className="ml-3 text-base font-medium text-gray-900">
                                                     Acerca de Nosotros
                                                 </span>
-                                            </a>
+                                            </Link>
                                         </nav>
                                     </div>
                                 </div>

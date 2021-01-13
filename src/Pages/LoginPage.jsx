@@ -44,7 +44,11 @@ class LoginPage extends React.Component {
                             },
                             error => {
                                 setSubmitting(false);
-                                setStatus(error);
+                                console.log(error)
+                                setStatus({
+                                    sent: false,
+                                    msg: `Oops! ${error}`
+                                });
                             }
                         );
                     }}
@@ -60,10 +64,12 @@ class LoginPage extends React.Component {
                                     <label htmlFor="password" className='font-bold'>Contraseña</label>
                                     <Field name="password" type="password" autoComplete="on" className={'mt-1 focus:ring-orange focus:border-orange block w-full sm:text-sm border-gray-300 rounded-md' + (errors.password && touched.password ? ' border-red-500' : '')} />
                                     <ErrorMessage name="password" component="div" className="text-red-500 italic" />
-                                </div>                                
-                                {status &&
-                                    <div className='text-center italic text-red-500 font-bold p-2'><p>*El correo y/o contraseña no son validos.</p></div>
-                                }
+                                </div>
+                                {status && status.msg && (
+                                    <p className={`text-center italic font-bold col-span-2 p-2 ${ status.sent ? "text-green-500" : "text-red-500"}`}>
+                                        {status.msg}
+                                    </p>
+                                )}
                                 {isSubmitting &&
                                     <div className="flex justify-around p-2">
                                         <div className="inline-flex rounded-md">

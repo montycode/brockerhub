@@ -45,7 +45,6 @@ class RegisterPage extends React.Component {
                         setStatus();
                         userService.createUser(first_name, last_name, email, password).then(
                             user => {
-                                const { from } = this.props.location.state || { from: { pathname: "/login" } };
                                 setSubmitting(false);
                                 setStatus({
                                     sent: true,

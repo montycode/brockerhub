@@ -1,0 +1,10 @@
+{
+    "appId": "io.ionic.brokerhub",
+    "appName": "brokerhub",
+    "bundledWebRuntime": false,
+    "npmClient": "npm",
+    "webDir": "build",
+    "cordova": {},
+    "windowsAndroidStudioPath": "D:\\Android\\Android Studio\\bin\\studio64.exe"
+
+  }

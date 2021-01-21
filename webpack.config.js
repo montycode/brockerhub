@@ -55,7 +55,7 @@ module.exports = {
     index: path.resolve(__dirname, 'src/index.jsx'),
   },
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'build'),
     filename: 'app.bundle.js',
     publicPath: '/'
   },

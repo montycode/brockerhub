@@ -95,12 +95,14 @@ class NewLeadPage extends React.Component {
                                                 error =>{
                                                     setSubmitting(false);
                                                     setStatus(error);
+                                                    this.props.history.push('/error');
                                                 }
                                             )
                                         },
                                         error => {
                                             setSubmitting(false);
                                             setStatus(error);
+                                            this.props.history.push('/error');
                                         }
                                     );
                                 }}
@@ -153,7 +155,8 @@ class NewLeadPage extends React.Component {
                                                     format={"yyyy-MM-DD HH:mm"}
                                                     step={60}
                                                     value={this.state.dateValue}
-                                                    onChange={dateValue => this.setState({ dateValue })}                                                 
+                                                    onChange={dateValue => this.setState({ dateValue })}   
+                                                    onKeyDown={e => e.preventDefault()}                                              
                                                 />
                                                 <ErrorMessage name="reservation_date" component="div" className="text-red-500 italic" />
                                             </div>

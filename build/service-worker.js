@@ -105,7 +105,7 @@ define("./service-worker.js",['./workbox-0c7afc7d'], function (workbox) { 'use s
 
   workbox.precacheAndRoute([{
     "url": "/app.bundle.js",
-    "revision": "a51b29a472f66a5ac193af634ff4de5f"
+    "revision": "095255fa4e55e20a132cb26d229be68e"
   }, {
     "url": "/assets/17152b4656c333517e9dde88d51316c8.png",
     "revision": "89a435f05fd663f55a800aa01de43fd3"

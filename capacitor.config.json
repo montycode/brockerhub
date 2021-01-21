@@ -5,6 +5,6 @@
     "npmClient": "npm",
     "webDir": "build",
     "cordova": {},
-    "windowsAndroidStudioPath": "D:\\Android\\Android Studio\\bin\\studio64.exe"
+    "windowsAndroidStudioPath": "D:\\Android\\Android Studio 1\\bin\\studio64.exe"
 
   }

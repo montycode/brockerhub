@@ -15,10 +15,6 @@ class SuccessPage extends React.Component {
         };
     }
 
-    componentDidMount() {
-        console.log(this.state);
-    };
-
     render() {
         const { currentUser } = this.state;
         return (

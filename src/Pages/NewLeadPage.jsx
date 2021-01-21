@@ -44,7 +44,6 @@ class NewLeadPage extends React.Component {
 
     componentDidMount() {
         this.getLocation();
-        console.log(this.state);
     }; 
 
     getLocation(){
@@ -55,7 +54,7 @@ class NewLeadPage extends React.Component {
 
     render() {
         const { currentUser } = this.state;
-        const { location } = this.state;
+        const location = this.state.id;
         const { dateValue } = this.state;
         return (
             <div className='prospect flex-col'>
@@ -72,7 +71,7 @@ class NewLeadPage extends React.Component {
                                     first_name: '',
                                     last_name: '',
                                     mobile_phone: '',
-                                    location_id: location.id,
+                                    location_id: location,
                                     email: ''
                                 }}
                                 validationSchema={Yup.object().shape({
@@ -84,13 +83,11 @@ class NewLeadPage extends React.Component {
                                 })}
                                 onSubmit={({ first_name, last_name, mobile_phone, location_id, email, reservation_date}, { setStatus, setSubmitting }) => {
                                     setStatus();
-                                    leadsService.createLead(first_name, last_name, mobile_phone, location_id, email).then(
+                                    leadsService.createLead(first_name, last_name, mobile_phone, email, location_id).then(
                                         lead => {
                                             let lead_id = lead.id;
-                                            location_id = location.id;
                                             let parseDate = moment(dateValue).format();
                                             reservation_date = parseDate;
-                                            console.log("Lead: " + lead_id + "Location: " + location_id + "Date: " + reservation_date);
                                             appointmentService.createAppointment(location_id, reservation_date, lead_id).then(
                                                 appointment =>{
                                                     this.props.history.push('/success');
@@ -98,14 +95,12 @@ class NewLeadPage extends React.Component {
                                                 error =>{
                                                     setSubmitting(false);
                                                     setStatus(error);
-                                                    this.props.history.push('/error');
                                                 }
                                             )
                                         },
                                         error => {
                                             setSubmitting(false);
                                             setStatus(error);
-                                            this.props.history.push('/error');
                                         }
                                     );
                                 }}

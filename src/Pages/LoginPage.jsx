@@ -44,7 +44,6 @@ class LoginPage extends React.Component {
                             },
                             error => {
                                 setSubmitting(false);
-                                console.log(error)
                                 setStatus({
                                     sent: false,
                                     msg: `Oops! ${error}`

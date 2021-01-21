@@ -31,7 +31,6 @@ class LeadBooking extends React.Component {
     componentDidMount() {
         this.getLead();
         this.getLocations();
-        console.log(this.state);
     }; 
 
     getLead(){
@@ -81,7 +80,6 @@ class LeadBooking extends React.Component {
                                     setStatus();
                                     let parseDate = moment(dateValue).format();
                                     reservation_date = parseDate;
-                                    console.log("Lead: " + lead_id + "Location: " + location_id + "Date: " + reservation_date);
                                         appointmentService.createAppointment(location_id, reservation_date, lead_id).then(
                                             appointment =>{
                                                 this.props.history.push('/success');

@@ -1,11 +1,10 @@
 import React from 'react'
 import Skeleton from 'react-loading-skeleton'
-import Moment from 'react-moment'
 import moment from 'moment'
 import Gravatar from 'react-gravatar'
 import DateTimePicker from 'react-widgets/lib/DateTimePicker'
 
-import { Formik, Field, Form, ErrorMessage } from 'formik'
+import { Formik, Form } from 'formik'
 import { appointmentService } from '@/_services'
 
 class ConfirmPage extends React.Component {
@@ -21,15 +20,22 @@ class ConfirmPage extends React.Component {
     };
 
     componentDidMount() {
-        this.getBooking(this.state.booking);
-        this.setState({ confirmDate: this.state.booking_data.reservation_date })
-        this.setState({ loading: false })
+        this.getBooking(this.state.booking)
+        .then(() => { 
+            this.setState({ confirmDate: this.state.booking_data.reservation_date}) 
+        }).then(this.setState({ loading: false }))
     };
 
     getBooking(booking) {
-        appointmentService.getSingleAppointment(booking)
-        .then(res => this.setState({ booking_data: res }))
-        .catch(err => console.log(err))
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve(
+                    appointmentService.getSingleAppointment(booking)
+                    .then(res => this.setState({ booking_data: res }))
+                    .catch(err => console.log(err))
+                    );
+            }, 200)
+        })
     };
 
     render() {
@@ -59,7 +65,9 @@ class ConfirmPage extends React.Component {
                             confirm: 1
                         }}
                         onSubmit={({ booking_id, reservation_date, confirm}, { setStatus, setSubmitting }) => {
-                            setStatus();                                
+                            setStatus();     
+                            let parseDate = moment(reservation_date).format();
+                            reservation_date = parseDate;                           
                             appointmentService.confirmAppointment(booking_id, reservation_date, confirm).then(
                                 confirmation => {
                                     this.getBooking(this.state.booking);
@@ -343,8 +351,8 @@ class ConfirmPage extends React.Component {
                                                         timeFormat={"hh:mm A"}
                                                         format={"yyyy-MM-DD hh:mm A"}
                                                         step={60}
-                                                        defaultValue={this.state.confirmDate}
-                                                        value={this.state.confirmDate}
+                                                        defaultValue={new Date(confirmDate)}
+                                                        value={new Date(confirmDate)}
                                                         onChange={confirmDate => this.setState({ confirmDate })}                                                 
                                                     />
                                                 </div>

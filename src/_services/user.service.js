@@ -1,9 +1,12 @@
 import config from 'config'
 import { authHeader, handleResponse } from '@/_helpers'
+import { authenticationService } from '@/_services'
 
 export const userService = {
     getUser,
-    createUser
+    createUser,
+    updateUser,
+    updatePhoto
 };
 
 function getUser() {
@@ -26,5 +29,42 @@ function createUser(first_name, last_name, email, password) {
     return fetch( `${config.apiUrl}/registrations`, requestOptions)
             .then(user => {
                 return user;
+            });
+}
+
+function updateUser(id, first_name, last_name) {
+    const currentUser = authenticationService.currentUserValue;
+    const requestOptions = {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json',
+                   'Authorization': `Bearer ${currentUser.token}` },
+        body: JSON.stringify({ 
+                first_name: first_name,
+                last_name: last_name
+        })
+    };
+
+    return fetch( `${config.apiUrl}/user/${id}`, requestOptions)
+            .then(user => {
+                return user;
+            });
+}
+
+function updatePhoto(id, payload) {
+    const currentUser = authenticationService.currentUserValue;
+    const requestOptions = {
+        method: 'PUT',
+        headers: { 
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${currentUser.token}`
+        },
+        body: JSON.stringify(payload)
+    };
+    return fetch( `${config.apiUrl}/photos/${id}`, requestOptions)
+            .then(res => res.json())
+            .then(json => console.log(json))
+            .then(photo => {
+                return photo;
             });
 }

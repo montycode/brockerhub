@@ -45,7 +45,6 @@ class LeadListPage extends React.Component {
     render() {
         const { currentUser } = this.state;
         const { leads } = this.state;
-        console.log("Leads:: ", leads);
         return (
             <div className='prospect flex-col'>
                 <div className='prospect__data text-left'>

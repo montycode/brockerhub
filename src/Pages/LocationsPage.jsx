@@ -19,7 +19,6 @@ class LocationsPage extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.state);
         this.getLocations();
         this.setState({ loading: false })
     }
@@ -34,7 +33,6 @@ class LocationsPage extends React.Component {
         this.setState({
             selectedOption: event.target.value
         });
-        console.log(this.state.selectedOption)
     }
 
     render() {

@@ -7,7 +7,6 @@ export const locationLeadService = {
 };
 
 function updateLocationLead(id, status_id) {
-    console.log("ID: ", id, "Status: ", status_id)
     const currentUser = authenticationService.currentUserValue;
     const requestOptions = {
         method: 'PUT',

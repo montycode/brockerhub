@@ -9,7 +9,7 @@ export const leadsService = {
     filterLeads
 };
 
-function createLead(first_name, last_name, mobile_phone, location_id, email) {
+function createLead(first_name, last_name, mobile_phone, email, location_id) {
     const currentUser = authenticationService.currentUserValue;
     const requestOptions = {
         method: 'POST',
@@ -20,8 +20,8 @@ function createLead(first_name, last_name, mobile_phone, location_id, email) {
                 first_name: first_name,
                 last_name: last_name,
                 mobile_phone: mobile_phone,
-                location_id: location_id,
-                email: email
+                email: email,
+                location_id: location_id
         })
     };
     return fetch(`${config.apiUrl}/leads`, requestOptions)
@@ -53,15 +53,12 @@ function getSingleLead(id) {
 }
 
 function filterLeads(name) {
-    console.log("Name:: ", name)
     const requestOptions = { method: 'GET', headers: authHeader() };
     let res = fetch(`${config.apiUrl}/leads/`, requestOptions)
     .then(response => response.json())
     .then((leads) => {
         const result = leads.results.filter(lead => lead.first_name.concat(lead.last_name).toLowerCase().includes(name.replace(/\s/g, '').toLowerCase()));
-        console.log("FilterMatchs:: ", result);
         return result;
      })
-     console.log("Response:: ", res)
     return res;
 }

@@ -5,8 +5,8 @@ import { history } from '@/_helpers'
 import { authenticationService } from '@/_services'
 import { PrivateRoute } from '@/_components'
 import { HomePage, LoginPage, LocationsPage, ErrorPage, LeadListPage, AboutPage, RegisterPage,
-    LeadPage, NewLeadPage, SuccessPage, ItineraryPage, LocationDetailsPage, LeadBooking, ConfirmPage
-        } from '@/Pages'
+        LeadPage, NewLeadPage, SuccessPage, ItineraryPage, LocationDetailsPage, LeadBooking, ConfirmPage,
+        Profile  } from '@/Pages'
 
 import 'tailwindcss/tailwind.css'
 import 'react-widgets/dist/css/react-widgets.css'
@@ -39,6 +39,7 @@ class App extends React.Component {
                     <PrivateRoute exact path={'/error'} component={ErrorPage} />
                     <PrivateRoute exact path={'/success'} component={SuccessPage} />
                     <PrivateRoute exact path={'/about'} component={AboutPage} />
+                    <PrivateRoute exact path={'/profile'} component={Profile} />
                     <Route path='/login' component={LoginPage} />
                     <Route path='/register' component={RegisterPage} />
                     <Route exact path={'/confirm/:id/'} component={ConfirmPage} />

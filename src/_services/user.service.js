@@ -55,12 +55,11 @@ function updatePhoto(id, payload) {
     const requestOptions = {
         method: 'PUT',
         headers: { 
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
             'Authorization': `Bearer ${currentUser.token}`
         },
-        body: JSON.stringify(payload)
+        body: payload
     };
+    console.log("BODY:: ", requestOptions)
     return fetch( `${config.apiUrl}/photos/${id}`, requestOptions)
             .then(res => res.json())
             .then(json => console.log(json))

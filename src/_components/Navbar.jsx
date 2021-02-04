@@ -51,9 +51,9 @@ class Navbar extends React.Component {
                                     </button>
                                 </div>
                                 <nav className="hidden md:flex space-x-10">
-                                    <Link to='/about' className="text-base font-medium">Acerca de Nosotros</Link>
-                                    <Link to='/profile' className="text-base font-medium">Mi Perfil</Link>
-                                    <a onClick={this.logout} className="py-3 px-0 block border-b-2 border-transparent hover:border-orange">Cerrar Sesión</a>
+                                    <Link to='/about' className="text-base font-medium px-4 py-2">Acerca de Nosotros</Link>
+                                    <Link to='/profile' className="text-base font-medium px-4 py-2">Mi Perfil</Link>
+                                    <a onClick={this.logout} className=" px-4 py-2 border border-transparent shadow-sm text-base font-medium text-white bg-orange hover:opacity-75 cursor-pointer">Cerrar Sesión</a>
                                 </nav>
                             </div>
                         </div>

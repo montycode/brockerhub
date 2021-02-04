@@ -50,14 +50,17 @@ function updateUser(id, first_name, last_name) {
             });
 }
 
-function updatePhoto(id, payload) {
+function updatePhoto(id, photo) {
     const currentUser = authenticationService.currentUserValue;
     const requestOptions = {
         method: 'PUT',
         headers: { 
+            'Content-Type': 'application/json',
             'Authorization': `Bearer ${currentUser.token}`
         },
-        body: payload
+        body: JSON.stringify({ 
+            photo: photo
+        })
     };
     console.log("BODY:: ", requestOptions)
     return fetch( `${config.apiUrl}/photos/${id}`, requestOptions)

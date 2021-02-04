@@ -55,8 +55,12 @@ class HomePage extends React.Component {
         return (
             <div className="profile flex-col">
                 {currentUser && <Navbar /> }
-                <div className="profile__data text-center p-6 mb-6">
-                    <Gravatar email={currentUser.user.email} className="w-32 h-32 rounded-full mx-auto object-cover shadow-md bg-white" />
+                <div className="profile__data text-center p-6 mb-6">                    
+                    {currentUser.user.base64_avatar_image ? 
+                    <img id="profile-picture" src={currentUser.user.base64_avatar_image} className="w-32 h-32 rounded-full mx-auto object-cover shadow-md bg-white" />
+                    :
+                    <Gravatar id="profile-picture" className='w-32 h-32 rounded-full mx-auto object-cover shadow-md bg-white' email={currentUser.user.email} />
+                    }
                     <h4 className="font-bold text-3xl">{currentUser.user.first_name} {currentUser.user.last_name}</h4>
                     <p className="font-bold text-sm">Bienvenido a brokerhub</p> 
                 </div>

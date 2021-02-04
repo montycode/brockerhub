@@ -62,10 +62,8 @@ function updatePhoto(id, photo) {
             photo: photo
         })
     };
-    console.log("BODY:: ", requestOptions)
     return fetch( `${config.apiUrl}/photos/${id}`, requestOptions)
             .then(res => res.json())
-            .then(json => console.log(json))
             .then(photo => {
                 return photo;
             });

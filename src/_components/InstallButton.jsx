@@ -12,7 +12,6 @@ export const InstallButton = () => {
             </div>
         </div>
       )}
-      callback={(data) => console.log(data)} 
     />
   )
 }

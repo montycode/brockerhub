@@ -25,7 +25,6 @@ class Profile extends React.Component {
 
     onChange (e) {
         this.setState({ isDissabled: false })
-        console.log("File to upload:: ", e.target.files[0]);
         let file = e.target.files[0];
         if (file) {
             const reader = new FileReader();
@@ -45,11 +44,9 @@ class Profile extends React.Component {
         e.preventDefault();
         this.setState({ submitting: true });
         const preview = document.getElementById('profile-picture');
-        console.log("BINARY STRING:: ", this.state.base64TextString);
 
         let photo = "data:image/jpg;base64," + this.state.base64TextString ;
         let userId = this.state.currentUser.user.id;
-        console.log(userId, photo);
         userService.updatePhoto(userId, photo).then(
             user => {
                 this.setState({ submitting: false });
@@ -70,7 +67,6 @@ class Profile extends React.Component {
         const { isDissabled } = this.state;
         const { statusMsg } = this.state;
         const { submitting } = this.state;
-        console.log(currentUser);
         return (
             <div className='prospect flex-col'>
                 <div className='prospect__data text-left'>

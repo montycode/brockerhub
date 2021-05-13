@@ -4,7 +4,7 @@ const WorkboxPlugin = require('workbox-webpack-plugin');
 const path = require('path');
 
 module.exports = {
-    mode: 'development',
+    mode: 'production',
     resolve: {
         extensions: ['.js', '.jsx']
     },

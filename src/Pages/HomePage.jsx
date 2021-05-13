@@ -91,7 +91,7 @@ class HomePage extends React.Component {
                             </div>
                             <div className="activities__actions container flex flex-col p-4 uppercase">
                                 <Link to='/itinerary' className="btn uppercase p-2 m-2">CONSULTAR ITINERARIO</Link>
-                                <Link to='/locations' className="btn-primary uppercase p-2 m-2">PROGRAMAR CITAS</Link>
+                                <Link to='/locations' className="btn-primary uppercase p-2 m-2">DESARROLLOS</Link>
                             </div>    
                         </div>
                     </section>

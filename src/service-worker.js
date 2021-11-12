@@ -8,3 +8,22 @@ reactAppRewireWorkbox.precaching.precacheAndRoute(self.__precacheManifest, {})
 workbox.routing.registerNavigationRoute(
     workbox.precaching.getCacheKeyForURL("/")
 );
+
+workbox.routing.registerRoute(/^https?:\/\/api.brokerhub.mx\/api\/.*/,
+    workbox.strategies.staleWhileRevalidate(), 'GET');
+  
+workbox.registerRoute(/^https?.*/,
+    workbox.strategies.networkFirst(), 'GET');
+
+workbox.routing.registerRoute(
+    /\/assets\//,
+    new workbox.strategies.CacheFirst({
+        cacheName: 'assets-cache',
+        plugins: [
+        new workbox.expiration.Plugin({
+            maxAgeSeconds: 7 * 24 * 60 * 60,
+            maxEntries: 20
+        })
+        ]
+    })
+);

@@ -20,7 +20,7 @@ class LocationDetailsPage extends React.Component {
         this.getLocation();
     };
 
-    getLocation(){
+    getLocation() {
         locationsService.getSingleLocation(this.state.id)
         .then(location => this.setState({ location }))
         .catch(err => console.log(err))
@@ -54,7 +54,9 @@ class LocationDetailsPage extends React.Component {
                                     <p className='self-center'>Drive</p>                                    
                                 </div>
                             </a>
-                            <Link to={`/location/${location.id}/new`} className="btn-primary text-center uppercase p-2 m-2 w-full">Programar Cita</Link>
+                            {location && (
+                                <Link to={`/location/${location.id}/new`} className="btn-primary text-center uppercase p-2 m-2 w-full">Programar Cita</Link>
+                            )}
                         </div>
                     </div>
                 </div>
